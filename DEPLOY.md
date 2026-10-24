@@ -1,6 +1,6 @@
 # 发布为可以直接打开的网址
 
-目前源码与单文件网站已准备好，**尚未发布到公网**。云环境界面显示“环境已发布”，只表示开发环境已保存，不表示网站已经上线。
+网站源码与发布工作流已推送到 `zuojinwen7-ops/1` 的 `main`（首个网站提交 `2f090a3`）。**尚未确认公网发布完成**。云环境界面显示“环境已发布”，只表示开发环境已保存，不表示网站已经上线。
 
 ## 发布目标与访问状态
 
@@ -11,7 +11,11 @@
 - `api.github.com`：核对仓库权限、查询和启用 Pages、检查发布结果。
 - `zuojinwen7-ops.github.io`：上线后验证实际网站、样式与功能。
 
-API 请求已成功，不需要因先前的网络拒绝重复申请凭据。以后若访问失败，先检查实际网络与身份，不把保存的配置当成实时可用证据。
+API 请求和实际代码推送已成功，不需要因先前的网络拒绝重复申请凭据。当前集成仍缺少首次开通 Pages 的权限：POST Pages 接口返回 `Resource not accessible by integration`。这与仓库角色显示 `admin:true` 并不矛盾，App 安装令牌另有权限范围。
+
+用户只需在 https://github.com/zuojinwen7-ops/1/settings/pages 的 **Build and deployment → Source** 选择 **GitHub Actions**。开通后重试发布即可，不需要在聊天中提供密钥。官方 `actions/configure-pages@v5` 的 `enablement` 选项也要求额外权限，不能用默认 `GITHUB_TOKEN` 绕过首次开通。
+
+首个发布运行：https://github.com/zuojinwen7-ops/1/actions/runs/40053041829 。继续前先查看这个运行和 Pages 当前状态；用户开通后可重跑失败任务或重新触发工作流。不要因为首次配置失败就重置仓库或重新申请网络权限。
 
 ## 访问恢复后的发布流程
 
