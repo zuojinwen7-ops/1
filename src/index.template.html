@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#315b46">
+  <meta name="description" content="为基础薄弱的考生准备的 CFA 一级中文冲刺学习空间。每日计划、基础讲解、金融英语与间隔复习，数据仅保存在本机。">
+  <title>拾级 · CFA 一级学习空间</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23355f49'/%3E%3Cpath d='M6 25h7v-7h7v-7h6M6 17h7v-7h7V4' stroke='%23eef3e7' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script src="study-data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-13 4h2m4 0h2m-8 3h2"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-3-2-6-3-10-2v15c4-1 7 0 10 2 3-2 6-3 10-2V4c-4-1-7 0-10 2Zm0 0v15"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m16 3 5 5-12 12-6 1 1-6L16 3Zm-3 3 5 5M3 8V4a1 1 0 0 1 1-1h5m12 12v5a1 1 0 0 1-1 1h-5"/></symbol>
+    <symbol id="i-language" viewBox="0 0 24 24"><path d="M3 5h12M9 3v2m4 0c-1 7-5 11-10 13M5 9c1 3 4 6 7 7m1 5 5-13 5 13m-8-4h6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 8a9 9 0 1 0 0 8M20 3v6h-6"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 3c-3 4-12-1-15 7-3 8 6 13 11 7 4-5 3-8 4-14ZM4 21l10-10"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="m10 3-.6 3-2 .9L5 6l-2 4 2.2 2v2L3 16l2 4 2.4-.9 2 .9.6 3h4l.6-3 2-.9 2.4.9 2-4-2.2-2v-2L21 10l-2-4-2.4.9-2-.9L14 3Z" transform="translate(0 -1) scale(1 .96)"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 13 8-13 8V4Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14m8-14v14"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1 1m12 12 1 1M5 19l1-1M18 6l1-1"/></symbol>
+  </svg>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <aside class="sidebar" aria-label="主导航">
+    <a href="#today" class="brand" aria-label="拾级，返回今日学习"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24h7V17h7V10h8M5 16h7V9h7V3"/></svg></span><span>拾级<small>CFA STUDY STUDIO</small></span></a>
+    <div class="space-label">我的学习空间 <span>LEVEL I</span></div>
+    <nav id="navigation">
+      <a href="#today" data-nav="today"><svg class="icon"><use href="#i-grid"/></svg>今日学习</a>
+      <a href="#plan" data-nav="plan"><svg class="icon"><use href="#i-calendar"/></svg>20 天冲刺计划<span class="nav-badge">20</span></a>
+      <a href="#knowledge" data-nav="knowledge"><svg class="icon"><use href="#i-book"/></svg>知识与公式</a>
+      <a href="#practice" data-nav="practice"><svg class="icon"><use href="#i-edit"/></svg>刷题与错题<span class="nav-dot" id="wrong-dot" hidden></span></a>
+      <a href="#english" data-nav="english"><svg class="icon"><use href="#i-language"/></svg>金融英语</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-note"><svg class="icon"><use href="#i-leaf"/></svg><strong>每天进一小步。</strong><p>先理解，再记忆。<br>用自己的节奏，走稳每一级。</p><span>专注当下 · 保持睡眠</span></div>
+      <button class="sidebar-button" data-action="settings"><svg class="icon"><use href="#i-settings"/></svg>学习设置</button>
+      <button class="sidebar-button" data-action="sources"><svg class="icon"><use href="#i-info"/></svg>学习方法与资料来源</button>
+      <div class="local-label"><span></span>个人自用 · 进度保存在此浏览器</div>
+    </div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div class="breadcrumb">我的学习空间 <span>/</span> <b id="page-label">今日学习</b></div><div class="topbar-right"><span class="date-label" id="today-date"></span><span class="vertical-rule"></span><button class="profile" data-action="settings" aria-label="打开学习设置">我</button></div></header>
+    <main id="main" tabindex="-1"></main>
+    <footer class="footer"><span>拾级 · 让每一步都有方向</span><span>独立学习工具，与 CFA Institute 无隶属关系。<button data-action="sources">查看资料与使用说明</button></span></footer>
+  </div>
+  <dialog id="modal" aria-labelledby="modal-title"><div id="modal-content"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">请开启 JavaScript，以使用计划、练习与本地进度保存功能。</p></noscript>
+</body>
+</html>

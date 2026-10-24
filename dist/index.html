@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#315b46">
+  <meta name="description" content="为基础薄弱的考生准备的 CFA 一级中文冲刺学习空间。每日计划、基础讲解、金融英语与间隔复习，数据仅保存在本机。">
+  <title>拾级 · CFA 一级学习空间</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23355f49'/%3E%3Cpath d='M6 25h7v-7h7v-7h6M6 17h7v-7h7V4' stroke='%23eef3e7' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+  <style>
+@charset "UTF-8";
+:root{--paper:#f6f7f3;--white:#fff;--ink:#26392e;--muted:#7a827a;--green:#355f49;--green-dark:#244b36;--pale:#edf2e9;--line:#e8ebe4;--orange:#b88151;--orange-pale:#fbf2e6;--red:#b85448;--shadow:0 6px 22px #293c2a04;--radius:16px;font-family:"PingFang SC","Microsoft YaHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper);font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;font-size:14px;line-height:1.6}button,input,select,textarea{font:inherit}button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}button,a{touch-action:manipulation}button{cursor:pointer}button{color:inherit}a{color:inherit;text-decoration:none}button:disabled{cursor:default;opacity:.5}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #91af87;outline-offset:4px}::selection{background:#d6e5c9}h1,h2,h3,h4,p{margin:0}h1,h2,h3,h4{font-weight:600}button{background:none;border:0}img,svg{max-width:100%}.sprite{position:absolute;width:0;height:0;overflow:hidden}.icon{width:20px;height:20px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.skip-link{position:fixed;left:20px;top:-100px;z-index:100;background:var(--green);color:#fff;padding:10px 20px;border-radius:8px}.skip-link:focus{top:10px}[hidden]{display:none!important}
+.sidebar{width:232px;background:#fff;position:fixed;left:0;top:0;height:100dvh;border-right:1px solid var(--line);padding:32px 19px 18px;display:flex;flex-direction:column;z-index:20}.brand{display:flex;align-items:center;gap:11px;padding:0 13px;color:var(--green-dark);font-size:28px;font-weight:650;letter-spacing:3px;line-height:1.1}.brand small{display:block;font-size:8px;letter-spacing:1.6px;font-weight:500;margin-top:9px;color:var(--muted)}.brand-mark{background:var(--green);color:#f2f5ec;width:41px;height:44px;border-radius:11px;display:grid;place-items:center}.brand-mark svg{width:27px;stroke:currentColor;stroke-width:2.4;fill:none;stroke-linejoin:round}.space-label{margin:48px 13px 17px;color:#8c938a;font-size:11px;letter-spacing:1px;display:flex;align-items:center;justify-content:space-between}.space-label span{font-size:9px;letter-spacing:.8px}nav{display:grid;gap:8px}nav a{display:flex;align-items:center;gap:13px;padding:12px 15px;border-radius:8px;font-size:13px;color:#717b71;white-space:nowrap;transition:background .15s}nav a:hover{background:#f6f8f3}nav a.active{background:#eaf0e5;color:var(--green);font-weight:600}.nav-badge{font-size:10px;border:1px solid #dce5d5;line-height:17px;padding:0 5px;border-radius:4px;margin-left:auto;color:var(--green)}.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);margin-left:auto}.sidebar-bottom{margin-top:auto;padding-top:40px}.sidebar-note{margin:0 7px 25px;border-radius:12px;padding:18px;background:linear-gradient(125deg,#f0f3e9,#f6f6ed);position:relative}.sidebar-note>.icon{color:#8da37b;margin-bottom:11px;width:25px;height:25px;display:block}.sidebar-note strong{font-size:13px;font-weight:500;display:block}.sidebar-note p{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.9}.sidebar-note>span{font-size:9px;letter-spacing:.5px;display:block;color:#98a08b;margin-top:15px}.sidebar-button{display:flex;gap:12px;align-items:center;color:#727d72;font-size:12px;padding:9px 14px;text-align:left;width:100%;border-radius:8px}.sidebar-button:hover{background:var(--paper)}.sidebar-button .icon{width:16px;height:16px}.local-label{font-size:9px;color:#8e958b;border-top:1px solid var(--line);margin-top:14px;padding:17px 8px 0;display:flex;align-items:center;gap:6px}.local-label>span{width:5px;height:5px;background:#9db48b;border-radius:50%}.workspace{margin-left:232px;min-height:100vh}.topbar{height:77px;background:#ffffffb5;border-bottom:1px solid var(--line);padding:0 43px;display:flex;align-items:center;justify-content:space-between}.breadcrumb{font-size:12px;color:#92988f;display:flex;gap:14px;align-items:center}.breadcrumb b{color:#5e6a60;font-weight:500}.breadcrumb span{color:#c5cbbf}.topbar-right{display:flex;gap:23px;align-items:center}.date-label{font-size:11px;color:#8a9287;letter-spacing:.4px}.vertical-rule{height:17px;width:1px;background:var(--line)}.profile{width:31px;height:31px;border-radius:50%;background:#e9ede3;color:var(--green);font-size:11px;border:3px solid #fff;box-shadow:0 0 0 1px #e8ebe2}main{padding:30px 43px 20px;max-width:1480px;margin:auto;min-height:calc(100vh - 151px);outline:none}.footer{max-width:1480px;margin:0 auto;padding:22px 43px 24px;font-size:10px;color:#92998d;display:flex;justify-content:space-between;gap:20px}.footer button{font-size:10px;color:#70826b;text-decoration:underline;padding:0 0 0 9px;text-underline-offset:3px}
+.page-heading{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:20px}.eyebrow{font-size:10px;letter-spacing:2px;color:#8d9b84;font-weight:550;margin-bottom:9px}.page-heading h1{font-size:25px;letter-spacing:.7px;font-weight:600}.page-heading p{font-size:12px;color:var(--muted);margin-top:6px}.outline-btn,.primary-btn,.light-btn,.text-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:7px;font-size:12px;padding:10px 15px;transition:background .15s,transform .15s}.outline-btn{border:1px solid #dfe5d9;background:#fff;color:#6f7c69}.outline-btn:hover{background:#f4f7ef}.primary-btn{background:var(--green);color:#fff;border:1px solid var(--green)}.primary-btn:hover{background:var(--green-dark);transform:translateY(-1px)}.light-btn{background:#edf2e8;border:1px solid #e4eadd;color:var(--green)}.light-btn:hover{background:#e4ecdc}.text-btn{padding:4px 0;color:#708266;font-size:11px}.text-btn:hover{color:var(--green-dark)}.text-btn .icon{width:14px;height:14px}.outline-btn .icon,.primary-btn .icon,.light-btn .icon{width:16px;height:16px}
+.hero{border:1px solid #e4e9dc;border-radius:var(--radius);background:linear-gradient(110deg,#edf2e6 0%,#f1f4eb 55%,#e9eedf 100%);padding:31px 35px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:25px;min-height:231px}.hero:after{content:"";position:absolute;right:-130px;top:-150px;width:510px;height:510px;border-radius:50%;border:1px solid #d9e2cd80;pointer-events:none}.hero:before{content:"";position:absolute;right:-75px;top:-95px;width:400px;height:400px;border-radius:50%;border:1px solid #dce5d180;pointer-events:none}.hero-copy{z-index:1}.hero .eyebrow{color:#7b8c6e;font-size:9px;letter-spacing:2.3px}.hero h2{font-size:31px;line-height:1.65;letter-spacing:1.5px;font-weight:600;color:#304b37}.hero p{font-size:12px;line-height:1.9;color:#7d8b75;margin-top:9px}.hero-tags{display:flex;gap:15px;align-items:center;margin-top:19px;flex-wrap:wrap}.hero-tags span{font-size:10px;display:inline-flex;align-items:center;gap:5px;color:#718267}.hero-tags .icon{width:13px;height:13px}.hero-pill{border:1px solid #d5dfc9;border-radius:20px;padding:3px 10px;background:#ffffff55}.countdown{display:flex;align-items:center;gap:23px;z-index:1;margin-right:5px;flex-shrink:0}.countdown-copy{font-size:11px;color:#86937c;text-align:right}.countdown-copy strong{display:block;color:#557047;font-size:13px;letter-spacing:.3px;margin:5px 0}.countdown-ring{position:relative;width:147px;height:147px;display:grid;place-items:center}.countdown-ring svg{position:absolute;width:100%;height:100%;transform:rotate(-90deg)}.ring-base{fill:none;stroke:#dbe3ce;stroke-width:5}.ring-fill{fill:none;stroke:#718c56;stroke-width:5;stroke-linecap:round;stroke-dasharray:414.7;stroke-dashoffset:310}.ring-center{text-align:center}.ring-center small{font-size:10px;color:#829170;display:block}.ring-number{line-height:1.3;display:block;color:#39563b;font-size:48px;font-family:Georgia,serif}.ring-number em{font-size:13px;font-style:normal;font-family:inherit;margin-left:5px}.ring-center>span:last-child{font-size:9px;color:#8d9d7e;letter-spacing:1px}.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:20px 0 27px}.stat{background:#fff;border:1px solid var(--line);border-radius:11px;padding:16px 18px;display:flex;align-items:center;gap:13px;box-shadow:var(--shadow)}.stat-icon{width:37px;height:37px;background:#f0f3eb;border-radius:10px;display:grid;place-items:center;color:#819572;flex-shrink:0}.stat:nth-child(2) .stat-icon{background:#faf0e4;color:#bf9564}.stat:nth-child(3) .stat-icon{background:#eef1f6;color:#8d9cb0}.stat:nth-child(4) .stat-icon{background:#f5efeb;color:#b79b86}.stat-icon .icon{width:18px;height:18px}.stat-label{font-size:10px;color:#899183}.stat-value{font-size:23px;font-weight:600;line-height:1.3;letter-spacing:.5px}.stat-value small{font-size:10px;font-weight:400;letter-spacing:0;color:#8c9486;margin-left:5px}.stat-value .sub-value{font-size:13px;color:#abb1a5;font-weight:400}.stat-hint{font-size:9px;color:#9ba28f;margin-top:2px}.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(265px,1fr);gap:21px;align-items:start}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.card-header{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:21px 24px 17px}.section-title{font-size:15px;display:flex;align-items:center;gap:9px;letter-spacing:.3px}.section-title .icon{width:17px;height:17px;color:#79926a}.muted{color:var(--muted)}.small{font-size:11px}.card-subtitle{font-size:10px;color:#9aa18f;margin-top:4px}.day-label{font-size:10px;letter-spacing:1px;padding:3px 8px;border:1px solid #e4e8dc;border-radius:5px;color:#8a987b;background:#f8faf5}.today-topic{padding:0 24px 17px;display:flex;align-items:center;gap:12px}.topic-square{width:39px;height:39px;display:grid;place-items:center;background:#ecf1e6;color:#6c8659;border-radius:10px;font-size:13px;font-family:Georgia,serif}.today-topic h3{font-size:14px;font-weight:500}.today-topic p{font-size:10px;color:#8a9382;margin-top:2px}.task-list{padding:0 24px}.task{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid #f0f1ec;cursor:pointer}.task input{appearance:none;-webkit-appearance:none;width:17px;height:17px;flex-shrink:0;border:1px solid #d9dfd0;border-radius:5px;background:#fff;margin:0;cursor:pointer;display:grid;place-items:center}.task input:checked{background:var(--green);border-color:var(--green)}.task input:checked:after{content:"";width:8px;height:4px;border-left:1.7px solid white;border-bottom:1.7px solid white;transform:translateY(-1px) rotate(-45deg)}.task-copy{flex:1;min-width:0}.task-title{font-size:12px;color:#5b6958;display:block}.task.done .task-title{text-decoration:line-through;color:#9aa790}.task-detail{font-size:10px;color:#9ba28f;display:block;margin-top:2px}.duration-pill{font-size:9px;color:#92a080;padding:3px 8px;background:#f6f8f1;border-radius:4px;white-space:nowrap}.task-footer{border-top:1px solid #f0f1ec;padding:17px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px}.task-progress{font-size:10px;color:#8b9480;display:flex;align-items:center;gap:9px}.mini-track{width:60px;height:4px;background:#eef1e7;border-radius:4px;overflow:hidden}.mini-track>span{display:block;height:100%;background:#849f69;border-radius:4px}.task-footer .primary-btn{font-size:11px;padding:9px 14px}.right-column{display:grid;gap:19px}.roadmap{padding:0 24px 20px}.roadmap-step{display:flex;gap:13px;position:relative;padding-bottom:20px}.roadmap-step:last-child{padding-bottom:0}.roadmap-step:not(:last-child):before{position:absolute;content:"";width:1px;background:#e3e9da;top:22px;bottom:0;left:9px}.step-dot{width:20px;height:20px;border-radius:50%;background:#f3f6ee;border:1px solid #e0e7d5;display:grid;place-items:center;font-size:9px;color:#9aa98b;flex-shrink:0;z-index:1}.roadmap-step.current .step-dot{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 0 0 3px #edf1e7}.roadmap-step h4{font-size:11px;color:#65745c;font-weight:500}.roadmap-step h4>span{font-size:9px;margin-left:6px;color:#9aa98a}.roadmap-step p{font-size:10px;color:#929e88;margin-top:3px}.roadmap-hint{margin:0 20px 19px;padding:10px 13px;background:#faf9f3;border-radius:7px;color:#a29572;font-size:10px;line-height:1.8}.daily-word{padding:19px 23px;background:#f1f4ec;border-color:#e5ebdd}.word-heading{display:flex;justify-content:space-between;align-items:center;color:#80916f;font-size:10px}.word-heading span:first-child{display:flex;align-items:center;gap:7px}.word-heading .icon{width:14px;height:14px}.daily-word h3{font-family:Georgia,serif;font-size:26px;font-weight:400;color:#4e6942;margin-top:12px}.daily-word p{font-size:11px;color:#7f8b72;margin-top:1px}.daily-word .word-example{font-size:11px;line-height:1.8;color:#8c987e;margin-top:13px;border-top:1px solid #e0e7d5;padding-top:11px;font-family:Georgia,"PingFang SC",serif}.daily-word .text-btn{margin-top:8px;font-size:10px}.recommended{margin-top:25px}.section-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;gap:20px}.section-row h2{font-size:15px;letter-spacing:.3px}.section-row h2 small{font-size:10px;color:#a0a791;margin-left:10px;font-weight:400}.topic-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.topic-card{padding:19px 20px;cursor:pointer;text-align:left;transition:transform .15s,border .15s}.topic-card:hover{transform:translateY(-3px);border-color:#b5c3a6}.topic-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.topic-emoji{display:grid;place-items:center;width:32px;height:32px;background:#eef2e8;color:#829b6c;border-radius:8px}.topic-emoji .icon{width:17px;height:17px}.topic-weight{font-size:9px;color:#9ca58e}.topic-card h3{font-size:13px;font-weight:500}.topic-card .english-name{font-size:9px;letter-spacing:.2px;color:#a1aa96;margin-top:3px}.topic-card p{font-size:10px;color:#8e9983;margin-top:11px;line-height:1.8}.topic-card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:15px;font-size:9px;color:#9aa88c}.topic-card-bottom .icon{width:14px;height:14px}.bottom-note{display:flex;gap:8px;align-items:flex-start;font-size:10px;color:#9ba18f;margin-top:18px;line-height:1.8}.bottom-note .icon{width:13px;height:13px;margin-top:3px}.notice{padding:13px 17px;background:var(--orange-pale);color:#9a7449;border:1px solid #efdfc7;border-radius:9px;font-size:11px;line-height:1.9;display:flex;gap:9px;margin-bottom:22px}.notice .icon{width:16px;height:16px;margin-top:2px}.notice.green{background:#eff4e9;border-color:#dfe8d4;color:#74866a}.notice a{text-decoration:underline;text-underline-offset:3px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px;flex-wrap:wrap}.filter-group{display:flex;flex-wrap:wrap;gap:7px}.chip{border:1px solid #e1e7da;color:#849076;padding:6px 12px;border-radius:6px;font-size:11px;background:#fff}.chip.active{background:var(--green);border-color:var(--green);color:#fff}.chip:hover{border-color:#8fa17b}.search{display:flex;align-items:center;gap:9px;border:1px solid #e0e6d9;background:#fff;border-radius:7px;padding:8px 12px}.search .icon{width:15px;height:15px;color:#a0ac94}.search input{border:0;outline:0;background:none;min-width:120px;width:190px;font-size:11px;color:#5b6f4f}.plan-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.plan-day{padding:19px 21px;transition:border .15s;position:relative}.plan-day.is-today{border-color:#819b6a;box-shadow:0 0 0 2px #edf2e6}.plan-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.plan-number{font-size:11px;letter-spacing:1px;color:#91a17f}.plan-top time{font-size:10px;color:#9ca48f}.status-pill{font-size:9px;border-radius:4px;padding:2px 7px;background:#f2f5eb;color:#8a9c77}.status-pill.current{background:#e7efdf;color:#5e7d47}.status-pill.complete{background:#e3eee1;color:#517e4c}.plan-day h3{font-size:14px;margin-bottom:6px}.plan-day>.small{line-height:1.9;min-height:40px}.plan-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}.plan-tags span{font-size:9px;color:#9a8b6e;background:#f8f5ee;padding:2px 6px;border-radius:3px}.plan-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:15px;padding-top:12px;border-top:1px solid #eff1e9}.plan-bottom .text-btn{font-size:10px}.phase-label{grid-column:1/-1;display:flex;align-items:center;gap:10px;margin:13px 0 0;font-size:12px;color:#819270}.phase-label:after{content:"";height:1px;background:#e2e8d9;flex:1}.phase-label span{font-size:9px;letter-spacing:1px;color:#9eaa90}.day-modal-tasks{display:grid;gap:0;margin:20px 0}.day-note{font-size:11px;background:#f5f6ee;border-radius:8px;padding:12px 15px;color:#8a927b;line-height:1.9}.knowledge-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.knowledge-card{padding:23px;cursor:pointer;text-align:left}.knowledge-card:hover{border-color:#adc19c}.knowledge-title{display:flex;gap:14px;align-items:center}.knowledge-title .topic-square{width:43px;height:43px}.knowledge-title h3{font-size:15px}.knowledge-title p{font-size:10px;color:#9ba68f;margin-top:4px}.knowledge-card>p{font-size:11px;color:#8a957f;margin-top:16px;line-height:1.9}.knowledge-footer{display:flex;justify-content:space-between;align-items:center;margin-top:16px;border-top:1px solid #eff1e9;padding-top:13px;font-size:10px;color:#8da07d}.lesson{padding:28px 32px;margin-top:18px}.lesson-heading{border-bottom:1px solid #e8ecdf;padding-bottom:20px;margin-bottom:23px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px}.lesson-heading h2{font-size:23px}.lesson-heading p{font-size:12px;color:#8b9980;margin-top:5px}.lesson-section{margin:24px 0}.lesson-section h3{font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:8px}.lesson-section h3:before{content:"";width:3px;height:13px;border-radius:4px;background:#8ca572}.takeaways{padding-left:23px;font-size:13px;color:#64725b;line-height:2.1}.takeaways li{padding-left:5px;margin-bottom:10px}.formula-box{border:1px solid #dfe7d3;background:#f3f6ec;padding:20px 23px;border-radius:10px;font-size:15px;color:#5f7e49;line-height:1.9;white-space:pre-line;overflow-wrap:anywhere}.example-box{border-left:3px solid #ccb98c;background:#faf8f1;padding:16px 20px;border-radius:0 8px 8px 0;font-size:13px;line-height:2;color:#8c8064}.lesson-actions{display:flex;justify-content:space-between;align-items:center;gap:15px;border-top:1px solid var(--line);padding-top:23px;margin-top:27px;flex-wrap:wrap}.note-input{width:100%;min-height:100px;border:1px solid #e0e7d7;border-radius:8px;background:#fcfdf9;padding:14px 16px;color:#586c4c;resize:vertical;font-size:12px;line-height:1.9}.review-due{display:flex;gap:9px;align-items:center;font-size:10px;color:#95a483}
+.quiz-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:21px;align-items:start}.quiz-card{padding:27px 30px}.quiz-top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:21px;font-size:10px;color:#99a48e}.quiz-topic{display:flex;align-items:center;gap:7px}.quiz-track{height:4px;background:#eaf0e1;border-radius:4px;margin-bottom:25px;overflow:hidden}.quiz-track span{height:100%;display:block;background:#8ba674;transition:width .2s}.question-label{font-size:10px;letter-spacing:1.2px;color:#8b9b7b;margin-bottom:10px}.question-en{font-size:16px;font-family:Georgia,"PingFang SC",serif;line-height:1.9;color:#435d37;margin-bottom:16px}.question-zh{font-size:13px;color:#7e8e73;line-height:1.9;margin-bottom:18px}.option-list{display:grid;gap:11px}.option{width:100%;display:flex;gap:13px;align-items:center;padding:14px 16px;border:1px solid #e3e9d9;border-radius:9px;background:#fff;color:#738665;text-align:left;font-size:12px;line-height:1.8}.option:not(:disabled):hover{background:#f5f8f0;border-color:#a9bb97}.option.selected{border-color:#8da775;background:#f0f5e9}.option.correct{border-color:#8cac7b;background:#eef5e7;opacity:1}.option.incorrect{border-color:#d5aaa1;background:#fcf1ee;opacity:1}.option:disabled{opacity:.8}.option-letter{width:25px;height:25px;flex-shrink:0;display:grid;place-items:center;border:1px solid #e0e7d8;border-radius:6px;font-size:11px;font-family:Georgia,serif;color:#9ba88e}.option.correct .option-letter{background:#779961;border-color:#779961;color:#fff}.option.incorrect .option-letter{background:#c68c80;border-color:#c68c80;color:#fff}.answer-explanation{padding:17px 20px;border-radius:9px;background:#f1f6eb;margin-top:19px;color:#6c835b;font-size:12px;line-height:2}.answer-explanation.wrong{background:#fbf4eb;color:#9e815c}.answer-explanation strong{display:block;font-size:13px;margin-bottom:5px}.vocab-inline{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}.vocab-inline span{font-size:10px;padding:2px 7px;background:#ffffff9c;border-radius:4px}.quiz-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:23px;gap:15px}.quiz-bottom>span{font-size:10px;color:#9aa58f}.quiz-side{padding:21px}.quiz-side h3{font-size:13px;margin-bottom:12px}.quiz-side p{font-size:11px;color:#93a186;line-height:2}.quiz-side .divider{margin:17px 0;height:1px;background:#e7edde}.quiz-mode{padding:22px;display:flex;gap:16px;align-items:center;text-align:left;width:100%;transition:border .15s}.quiz-mode:hover{border-color:#9fb68b}.quiz-mode .topic-square{width:48px;height:48px}.quiz-mode h3{font-size:14px}.quiz-mode p{font-size:11px;color:#8e9b83;margin-top:5px}.quiz-modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.quiz-mode>.icon{margin-left:auto;color:#9eac92;width:16px;height:16px}.practice-stats{display:flex;gap:30px;padding:23px;margin-bottom:20px;flex-wrap:wrap}.practice-stats strong{font-size:23px;font-family:Georgia,serif;font-weight:400;display:block}.practice-stats span{font-size:10px;color:#95a286}.wrong-list{display:grid;gap:12px;margin-top:16px}.wrong-item{padding:19px 22px;display:flex;gap:16px;justify-content:space-between;align-items:center}.wrong-item p{font-size:12px;color:#6b805d;line-height:1.8}.wrong-item small{font-size:10px;color:#9aaa8e}.empty-state{padding:48px 22px;text-align:center;grid-column:1/-1}.empty-state .icon{width:33px;height:33px;color:#a7ba95;margin-bottom:14px}.empty-state h3{font-size:16px;margin-bottom:8px}.empty-state p{font-size:12px;line-height:1.9;color:#92a182}.empty-state .primary-btn{margin-top:21px}.score-ring{width:120px;height:120px;border:7px solid #dce8cf;border-radius:50%;margin:15px auto 23px;display:flex;flex-direction:column;justify-content:center;align-items:center}.score-ring strong{font-size:34px;font-weight:400;font-family:Georgia,serif;color:#688b4f}.score-ring span{font-size:10px;color:#a4b096}.result-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}.result-note{font-size:11px;line-height:2;color:#98a38c;max-width:430px;margin:14px auto 0}
+.english-intro{display:flex;justify-content:space-between;gap:25px;padding:24px 28px;margin-bottom:21px;background:linear-gradient(110deg,#edf3e5,#f6f7ee)}.english-intro h2{font-size:19px;color:#546e43;margin-bottom:8px}.english-intro p{font-size:12px;color:#8b9c7b;line-height:1.9}.english-intro .icon{width:43px;height:43px;color:#a1b58c;flex-shrink:0}.vocab-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.vocab-card{padding:20px 21px;min-height:200px;display:flex;flex-direction:column}.vocab-top{display:flex;align-items:center;justify-content:space-between;gap:6px}.vocab-top>span{font-size:9px;color:#a1ae93}.vocab-card h3{font-size:23px;font-family:Georgia,serif;font-weight:400;color:#557446;margin-top:9px;overflow-wrap:anywhere}.vocab-card .zh{font-size:13px;color:#8e9c80;margin:4px 0 13px}.vocab-sentence{font-size:11px;color:#91a083;line-height:1.9}.vocab-sentence em{display:block;font-style:normal;font-size:10px;color:#a4ae97;margin-top:4px}.vocab-controls{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:17px;gap:8px}.vocab-controls button{padding:5px 9px;font-size:10px;border:1px solid #dde6d2;border-radius:5px;color:#85a16d}.vocab-controls button:hover{background:#eef4e7}.vocab-controls span{font-size:9px;color:#a7b19e}.reveal-button{font-size:11px;background:#f2f6ec;border:1px dashed #dce6d1;border-radius:5px;color:#8da37b;padding:13px 8px;margin:6px 0}.reading-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.reading-card{padding:23px}.reading-card h3{font-size:12px;color:#7c9369;margin-bottom:14px}.reading-card .reading-en{font-family:Georgia,serif;font-size:17px;line-height:1.9;color:#536f44}.reading-card .reading-zh{font-size:12px;color:#91a180;margin-top:11px;line-height:1.9}.reading-tip{font-size:11px;padding:12px 14px;background:#f5f7ef;border-radius:7px;color:#8a9d78;margin-top:15px;line-height:1.9}.reading-keywords{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}.reading-keywords span{background:#f9f4e9;color:#ae996a;border-radius:4px;padding:2px 7px;font-size:10px}.english-tab{margin-bottom:20px}
+dialog{width:min(620px,calc(100% - 32px));border:1px solid #e0e8d5;border-radius:17px;padding:0;max-height:88dvh;box-shadow:0 25px 100px #253d2850;color:var(--ink);background:#fff}dialog::backdrop{background:#27382a65;backdrop-filter:blur(3px)}.modal-head{padding:23px 27px 18px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:2}.modal-head h2{font-size:17px}.close-btn{width:28px;height:28px;display:grid;place-items:center;border-radius:6px;color:#8e9d7e}.close-btn:hover{background:#eef3e7}.close-btn .icon{width:17px;height:17px}.modal-body{padding:23px 27px 28px}.form-field{margin-bottom:21px}.form-field label{font-size:12px;display:block;color:#728563;margin-bottom:8px}.form-field input,.form-field select{width:100%;padding:10px 12px;border:1px solid #dce6d1;background:#fcfdf9;border-radius:7px;color:#697f58;min-height:43px}.form-hint{font-size:10px;color:#a0ad93;line-height:1.9;margin-top:7px}.settings-actions{display:flex;gap:10px;flex-wrap:wrap;padding-top:17px;border-top:1px solid #e9efdf;margin-top:24px}.settings-actions button,.import-label{font-size:11px}.import-label{cursor:pointer;display:inline-flex;padding:9px 14px;border:1px solid #dce6d1;border-radius:7px;color:#7d9469;align-items:center}.danger-btn{color:#b17d68;font-size:10px;padding:6px 0;margin-top:19px;text-decoration:underline;text-underline-offset:4px}.method-item{padding:15px 0;border-bottom:1px solid #eaf0e1}.method-item:first-child{padding-top:0}.method-item h3{font-size:13px;color:#6d865b;margin-bottom:7px}.method-item p,.source-note{font-size:12px;color:#93a284;line-height:1.95}.sources-list{font-size:12px;padding-left:19px;line-height:2.2;color:#82976f}.sources-list a{text-decoration:underline;text-underline-offset:3px;color:#5e8050;overflow-wrap:anywhere}.source-note{margin-top:14px}.source-subheading{font-size:14px;margin:22px 0 10px}.focus-display{text-align:center;padding:18px 0 26px}.focus-display .time{font-family:Georgia,serif;font-size:76px;line-height:1.3;color:#5c7c47;letter-spacing:3px;font-variant-numeric:tabular-nums}.focus-display p{font-size:12px;color:#93a483;line-height:1.9;margin:13px 0 24px}.focus-actions{display:flex;justify-content:center;gap:12px}.focus-tip{font-size:11px;color:#a1ae94;background:#f6f8ef;border-radius:8px;padding:14px 17px;line-height:1.9}.focus-select{display:flex;gap:8px;justify-content:center;margin-bottom:18px}.backup-warning{font-size:11px;background:#fcf7ed;color:#a58b5c;padding:12px 15px;border-radius:7px;line-height:1.9;margin-top:17px}#toast{position:fixed;bottom:25px;left:calc(50% + 116px);transform:translate(-50%,20px);background:#31533e;color:#f3f6ee;border:1px solid #54754b;border-radius:9px;padding:12px 20px;font-size:12px;box-shadow:0 7px 30px #34513620;opacity:0;pointer-events:none;z-index:100;transition:opacity .2s,transform .2s;max-width:min(90vw,500px)}#toast.visible{opacity:1;transform:translate(-50%,0)}.noscript{margin:30px;padding:30px;background:#fff3d8}.entry-animation{animation:enter .3s ease both}@keyframes enter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:1500px){main{padding-top:40px}.hero{min-height:255px}.hero h2{font-size:36px}.sidebar{width:250px;padding-left:23px;padding-right:23px}.workspace{margin-left:250px}.hero-copy p{font-size:13px}.card-header{padding-top:23px}.task{padding:17px 0}.stat{padding:21px}.recommended{margin-top:29px}.topic-card{padding:24px}}
+@media(max-width:1180px){.sidebar{width:200px;padding:28px 12px 17px}.brand{padding-left:11px;font-size:25px}.brand-mark{width:36px;height:40px}.brand small{font-size:7px}.space-label{font-size:10px;margin-top:36px}nav a{font-size:12px;gap:10px;padding:11px 12px}.workspace{margin-left:200px}.topbar{padding:0 28px}main{padding:25px 28px 15px}.footer{padding:22px 28px}.hero{padding:26px}.hero h2{font-size:27px}.hero p{max-width:350px}.countdown-copy{display:none}.countdown-ring{width:126px;height:126px}.ring-number{font-size:42px}.stats-grid{gap:10px}.stat{padding:14px 12px;gap:9px}.stat-icon{width:31px;height:33px}.stat-value{font-size:20px}.stat-hint{font-size:8px}.dashboard-grid{grid-template-columns:minmax(0,1.65fr) minmax(235px,1fr);gap:16px}.card-header{padding:19px 19px 16px}.today-topic,.task-list{padding-left:19px;padding-right:19px}.task-footer{padding:15px 19px}.roadmap{padding-left:20px;padding-right:18px}.topic-card{padding:17px}.quiz-layout{grid-template-columns:minmax(0,1fr) 210px}.vocab-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#toast{left:calc(50% + 100px)}}
+@media(max-width:960px){.sidebar{width:180px}.workspace{margin-left:180px}.space-label{margin-left:8px;margin-right:8px}.space-label span{display:none}nav a{gap:9px;font-size:11px}.nav-badge{font-size:8px}.brand{gap:9px;font-size:23px;padding-left:8px;letter-spacing:2px}.brand small{font-size:6px;letter-spacing:1.1px}.sidebar-note{padding:14px;margin-left:3px;margin-right:3px}.local-label{font-size:8px;padding-left:3px;padding-right:0}.sidebar-button{font-size:10px;padding-left:9px;gap:9px}.topbar{padding:0 23px;height:68px}.topbar-right{gap:12px}main{padding:23px}.page-heading h1{font-size:23px}.hero h2{font-size:25px}.hero{padding:25px}.hero-tags{gap:9px}.hero-tags span{font-size:9px}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:22px}.dashboard-grid{grid-template-columns:1fr}.right-column{grid-template-columns:1.2fr 1fr}.roadmap-card .card-header{padding-bottom:15px}.roadmap-step{padding-bottom:14px}.roadmap-hint{display:none}.daily-word{display:flex;flex-direction:column;justify-content:center}.topic-card-grid{gap:10px}.topic-card{padding:16px}.topic-card p{min-height:35px}.quiz-layout{grid-template-columns:1fr}.quiz-side{display:none}.quiz-modes{grid-template-columns:1fr}.plan-list{gap:12px}.plan-day{padding:17px}.footer{padding:14px 23px 20px;flex-direction:column;gap:5px;font-size:9px}.footer button{font-size:9px}.knowledge-card{padding:18px}.knowledge-title{gap:10px}.knowledge-title h3{font-size:13px}.knowledge-title p{font-size:8px}.reading-grid{grid-template-columns:1fr}#toast{left:calc(50% + 90px)}}
+@media(max-width:700px){.sidebar{position:sticky;top:0;height:auto;width:100%;padding:11px 17px 0;border-right:0;border-bottom:1px solid var(--line);display:block}.brand{font-size:22px;padding:0;gap:9px;letter-spacing:2px}.brand-mark{width:29px;height:31px;border-radius:8px}.brand-mark svg{width:22px}.brand small{display:inline;font-size:7px;margin-left:10px;letter-spacing:1.1px}.space-label,.sidebar-bottom{display:none}nav{display:flex;margin-top:12px;gap:0;justify-content:space-between}nav a{border-radius:0;padding:11px 7px 12px;gap:6px;font-size:11px;border-bottom:2px solid transparent}nav a .icon{width:15px;height:15px}nav a.active{background:transparent;border-bottom-color:var(--green);color:var(--green)}.nav-badge,.nav-dot{display:none}.workspace{margin-left:0}.topbar{height:47px;padding:0 20px}.breadcrumb{font-size:10px;gap:10px}.date-label{font-size:9px}.profile{width:26px;height:26px;font-size:10px}.vertical-rule{display:none}.topbar-right{gap:12px}main{padding:22px 18px 10px}.page-heading{margin-bottom:18px;gap:12px}.page-heading h1{font-size:22px}.page-heading p{font-size:10px;line-height:1.8;max-width:235px}.page-heading .eyebrow{font-size:8px;margin-bottom:7px}.page-heading .outline-btn{font-size:10px;padding:8px 10px;margin-top:7px;white-space:nowrap}.page-heading .outline-btn .icon{width:13px;height:13px}.hero{padding:24px 22px;min-height:218px;gap:10px}.hero h2{font-size:24px;letter-spacing:1px;line-height:1.7}.hero .eyebrow{font-size:7px;letter-spacing:1.4px}.hero p{font-size:10px;max-width:270px}.hero-tags{margin-top:16px;gap:8px}.hero-tags span{font-size:8px}.hero-tags .icon{width:11px;height:11px}.hero-pill{padding:2px 7px}.countdown{margin-right:0}.countdown-ring{width:104px;height:104px}.ring-number{font-size:35px}.ring-center small{font-size:8px}.ring-center>span:last-child{font-size:7px}.hero:after{right:-260px}.hero:before{right:-215px}.stats-grid{margin-top:14px;gap:10px;margin-bottom:23px}.stat{padding:14px;gap:12px}.stat-icon{width:34px;height:34px}.stat-label{font-size:9px}.stat-value{font-size:22px}.stat-hint{font-size:8px}.right-column{grid-template-columns:1.2fr 1fr;gap:12px}.card-header{padding:19px 20px 15px}.section-title{font-size:14px}.task-list,.today-topic{padding-left:20px;padding-right:20px}.task-title{font-size:11px}.task-detail{font-size:9px}.task-footer{padding:16px 20px}.task-progress{font-size:9px}.task-footer .primary-btn{font-size:10px;padding:9px 12px}.duration-pill{font-size:8px}.roadmap-card .section-title{font-size:12px}.roadmap-card .card-header{padding-left:17px;padding-right:17px}.roadmap{padding-left:17px;padding-right:13px;padding-bottom:18px}.roadmap-step{gap:8px}.roadmap-step h4{font-size:10px}.roadmap-step h4>span{font-size:8px;margin-left:3px}.roadmap-step p{font-size:8px}.daily-word{padding:17px}.daily-word h3{font-size:23px}.daily-word .word-example{font-size:10px}.daily-word p{font-size:10px}.word-heading{font-size:9px}.word-heading .icon{display:none}.topic-card-grid{grid-template-columns:1fr;gap:10px}.topic-card{display:grid;grid-template-columns:40px 1fr auto;column-gap:12px;align-items:center;padding:15px 18px}.topic-card-top{margin:0;grid-column:1;grid-row:1/3}.topic-card-top .topic-weight{display:none}.topic-card h3{grid-column:2;grid-row:1;font-size:12px}.topic-card .english-name{grid-column:2;grid-row:2;font-size:8px}.topic-card p{display:none}.topic-card-bottom{grid-column:3;grid-row:1/3;margin:0;gap:12px;font-size:8px}.section-row h2{font-size:14px}.section-row h2 small{display:none}.bottom-note{font-size:9px;margin-top:14px}.plan-list,.knowledge-grid{grid-template-columns:1fr}.plan-day{padding:19px 21px}.plan-day>.small{min-height:0}.plan-top time{font-size:10px}.plan-day h3{font-size:14px}.plan-bottom{margin-top:13px}.phase-label{margin-top:9px;font-size:11px}.knowledge-card{padding:20px}.knowledge-title h3{font-size:14px}.knowledge-title p{font-size:9px}.knowledge-card>p{font-size:11px}.knowledge-footer{margin-top:14px}.lesson{padding:22px}.lesson-heading h2{font-size:21px}.takeaways{font-size:12px;padding-left:20px}.formula-box{padding:17px;font-size:13px}.example-box{font-size:12px;padding:15px 17px}.lesson-actions .primary-btn{font-size:11px}.toolbar{gap:12px}.search{width:100%}.search input{width:100%}.chip{font-size:10px;padding:6px 10px}.quiz-card{padding:23px 20px}.question-en{font-size:15px}.question-zh{font-size:12px}.option{font-size:11px;padding:12px}.option-letter{width:23px;height:23px}.quiz-bottom{flex-wrap:wrap}.quiz-bottom>span{font-size:9px}.quiz-mode{padding:18px}.quiz-mode h3{font-size:13px}.quiz-mode p{font-size:10px}.practice-stats{gap:23px;padding:18px 21px}.wrong-item{padding:17px;flex-wrap:wrap}.english-intro{padding:21px}.english-intro h2{font-size:17px}.english-intro p{font-size:11px}.english-intro .icon{width:31px;height:31px}.vocab-grid{gap:10px}.vocab-card{padding:17px;min-height:210px}.vocab-card h3{font-size:21px}.vocab-card .zh{font-size:12px}.vocab-controls{gap:4px;flex-wrap:wrap}.vocab-controls button{font-size:9px;padding:4px 7px}.vocab-controls span{font-size:8px}.vocab-sentence{font-size:10px}.vocab-sentence em{font-size:9px}.notice{font-size:10px;padding:12px 14px}.footer{padding:18px 18px 24px;font-size:8px}.footer button{font-size:8px}.modal-head{padding:20px}.modal-body{padding:20px}.modal-head h2{font-size:16px}#toast{left:50%;font-size:11px;bottom:18px}.settings-actions{gap:8px}}
+@media(max-width:390px){nav a{font-size:10px;padding-left:5px;padding-right:5px;gap:4px}nav a .icon{width:13px}.hero{padding:20px 17px}.hero h2{font-size:21px}.hero p{font-size:9px}.hero-tags span:last-child{display:none}.countdown-ring{width:89px;height:89px}.ring-number{font-size:30px}.right-column{grid-template-columns:1fr}.roadmap-card{display:none}.daily-word{padding:19px 21px}.daily-word h3{margin-top:9px}.daily-word .word-example{margin-top:11px}.vocab-grid{grid-template-columns:1fr}.vocab-card{min-height:210px}.page-heading h1{font-size:20px}.stats-grid{gap:8px}.stat{padding:12px;gap:8px}.stat-icon{width:30px;height:32px}.stat-hint{font-size:7px}}
+.teaching-section>p{font-size:14px;line-height:2.1;color:#65755d;max-width:850px}.pitfalls{background:#fcf8ef;border-radius:9px;padding:16px 19px;display:grid;gap:12px}.pitfalls p{display:flex;gap:9px;font-size:13px;line-height:1.9;color:#978460}.pitfalls .icon{width:15px;height:15px;margin-top:5px}.self-check{background:#f4f7ed;border:1px solid #e4ead9;border-radius:9px;padding:19px 22px;font-size:13px;line-height:2;color:#6f855f}.self-check summary{cursor:pointer;color:#5d7c48;margin-top:14px;font-size:12px}.self-check details p{padding-top:15px;border-top:1px solid #e0e8d4;margin-top:13px}.adjustment{padding:23px 25px;margin-top:22px;display:flex;align-items:center;justify-content:space-between;gap:25px}.adjustment .eyebrow{margin-bottom:7px;font-size:8px}.adjustment h3{font-size:14px;color:#577047}.adjustment p{font-size:12px;line-height:1.9;color:#7b8e6b;margin-top:7px}.adjustment span{font-size:10px;line-height:1.9;color:#96a488;display:block;margin-top:8px}.adjustment button{flex-shrink:0}.task-title{font-size:13px;line-height:1.9;color:#53674a}.today-topic p,.card-subtitle{font-size:11px;color:#7d8c71}.task-detail{font-size:11px;color:#839475}.question-zh{font-size:14px;color:#6c805d}.option{font-size:13px;color:#627a52}.answer-explanation{font-size:13px;color:#5e7c4c}.lesson .takeaways,.example-box{font-size:14px}.note-input{font-size:13px}.reading-card .reading-zh{font-size:13px;color:#7b8e6c}.reading-tip{font-size:12px;color:#7d9369}.vocab-sentence{font-size:12px;color:#7a8f68}.vocab-sentence em{font-size:11px;color:#839775}.vocab-controls button .icon{width:11px;height:11px;vertical-align:middle}.source-note,.method-item p{color:#778b66}.plan-day>.small{font-size:12px;color:#7b8d6a}.knowledge-card>p{font-size:12px;color:#7d8f6b}.bottom-note{color:#7e8b70}.form-hint{color:#7f916e}.stat-hint,.stat-label{color:#7a896e}
+@media(max-width:700px){.task-title{font-size:12px}.task-detail{font-size:11px}.today-topic p,.card-subtitle{font-size:10px}.teaching-section>p,.lesson .takeaways,.example-box{font-size:13px}.option{font-size:12px}.question-zh{font-size:13px}.adjustment{padding:20px;flex-direction:column;align-items:flex-start;gap:15px}.adjustment h3{font-size:13px}.adjustment p{font-size:12px}.self-check{padding:16px;font-size:12px}.pitfalls{padding:15px}.pitfalls p{font-size:12px}.vocab-sentence{font-size:11px}.vocab-sentence em{font-size:10px}}
+@media(max-width:440px){nav a>.icon{display:none}nav a{font-size:10.5px;padding-left:3px;padding-right:3px}.sidebar{padding-left:15px;padding-right:15px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+</style>
+</head>
+<body>
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-13 4h2m4 0h2m-8 3h2"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-3-2-6-3-10-2v15c4-1 7 0 10 2 3-2 6-3 10-2V4c-4-1-7 0-10 2Zm0 0v15"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m16 3 5 5-12 12-6 1 1-6L16 3Zm-3 3 5 5M3 8V4a1 1 0 0 1 1-1h5m12 12v5a1 1 0 0 1-1 1h-5"/></symbol>
+    <symbol id="i-language" viewBox="0 0 24 24"><path d="M3 5h12M9 3v2m4 0c-1 7-5 11-10 13M5 9c1 3 4 6 7 7m1 5 5-13 5 13m-8-4h6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 8a9 9 0 1 0 0 8M20 3v6h-6"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 3c-3 4-12-1-15 7-3 8 6 13 11 7 4-5 3-8 4-14ZM4 21l10-10"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="m10 3-.6 3-2 .9L5 6l-2 4 2.2 2v2L3 16l2 4 2.4-.9 2 .9.6 3h4l.6-3 2-.9 2.4.9 2-4-2.2-2v-2L21 10l-2-4-2.4.9-2-.9L14 3Z" transform="translate(0 -1) scale(1 .96)"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 13 8-13 8V4Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14m8-14v14"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1 1m12 12 1 1M5 19l1-1M18 6l1-1"/></symbol>
+  </svg>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <aside class="sidebar" aria-label="主导航">
+    <a href="#today" class="brand" aria-label="拾级，返回今日学习"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 24h7V17h7V10h8M5 16h7V9h7V3"/></svg></span><span>拾级<small>CFA STUDY STUDIO</small></span></a>
+    <div class="space-label">我的学习空间 <span>LEVEL I</span></div>
+    <nav id="navigation">
+      <a href="#today" data-nav="today"><svg class="icon"><use href="#i-grid"/></svg>今日学习</a>
+      <a href="#plan" data-nav="plan"><svg class="icon"><use href="#i-calendar"/></svg>20 天冲刺计划<span class="nav-badge">20</span></a>
+      <a href="#knowledge" data-nav="knowledge"><svg class="icon"><use href="#i-book"/></svg>知识与公式</a>
+      <a href="#practice" data-nav="practice"><svg class="icon"><use href="#i-edit"/></svg>刷题与错题<span class="nav-dot" id="wrong-dot" hidden></span></a>
+      <a href="#english" data-nav="english"><svg class="icon"><use href="#i-language"/></svg>金融英语</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-note"><svg class="icon"><use href="#i-leaf"/></svg><strong>每天进一小步。</strong><p>先理解，再记忆。<br>用自己的节奏，走稳每一级。</p><span>专注当下 · 保持睡眠</span></div>
+      <button class="sidebar-button" data-action="settings"><svg class="icon"><use href="#i-settings"/></svg>学习设置</button>
+      <button class="sidebar-button" data-action="sources"><svg class="icon"><use href="#i-info"/></svg>学习方法与资料来源</button>
+      <div class="local-label"><span></span>个人自用 · 进度保存在此浏览器</div>
+    </div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div class="breadcrumb">我的学习空间 <span>/</span> <b id="page-label">今日学习</b></div><div class="topbar-right"><span class="date-label" id="today-date"></span><span class="vertical-rule"></span><button class="profile" data-action="settings" aria-label="打开学习设置">我</button></div></header>
+    <main id="main" tabindex="-1"></main>
+    <footer class="footer"><span>拾级 · 让每一步都有方向</span><span>独立学习工具，与 CFA Institute 无隶属关系。<button data-action="sources">查看资料与使用说明</button></span></footer>
+  </div>
+  <dialog id="modal" aria-labelledby="modal-title"><div id="modal-content"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">请开启 JavaScript，以使用计划、练习与本地进度保存功能。</p></noscript>
+<script>
+/* Original starter material, not CFA Institute questions. All answer indexes are zero-based.
+ * Data contract: topics, days, vocabulary, questions, reading, methods, exam, sources.
+ * Topic ids are stable keys shared by lessons, plans and practice.
+ */
+window.STUDY_DATA = {
+  exam: {
+    level: 'CFA Level I',
+    language: '考试题目为英文；本站中文用于搭桥，练习时要逐渐保留英文题干。',
+    questions: 180,
+    sessions: 2,
+    sessionMinutes: 135,
+    optionsPerQuestion: 3,
+    timing: '通常为两节，每节 90 题、135 分钟，约每题 90 秒；两节之间有可选休息。以你的准考证和官方说明为准。',
+    scoring: '答错通常不倒扣分。没有可预先保证通过的固定分数线；本站正确率仅反映这组基础题。',
+    psm: '实用技能模块（PSM）独立于选择题考试。近年要求每级至少完成一个指定模块，通常约 10–20 小时；须在官方成绩发布截止时间前完成，才能获得成绩。先登录候选人账户核对个人要求与截止日；若允许，可安排在笔试后，勿挤占考前核心复习。',
+    caveat: '近年公开结构参考，非你的考季保证。本站仅提供入门骨架与原创基础练习，不是完整官方考纲或教材。本站无法联网核验 CFA 官网（代理访问返回 403），请以所报考年份的官方考纲、Learning Ecosystem、考试预约及 PSM 要求为准。',
+    practiceNotice: '本站 32 道原创基础题用于学概念和看懂英文，难度与覆盖面不等于正式考试。第 16–17 天的模拟须使用官方 Learning Ecosystem 或你合法获得的完整模拟卷。'
+  },
+  methods: [
+    { title: '先测再学', text: '第 1 天做 8 道混合基础题，记录错因：概念、英语、计算或粗心。样本很小，只用于决定先补什么，不用于预测能否通过。' },
+    { title: '闭卷回忆', text: '每学 25–35 分钟，合上材料，用中文说出定义、公式和一个例子；说不出再回看。看懂与能独立做题是两件事。' },
+    { title: '间隔 1 / 3 / 7 天', text: '新内容先在次日回忆；记住后把下次复习间隔依次拉长为 3、7 天，忘记则退回次日。先独立作答，再看解析；看网站显示的具体到期日，不反复抄整章笔记。' },
+    { title: '交错练习', text: '基础概念初步掌握后，把两到三个科目的题混合练习，训练判断该用哪个方法。先做题，再看答案，最后写一句错因。' },
+    { title: '读英文先找任务', text: '先圈 most likely、least likely、except、increase、decrease；再找已知量与单位。先读懂问什么，允许起步时借助中文，逐步减少整句翻译。' },
+    { title: '每天保留伦理', text: '每天短练 2–5 道伦理情境题并解释理由。伦理有较高权重且依赖情境辨析，不适合全部压到最后一天。' },
+    { title: '保护睡眠与恢复', text: '保证通常 7–9 小时睡眠；疲劳时缩短任务而不熬通宵。最后一天只复习熟悉内容、查证件与路线，不再开新章。' },
+    { title: '按证据调整', text: '每 3 天看一次错因分布。若概念仍不懂，减少刷题数量并回到例子；若中文会做而英文不会，增加短题干训练。优先修复反复错的高权重基础。' }
+  ],
+  topics: [
+    { id:'ethics', name:'职业伦理', en:'Ethical and Professional Standards', weight:'15–20%', min:15, max:20, priority:'每日必学', description:'理解投资从业者应该如何对待客户、市场和职业义务，靠辨析情境而不是背口号。', takeaways:['诚信与独立判断：不歪曲事实，不让礼物或报酬影响客观性。','重大非公开信息：既重大又未公开的信息，不用于交易，也不诱使他人交易。','客户利益优先，公平对待客户；披露利益冲突并不自动消除所有违规。','推荐投资应有合理依据，考虑客户目标、风险承受能力和限制。','业绩呈现要公平、准确、完整；“保证收益”需要警惕。'], formula:'先问：谁受影响 → 有什么义务 → 信息是否重大且未公开 → 应如何行动？', example:'分析师提前收到未公开的盈利大幅下滑消息。即使客户可能损失，也不能用该信息安排交易。应限制使用并遵守合规程序。' },
+    { id:'quant', name:'定量方法', en:'Quantitative Methods', weight:'6–9%', min:6, max:9, priority:'基础先修', description:'从百分比、时间价值和统计直觉开始。先会解释输入、输出和单位，再记公式。', takeaways:['百分比变动 =（新值 − 旧值）/旧值；百分比与百分点不同。','钱有时间价值：未来同额的钱通常不如今天的钱值钱。','均值描述中心，方差与标准差描述波动，相关关系不等于因果。','期望值是各结果按概率加权的平均；概率之和应为 1。','假设检验中，p 值不是“原假设为真的概率”；与显著性水平比较后作判断。'], formula:'FV = PV × (1 + r)^n；PV = FV / (1 + r)^n', example:'今天存 100 元，年利率 5%，两年后 FV = 100 × 1.05² = 110.25 元；r 用 0.05 而不是 5。' },
+    { id:'economics', name:'经济学', en:'Economics', weight:'6–9%', min:6, max:9, priority:'理解方向', description:'建立供需、周期、通胀、政策和汇率的方向感。', takeaways:['其他条件不变，需求曲线通常向右下倾斜；价格变化是沿曲线移动。','需求增加使需求曲线右移；均衡价格通常上升。','名义变量未扣通胀，实际变量扣除通胀影响。','紧缩货币政策通常通过提高利率等方式抑制需求，但结果取决于条件。','汇率必须看报价方向；USD/CNY 变化的含义不能只看“升”“降”。'], formula:'近似实际收益率 ≈ 名义收益率 − 通胀率', example:'名义收益 6%，通胀 2%，实际收益约 4%；精确值 1.06 / 1.02 − 1 ≈ 3.92%。' },
+    { id:'fsa', name:'财务报表分析', en:'Financial Statement Analysis', weight:'11–14%', min:11, max:14, priority:'高权重主线', description:'先读懂公司有什么、欠什么、赚了多少、现金去了哪里。', takeaways:['资产负债表是某一时点：资产 = 负债 + 所有者权益。','利润表是一个期间的经营结果；利润不等于现金流。','现金流量表区分经营、投资、融资活动；注意 IFRS 与 US GAAP 分类可能不同。','应收账款增长可能增加收入却未带来现金；必须理解权责发生制。','分析比率要比较时期、行业及会计口径，不能用一个数字判定公司好坏。'], formula:'流动比率 = 流动资产 / 流动负债；毛利率 =（收入 − 销售成本）/ 收入', example:'收入 100，销售成本 60，毛利率 = 40%；流动资产 120，流动负债 80，流动比率 = 1.5。' },
+    { id:'corporate', name:'公司发行人', en:'Corporate Issuers', weight:'6–9%', min:6, max:9, priority:'衔接财报', description:'理解公司融资、治理和投资项目决策。', takeaways:['债权人与股东的权利、风险、回报不同。','公司治理用制度约束代理冲突；管理层利益未必总与股东一致。','资本预算比较项目的未来现金流，不能只看会计利润。','净现值使用适当折现率；其他条件相同，正 NPV 项目增加价值。','营运资本管理关注库存、应收、应付和现金转换周期。'], formula:'NPV = 未来现金流现值之和 − 初始投资', example:'投入 100，一年后收到 110，要求回报率 5%，NPV = 110 / 1.05 − 100 ≈ 4.76，价值增加。' },
+    { id:'equity', name:'权益投资', en:'Equity Investments', weight:'11–14%', min:11, max:14, priority:'高权重主线', description:'股票代表所有权；先理解市场如何交易，再学如何估值。', takeaways:['普通股是剩余索取权；清算时通常在债权人之后。','市价单优先成交但不保证价格；限价单限制价格但不保证成交。','有效市场讨论价格如何反映信息，不等于价格永远没有波动。','估值必须区分价格与价值，比较指标要使用一致口径。','股利贴现模型依赖长期假设；永续增长模型要求 r > g。'], formula:'P/E = 每股价格 / 每股收益；固定增长 DDM：V₀ = D₁ / (r − g)', example:'下一年股利 D₁ 为 2，要求回报率 10%，长期增长率 2%，估值 = 2 / 0.08 = 25。不是用当期股利直接代入。' },
+    { id:'fixed', name:'固定收益', en:'Fixed Income', weight:'11–14%', min:11, max:14, priority:'高权重主线', description:'理解债券的现金流、价格、收益率和利率风险。', takeaways:['债券通常承诺票息和本金；承诺不代表不会违约。','票息率基于面值，当前收益率基于当前价格，到期收益率还考虑本金变化与时间。','其他条件不变，市场要求收益率上升，固定现金流债券价格下降。','久期描述价格对收益率小幅变动的敏感度；凸性改善近似。','信用利差可能反映违约风险、流动性等因素，不能直接等同违约概率。'], formula:'债券价格 = 各期票息现值 + 到期本金现值；ΔP/P ≈ −修正久期 × Δy', example:'修正久期为 4，收益率上升 0.01（100 个基点），价格约下降 4%，暂不考虑凸性。' },
+    { id:'derivatives', name:'衍生品', en:'Derivatives', weight:'5–8%', min:5, max:8, priority:'掌握基本结构', description:'先分清远期、期货、互换、期权的义务和权利，再看收益。', takeaways:['远期与期货通常对双方都有履约义务；期权买方有选择是否行权的权利。','看涨期权受益于标的上涨；看跌期权受益于标的下跌，均需考虑权利金。','到期收益（payoff）与利润（profit）不同，利润要扣初始成本。','套期保值用于管理风险，不意味着消除所有风险。','衍生品定价重视无套利，不能把预期收益简单当价格。'], formula:'看涨期权到期收益 = max(Sₜ − K, 0)；买方利润 = 收益 − 权利金（忽略资金时间价值）', example:'执行价 100，期末股价 120，权利金 5：看涨期权收益 20，利润 15。' },
+    { id:'alternatives', name:'另类投资', en:'Alternative Investments', weight:'7–10%', min:7, max:10, priority:'概念与特征', description:'认识私募资本、房地产、商品、基础设施等类别及其费用和流动性。', takeaways:['另类资产不必然低风险，也不必然与股票低相关。','私募投资往往流动性较低，估值不频繁可能掩盖价格波动。','对冲基金策略、杠杆和费用结构差异很大。','房地产需区分直接持有、债务投资和上市证券。','历史回报数据库可能存在幸存者偏差和回填偏差。'], formula:'净收益 = 费用前收益 − 管理费 − 业绩报酬（实际计算以约定计费基础为准）', example:'同样的毛回报，收费更高通常会降低投资者净回报。复杂费用须先确认管理费基数、门槛和高水位线。' },
+    { id:'portfolio', name:'投资组合管理', en:'Portfolio Management', weight:'8–12%', min:8, max:12, priority:'串联风险收益', description:'从单个资产转向整体组合，理解分散化与投资者约束。', takeaways:['组合收益率是资产收益按权重加权；权重之和通常为 1。','分散化可降低非系统性风险，不能消除整个市场的系统性风险。','相关性越低，其他条件相同，分散化潜力通常越大。','β 衡量相对于市场的系统性风险，不等于总波动率。','投资政策说明书应反映目标、风险承受能力、期限、流动性等限制。'], formula:'E(Rₚ) = Σ wᵢE(Rᵢ)；CAPM：E(Rᵢ) = Rf + βᵢ × [E(Rm) − Rf]', example:'无风险利率 3%，市场期望收益 8%，β = 1.2，CAPM 要求收益 = 3% + 1.2 × 5% = 9%。' }
+  ],
+  days: [],
+  vocabulary: [],
+  questions: [],
+  reading: [],
+  sources: [
+    { title:'CFA Institute · Level I exam guide', url:'https://www.cfainstitute.org/programs/cfa-program/candidate-resources/level-i-exam', note:'考试结构、主题与权重的官方核对入口；本次代理 CONNECT 403，未完成在线核验。', checked:'2026-10-23', verified:false },
+    { title:'CFA Institute · Practical Skills Modules', url:'https://www.cfainstitute.org/programs/cfa-program/candidate-resources/practical-skills-modules', note:'核对 PSM 模块、用时及领取成绩前的完成要求；以账户内个人截止日为准。本次网络未核验。', checked:'2026-10-23', verified:false },
+    { title:'CFA Institute · Learning Ecosystem', url:'https://www.cfainstitute.org/programs/cfa-program/candidate-resources/learning-ecosystem', note:'使用所报考年份的正式教材、练习题和完整模拟卷。本站不替代官方题库。', checked:'2026-10-23', verified:false }
+  ]
+};
+
+// Day 20 is exam day for the user's 2026-11-11 booking. Day 1 is 2026-10-23.
+{
+  const plans = [
+    [1,['quant','ethics'],'先找起点，建立学习节奏','小样本诊断 + 百分比与题干关键词',['闭卷完成 8 道混合基础题；逐题标记是概念、英语、计算还是粗心，不把小样本正确率当通过率。','练 5 个百分比与复利例子；掌握 PV、FV、rate、increase、least likely。','学 2 个伦理情境；合上笔记，用中文复述今天的 3 个概念。'],'今天只建立基线，不能用 8 道题推断真实应试水平。'],
+    [2,['quant','portfolio'],'把数字读懂','时间价值、均值、标准差和期望收益',['复习第 1 天错题和 8 个英文词，先答后看解析。','用计算器独立计算单笔现值与终值；再做均值、期望值和标准差直觉题。','做一组定量题与短伦理题；写清百分号、百分点和基点区别。'],'使用官方允许的计算器型号练习；不要到考前才学按键。'],
+    [3,['fsa'],'读懂三张报表','资产负债表 → 利润表 → 现金流量表',['闭卷写出资产 = 负债 + 权益，并给三类各举一个例子。','用小公司例子区分收入、利润与现金；看懂 revenue、expense、asset、liability。','做财报基础题并解释每个错误选项为什么错；完成伦理短练。'],'先建立报表之间的联系，暂不追求复杂会计细节。'],
+    [4,['fsa'],'用比率描述公司','盈利、流动性、杠杆与可比性',['按 1 / 3 天间隔复习已学词与错题。','手算毛利率、流动比率、资产负债率，练习英文分子分母。','混合财报基础题与定量题；用一句话说明比率变化可能意味着什么。'],'比率不是越大越好；比较时检查行业、时期、口径。'],
+    [5,['fsa','ethics'],'财报第二遍：理解现金与估计','权责发生制、折旧、存货与报表质量',['复盘前三天反复错的财报概念，优先填最基础的缺口。','比较赊销与收款、资本化与费用化的方向影响；注意不同会计准则可能有差异。','做财报混合练习和伦理案例；把三类最常见错因记入错题本。'],'无法解释基础例子时，先回到教材，不用刷题数量掩盖概念空缺。'],
+    [6,['corporate','fsa'],'从公司账本走向决策','治理、资本预算与营运资本',['复习第 3 天财报词汇，讲清股东与债权人的差别。','学 NPV，手算单期项目；理解为什么正 NPV 通常增加价值。','练公司发行人题与财报交错题；完成伦理短练。'],'NPV 用现金流，不直接用会计利润。'],
+    [7,['economics','quant'],'建立经济方向感','供需、通胀、政策与汇率',['闭卷回顾第 1 天的错题与词；一周后仍不会的标记为重点。','画供需移动的简图；练名义与实际收益、升值贬值的报价方向。','做经济基础题和定量题；翻译 3 条带 increase/decrease 的短题干。'],'每题写明“其他条件不变”，减少把方向关系背错。'],
+    [8,['equity'],'读懂股票与市场','所有权、订单类型、价格与价值',['复习财报中每股收益、利润率的含义。','区分普通股、市价单、限价单；解释市场有效性的基本含义。','做权益题并配 2–5 道伦理题；整理 stock、share、earnings、dividend。'],'先理解现金流和所有权，再学估值公式。'],
+    [9,['equity','corporate'],'股票估值基础','P/E 与固定增长股利贴现模型',['间隔复习第 2、6、8 天的薄弱点。','手算 P/E 与 DDM，确认 D₁、r、g，检查 r > g。','混合权益与公司题；练 least likely 和 except 的反向问法。'],'不要把简化模型当投资建议；估值结果对假设很敏感。'],
+    [10,['fixed'],'理解债券现金流','面值、票息、收益率、折现与价格',['画债券现金流时间线，明确 coupon 与 yield 不同。','用一年期债券手算价格；解释收益率上升时价格为什么下降。','做固定收益基础题与短伦理题；建立 face value、maturity、yield 词卡。'],'先学普通固定利率债券；复杂结构回到官方教材。'],
+    [11,['fixed','quant'],'债券风险与敏感度','久期、凸性、信用与利差',['复习第 4、8、10 天相关错题；先估方向，再按计算器。','手算久期的一阶价格变化，练 100bp = 1 个百分点 = 0.01。','混合债券与定量题；记录 credit risk 与 interest rate risk 的区别。'],'久期近似适用于小幅收益率变动，不是所有情形的精确价格。'],
+    [12,['portfolio'],'理解组合，而非单个资产','加权收益、相关性、分散化与 CAPM',['回顾均值、权重与波动的含义。','手算两资产组合收益和 CAPM；解释系统性与非系统性风险。','做组合与权益交错题，结合客户目标理解适当性；完成伦理短练。'],'组合标准差通常不是各资产标准差的简单加权平均。'],
+    [13,['alternatives','portfolio'],'另类资产与费用','类别、流动性、估值偏差与费用结构',['复习第 6、10、12 天的相关术语。','列出私募、房地产、商品和基础设施的典型风险，理解流动性限制。','做另类基础题与组合题；练 fee、liquidity、leverage、bias。'],'另类不自动等于分散化或高回报，避免记绝对化结论。'],
+    [14,['derivatives','fixed'],'衍生品先抓结构','义务与权利、远期与期权、收益与利润',['间隔复习第 7、11、13 天错题。','画看涨与看跌期权到期收益的几个点，再扣权利金得到利润。','做衍生品与固定收益交错题；配伦理短练并检查英文限定词。'],'计算前先写多头/空头、看涨/看跌、收益/利润。'],
+    [15,['ethics','fsa','fixed'],'伦理整合与高权重补漏','情境辨析 + 高频基础的第二轮回忆',['做一组英文伦理情境题；每题指出义务、相关事实与合适行动。','按错题记录，选择财报、权益、债券中最薄弱的一个基础模块补课。','准备完整官方模拟卷与计时器；复习必要计算器操作和考试流程。'],'本站题量不能替代完整模拟。今天确定第 16–17 天使用的合法模拟卷。'],
+    [16,['ethics','fsa','equity'],'模拟上半场：英文与节奏','官方/合法模拟第 1 节，90 题 / 135 分钟',['使用官方或合法完整模拟卷的第 1 节：90 题，135 分钟，按真实规定独立作答。','用约 65 分钟复盘，标记概念、英语、计算和节奏问题，优先解释不确定的对题。','用 20 分钟复习关键词，20 分钟回顾伦理，不在今天开启新章节。'],'分两天做模拟只能检验分节表现，不能验证连续 4.5 小时考试的耐力。不要把本站 32 题当模拟卷。'],
+    [17,['quant','fixed','portfolio'],'模拟下半场：把问题找全','同一套官方/合法模拟第 2 节',['独立完成同一套模拟的第 2 节：90 题，135 分钟；保留原始答案与用时。','复盘第二节并合并两节错因；总正确率只作为调整参考，不等于通过预测。','复习英文关键词与伦理；圈出最后两天最值得修复的 3 个基础点。'],'完整计时模拟需至少 270 分钟答题，另加休息。若另有空闲可连续完成；每天 4 小时时按此拆分。'],
+    [18,['ethics','fsa','fixed','equity'],'最后一次集中修复','只修反复错的高权重基础',['依据模拟错因，选 3 个可修复的问题，各找一个例子重新解释。','闭卷重做之前错题，做少量不同表述的新题，确认不是记住选项。','整理一页公式与英文触发词；检查 PSM 个人要求、证件和考试通知。'],'不再追求全考纲补齐。遇到大块完全陌生内容，优先稳定已经学过的基础。'],
+    [19,['ethics','quant'],'轻量回顾，留出恢复','熟悉内容 + 考前准备',['约 30 分钟回忆公式、单位和限定词，不临时背新章节。','约 30 分钟回看伦理错因及最常见概念错误；只做少量熟悉题。','约 30 分钟确认考点、交通、证件姓名、允许的计算器与备用电池；按平时作息睡觉。'],'建议只安排约 90 分钟轻量学习，其余用于恢复与准备；不强行补满 4 小时。'],
+    [20,[],'考试日：稳住已会的题','流程、节奏与休息',['出发前检查官方要求的有效证件、允许的计算器、预约信息和路线。','考场按官方流程操作；先读问法与单位，合理分配每题约 90 秒的平均节奏。','考后休息，再按候选人门户截止时间完成或确认 PSM。'],'今天是考试日，不安排 4 小时学习；到场时间和物品要求以官方通知为准。']
+  ];
+  window.STUDY_DATA.days = plans.map(([day,topics,title,focus,tasks,note]) => ({
+    day, topics, title, focus, note,
+    tasks: tasks.map((text,index)=>({id:`day-${day}-task-${index+1}`,text})),
+    blocks: day===20 ? [] : day===19 ? [{label:'回忆公式与英文',minutes:30},{label:'伦理与错因',minutes:30},{label:'考前准备',minutes:30}] : (day===16||day===17) ? [{label:'正式计时模拟一节',minutes:135},{label:'解析与错因',minutes:65},{label:'关键词',minutes:20},{label:'伦理回忆',minutes:20}] : [{label:'金融英语与旧词',minutes:20},{label:'概念与例子',minutes:80},{label:'独立做题',minutes:75},{label:'错题与闭卷回忆',minutes:45},{label:'伦理短练',minutes:20}]
+  }));
+}
+
+window.STUDY_DATA.vocabulary = [
+ ['asset','资产','Cash is an asset.','公司或个人拥有、控制并预期带来经济利益的资源。','fsa'],
+ ['liability','负债','A bank loan is a liability.','已经承担、未来通常需要付出资源的义务。','fsa'],
+ ['equity','权益；股权','Assets equal liabilities plus equity.','资产减去负债后的剩余权益；在投资中也可指股票类资产。','fsa'],
+ ['revenue','收入','Revenue increased this year.','企业销售商品或提供服务等产生的收入，不等于已经收到账款。','fsa'],
+ ['expense','费用','Rent is an expense.','为取得收入或维持经营而确认的耗费。','fsa'],
+ ['earnings','盈利','Earnings are lower than revenue.','通常指利润；看语境和具体会计口径。','fsa'],
+ ['cash flow','现金流','Profit is not the same as cash flow.','现金实际流入和流出；与会计利润不同。','fsa'],
+ ['receivable','应收款','The sale created a receivable.','已经确认但还未收回的钱，常见 accounts receivable。','fsa'],
+ ['inventory','存货','The company holds inventory.','用于出售或生产的货物等，注意估值与成本确认。','fsa'],
+ ['depreciation','折旧','Depreciation reduces reported profit.','把可折旧资产的成本在使用期内分配；当期折旧本身通常不付现金。','fsa'],
+ ['margin','利润率；保证金','The gross profit margin is 40%.','财报中常指利润占收入比例；在交易中也可指保证金，需看上下文。','fsa'],
+ ['ratio','比率','The current ratio is 1.5.','两个量相除；先确认分子、分母和单位。','fsa'],
+ ['present value','现值','The present value is 100.','把未来的钱按折现率换算成今天的价值，缩写 PV。','quant'],
+ ['future value','终值','The future value is 105.','今天的钱按利率增长到未来的价值，缩写 FV。','quant'],
+ ['interest rate','利率','The annual interest rate is 5%.','按一定期间计算的利息比例；要对齐年、月等周期。','quant'],
+ ['discount rate','折现率','Use a 6% discount rate.','把未来现金流折成现值的利率。','quant'],
+ ['mean','平均数','The mean of 2 and 4 is 3.','简单算术平均是总和除以数量；也有其他类型均值。','quant'],
+ ['standard deviation','标准差','A higher standard deviation means more dispersion.','描述数据围绕均值的离散程度，不直接说明收益高低。','quant'],
+ ['probability','概率','The probability is 0.2.','事件发生可能性的度量，通常在 0 与 1 之间。','quant'],
+ ['expected return','期望收益率','The expected return is 8%.','按概率加权的收益率；不是保证收益。','portfolio'],
+ ['risk','风险','This investment has market risk.','不确定性与损失可能；不同模型用不同指标衡量。','portfolio'],
+ ['weight','权重','The stock has a 40% weight.','在总组合或加权计算中占的比例。','portfolio'],
+ ['correlation','相关性','The two returns have low correlation.','衡量两个变量共同变化的线性关系，不等于因果。','portfolio'],
+ ['diversification','分散化','Diversification can reduce specific risk.','将风险分布到不同资产；不能消除所有风险。','portfolio'],
+ ['systematic risk','系统性风险','Market risk is systematic risk.','影响整个市场、不能通过普通分散化消除的风险。','portfolio'],
+ ['beta','贝塔','The stock has a beta of 1.2.','相对于市场变动的敏感度，描述系统性风险的一种指标。','portfolio'],
+ ['demand','需求','Demand for the product increased.','在不同价格下愿意并能够购买的数量关系。','economics'],
+ ['supply','供给','Supply increased after costs fell.','在不同价格下愿意并能够提供的数量关系。','economics'],
+ ['inflation','通货膨胀','Inflation reduces purchasing power.','总体价格水平上升，使相同货币的购买力下降。','economics'],
+ ['real return','实际收益率','The real return accounts for inflation.','调整通胀后的收益率，与名义收益率不同。','economics'],
+ ['exchange rate','汇率','Check how the exchange rate is quoted.','两种货币兑换的价格，必须先读清报价方向。','economics'],
+ ['net present value','净现值','The project has a positive net present value.','未来现金流现值减去初始投入，缩写 NPV。','corporate'],
+ ['shareholder','股东','Shareholders own the company’s shares.','持有股权的人；不等于债权人。','corporate'],
+ ['governance','治理','Good governance can reduce agency conflicts.','对决策、监督和责任进行安排的制度。','corporate'],
+ ['working capital','营运资本','Inventory is part of working capital management.','常指流动资产减流动负债；具体分析时注意定义。','corporate'],
+ ['share','股份；股票','She owns 100 shares.','公司股权的份额；shares outstanding 是发行在外股份。','equity'],
+ ['dividend','股利；分红','The next dividend is 2 per share.','公司向股东分配的收益，不等于公司总利润。','equity'],
+ ['valuation','估值','Valuation depends on assumptions.','根据现金流、风险与可比数据等估计价值。','equity'],
+ ['market order','市价单','A market order does not guarantee a price.','以市场可得价格尽快成交，但不保证成交价格。','equity'],
+ ['limit order','限价单','A limit order may not be filled.','限制买入最高价或卖出最低价，但不保证成交。','equity'],
+ ['bond','债券','The bond pays interest each year.','债务工具，通常约定利息与本金偿付。','fixed'],
+ ['face value','面值','The bond’s face value is 1,000.','债券约定的名义本金，不必等于市价。','fixed'],
+ ['coupon','票息','The annual coupon is 50.','按约定支付的利息；coupon rate 是票息率。','fixed'],
+ ['yield','收益率','When yield rises, the bond price usually falls.','由价格和现金流隐含的收益率；要辨别具体指标。','fixed'],
+ ['maturity','到期日；期限','The bond has two years to maturity.','最后本金等到期偿付的日期或剩余时间。','fixed'],
+ ['duration','久期','Duration measures interest-rate sensitivity.','衡量债券利率敏感度的指标；先分清修正久期等类型。','fixed'],
+ ['basis point','基点','100 basis points equal one percentage point.','1 个基点 = 0.01 个百分点；100 个基点 = 1 个百分点。','fixed'],
+ ['credit risk','信用风险','Credit risk increases if repayment becomes less likely.','发行人不能按约定履行偿付义务的风险。','fixed'],
+ ['forward','远期合约','A forward creates obligations for both parties.','双方约定未来按条款买卖标的的合约。','derivatives'],
+ ['option','期权','An option buyer has a right.','买方拥有按约定买卖的权利，通常要支付权利金。','derivatives'],
+ ['call option','看涨期权','A call gives the right to buy.','赋予买方按执行价格买入标的的权利。','derivatives'],
+ ['put option','看跌期权','A put gives the right to sell.','赋予买方按执行价格卖出标的的权利。','derivatives'],
+ ['strike price','执行价格','The strike price is 100.','期权行权时约定的买卖价格，常用 K 表示。','derivatives'],
+ ['payoff','到期收益','Payoff does not subtract the option premium.','按到期合约条件得到的收益；与扣除成本后的利润不同。','derivatives'],
+ ['liquidity','流动性','Private assets may have low liquidity.','较快交易且不显著影响价格的能力，也可指偿付短期债务能力。','alternatives'],
+ ['leverage','杠杆','Leverage can magnify gains and losses.','使用借款等方式放大风险敞口。','alternatives'],
+ ['fee','费用','A fee reduces the investor’s net return.','向管理人或服务方支付的成本，注意计费基础。','alternatives'],
+ ['bias','偏差','Survivorship bias can overstate returns.','样本或分析方法造成的系统性倾向。','alternatives'],
+ ['material nonpublic information','重大非公开信息','Do not trade on material nonpublic information.','既可能影响理性投资者决策、又尚未公开的信息。','ethics'],
+ ['conflict of interest','利益冲突','Disclose a conflict of interest.','个人或其他利益可能影响客观判断；披露未必足以解决全部问题。','ethics'],
+ ['suitability','适当性','An investment must be suitable for the client.','根据客户目标、风险承受能力及限制判断投资是否合适。','ethics'],
+ ['reasonable basis','合理依据','Research needs a reasonable basis.','投资分析与推荐须建立在审慎、充分的研究基础之上。','ethics'],
+ ['most likely','最可能','Which outcome is most likely?','找最符合条件的选项，不是绝对必然。','quant'],
+ ['least likely','最不可能','Which statement is least likely correct?','反向问法，通常寻找错误或最不符合条件的陈述。','quant'],
+ ['except','除了；不包括','All statements are correct except one.','警惕反向选择：其余成立，找例外。','quant'],
+ ['increase / decrease','增加 / 减少','If yield increases, price decreases.','先识别哪个量变了，再判断所问变量方向。','quant']
+].map(([en,zh,sentence,meaning,topic],index)=>({id:`v-${index+1}`,en,zh,sentence,meaning,topic}));
+
+window.STUDY_DATA.reading = [
+ {id:'read-1',label:'先找问法：most likely',en:'If the required yield increases, a fixed-rate bond’s price is most likely to decrease.',zh:'如果要求收益率上升，固定利率债券的价格最可能下降。',keywords:['required yield = 要求收益率','increases = 上升','most likely = 最可能','decrease = 下降'],tip:'先抓 If 条件，再圈被问的 price。其他条件相同时，价格与收益率反向变化。'},
+ {id:'read-2',label:'反向问法：least likely',en:'Which statement about diversification is least likely to be correct?',zh:'关于分散化，哪项陈述最不可能正确？',keywords:['which statement = 哪项陈述','about = 关于','least likely = 最不可能','correct = 正确'],tip:'这是找错误/最不符合条件的陈述。先在草稿写“找错”，再读选项，避免习惯性选正确项。'},
+ {id:'read-3',label:'例外：except',en:'All of the following are assets except a bank loan payable.',zh:'下列各项均为资产，银行应付借款除外。',keywords:['all of the following = 以下所有','assets = 资产','except = 除外','payable = 应付'],tip:'except 让方向反转。应付借款是负债；loan receivable 与 loan payable 的方向相反。'},
+ {id:'read-4',label:'限定条件：holding other factors constant',en:'Holding other factors constant, a higher discount rate reduces present value.',zh:'其他因素不变时，更高的折现率使现值下降。',keywords:['holding other factors constant = 其他因素不变','higher = 更高','reduces = 降低','present value = 现值'],tip:'只改变题目指定的变量，不自己增加“现金流也变多了”等假设。'},
+ {id:'read-5',label:'时间与单位',en:'An investor deposits 100 today at an annual rate of 5% for two years.',zh:'一名投资者今天存入 100，年利率为 5%，存两年。',keywords:['today = 今天','annual rate = 年利率','for two years = 两年','deposits = 存入'],tip:'标 PV = 100、r = 0.05、n = 2。计算前对齐利率和时间的周期。'},
+ {id:'read-6',label:'区分收益与利润',en:'A call option has a strike price of 100 and a premium of 5. At expiration, the stock price is 120. What is the buyer’s profit?',zh:'看涨期权执行价 100，权利金 5；到期股价 120。买方利润是多少？',keywords:['call = 看涨','strike price = 执行价','premium = 权利金','profit = 利润'],tip:'先算 payoff = max(120 − 100, 0) = 20，再扣 5 得利润 15。题目问 profit，不能停在 20。'},
+ {id:'read-7',label:'否定词：not / without',en:'An analyst must not trade on material nonpublic information.',zh:'分析师不得利用重大非公开信息进行交易。',keywords:['must not = 不得','trade on = 利用……交易','material = 重大','nonpublic = 未公开'],tip:'not 与 nonpublic 都影响句意。先判断信息是否同时“重大”和“未公开”。'},
+ {id:'read-8',label:'比较对象：relative to',en:'Relative to a bond with lower duration, a bond with higher duration is more sensitive to a small change in yield.',zh:'与较低久期债券相比，较高久期债券对收益率小幅变动更敏感。',keywords:['relative to = 与……相比','lower / higher = 较低 / 较高','sensitive to = 对……敏感','small change = 小幅变化'],tip:'圈出比较对象和所问特征。句子长时拆成“谁比谁，在什么方面，更怎样”。'}
+];
+
+window.STUDY_DATA.questions = [
+ {id:'q-ethics-1',topic:'ethics',stem:'分析师获得一项尚未公开、且可能显著影响股价的盈利消息。最合适的行为是？',en:'An analyst receives material nonpublic earnings information. Which action is most appropriate?',options:['马上替客户买卖（Trade for clients）','限制信息使用并遵守合规程序（Restrict use and follow compliance procedures）','先告诉最重要的客户（Inform selected clients first）'],answer:1,explanation:'重大且未公开的信息不能用于交易或诱使他人交易。客户利益、个人损益或“只告诉少数人”都不能让这种行为合理。',vocab:['material','nonpublic','most appropriate']},
+ {id:'q-ethics-2',topic:'ethics',stem:'某投资有很高预期收益，但客户需要下个月支付学费。判断适当性时应首先考虑什么？',en:'A client needs tuition money next month. What should an adviser consider when assessing investment suitability?',options:['只看过去一年的收益（Past return only）','客户的目标、流动性需求和风险承受能力（Objectives, liquidity needs and risk tolerance）','投资是否热门（Popularity）'],answer:1,explanation:'适当性须结合客户整体状况。短期必需资金通常不能只因某项投资预期收益高就承担不匹配的风险。',vocab:['suitability','liquidity needs','risk tolerance']},
+ {id:'q-ethics-3',topic:'ethics',stem:'一份报告列出推荐理由，却故意隐瞒分析师持有该股票的利益。问题主要是什么？',en:'An analyst intentionally omits a personal holding from a research report. The main concern is:',options:['没有披露可能影响客观性的利益冲突（Undisclosed conflict of interest）','报告使用了英文（Use of English）','所有持股都绝对禁止（All ownership is prohibited）'],answer:0,explanation:'持股可能形成利益冲突，应按适用义务充分披露并管理。不能把“需要披露”错误理解为“任何持股都绝对禁止”。',vocab:['omit','personal holding','conflict of interest']},
+ {id:'q-ethics-4',topic:'ethics',stem:'下列哪种投资推荐最符合合理依据要求？',en:'Which recommendation is most likely to have a reasonable basis?',options:['仅因社交媒体上的匿名热帖（An anonymous popular post only）','有充分研究、核对关键假设并考虑风险（Diligent research, checked assumptions and risks）','因为别人说保证翻倍（A promise to double the money）'],answer:1,explanation:'合理依据来自审慎、充分的研究。流行、传言或收益承诺不能替代核实与独立判断。',vocab:['reasonable basis','assumption','diligent']},
+ {id:'q-quant-1',topic:'quant',stem:'今天投资 100 元，年复利 5%，两年后的终值最接近多少？',en:'What is the future value of 100 invested for two years at 5% annually, with annual compounding?',options:['105.00','110.00','110.25'],answer:2,explanation:'FV = 100 × (1.05)² = 110.25。110 是没有把第一年利息继续计息的简单利息结果。',vocab:['future value','annually','compounding']},
+ {id:'q-quant-2',topic:'quant',stem:'一年后收到 110 元，折现率 10%，今天的现值是多少？',en:'What is the present value of 110 received in one year at a discount rate of 10%?',options:['100','110','121'],answer:0,explanation:'PV = 110 / 1.10 = 100。向今天折现用除法；再乘 1.10 是向未来复利。',vocab:['present value','received','discount rate']},
+ {id:'q-quant-3',topic:'quant',stem:'数值 2、4、6 的算术平均数是多少？',en:'What is the arithmetic mean of 2, 4 and 6?',options:['3','4','6'],answer:1,explanation:'算术平均数 = (2 + 4 + 6) / 3 = 4。先求和，再除以观察值数量。',vocab:['arithmetic mean','observation']},
+ {id:'q-quant-4',topic:'quant',stem:'利率从 4% 升到 5%，上升多少个基点？',en:'An interest rate rises from 4% to 5%. The increase in basis points is:',options:['1 bp','10 bp','100 bp'],answer:2,explanation:'变化为 1 个百分点；1 个百分点 = 100 个基点。相对涨幅则为 25%，这三个概念不可混淆。',vocab:['basis point','percentage point','increase']},
+ {id:'q-economics-1',topic:'economics',stem:'其他条件不变，需求增加、供给不变，均衡价格通常如何变化？',en:'Holding supply constant, an increase in demand most likely causes the equilibrium price to:',options:['上升（Increase）','下降（Decrease）','必然不变（Remain unchanged）'],answer:0,explanation:'需求曲线向右移而供给不变时，在通常向上倾斜的供给曲线下，均衡价格与数量会上升。注意这不同于因价格变化而沿需求曲线移动。',vocab:['holding constant','demand','equilibrium price']},
+ {id:'q-economics-2',topic:'economics',stem:'名义收益率 6%，通胀率 2%。实际收益率的近似值是多少？',en:'The nominal return is 6% and inflation is 2%. The approximate real return is:',options:['2%','4%','8%'],answer:1,explanation:'近似实际收益 = 6% − 2% = 4%；精确值为 1.06 / 1.02 − 1 ≈ 3.92%。题干已说明 approximate。',vocab:['nominal','inflation','approximate']},
+ {id:'q-fsa-1',topic:'fsa',stem:'公司资产 500，负债 300。所有者权益是多少？',en:'A company has assets of 500 and liabilities of 300. Its equity is:',options:['200','300','800'],answer:0,explanation:'资产 = 负债 + 权益，因此权益 = 500 − 300 = 200。不是把资产与负债相加。',vocab:['assets','liabilities','equity']},
+ {id:'q-fsa-2',topic:'fsa',stem:'收入 100，销售成本 60。毛利率是多少？',en:'Revenue is 100 and cost of goods sold is 60. The gross profit margin is:',options:['40%','60%','66.7%'],answer:0,explanation:'毛利润 = 100 − 60 = 40，毛利率 = 40 / 100 = 40%。分母是收入，而不是销售成本。',vocab:['revenue','cost of goods sold','gross profit margin']},
+ {id:'q-fsa-3',topic:'fsa',stem:'流动资产 120，流动负债 80。流动比率是多少？',en:'Current assets are 120 and current liabilities are 80. The current ratio is:',options:['0.67','1.50','40.00'],answer:1,explanation:'流动比率 = 流动资产 / 流动负债 = 120 / 80 = 1.5。两者之差 40 是金额，不是比率。',vocab:['current assets','current liabilities','ratio']},
+ {id:'q-fsa-4',topic:'fsa',stem:'公司今天赊销商品，符合收入确认条件，但客户下月付款。哪项最合理？',en:'A credit sale meets revenue recognition criteria today, but cash will be collected next month. Which statement is most likely correct?',options:['今天确认收入就意味着今天收到现金（Revenue means immediate cash）','今天可能确认收入和应收款，却没有该笔现金流入（Revenue and a receivable without immediate cash）','下月前一定不能确认收入（No revenue can ever be recognized before cash）'],answer:1,explanation:'权责发生制可在满足条件时先确认收入和应收账款，现金以后才收到。因此利润与现金流不同。',vocab:['credit sale','receivable','recognition']},
+ {id:'q-corporate-1',topic:'corporate',stem:'项目今天投入 100，一年后得到 110，折现率 5%。NPV 最接近多少？',en:'A project costs 100 today and pays 110 in one year. At a 5% discount rate, the NPV is closest to:',options:['−4.76','4.76','10.00'],answer:1,explanation:'NPV = 110 / 1.05 − 100 ≈ 4.76。10 是未折现的金额差，不是净现值。',vocab:['costs today','NPV','closest to']},
+ {id:'q-corporate-2',topic:'corporate',stem:'其他条件相同、估计合理时，正 NPV 项目通常会怎样？',en:'All else equal, a positive-NPV project is expected to:',options:['增加公司价值（Add value）','减少公司价值（Destroy value）','保证未来没有风险（Eliminate all future risk）'],answer:0,explanation:'正 NPV 表示按适当折现率计，预期现金流的现值超过投入，因此预期增加价值。它不保证现金流一定实现。',vocab:['positive','expected','all else equal']},
+ {id:'q-corporate-3',topic:'corporate',stem:'公司治理的重要作用之一是什么？',en:'One important purpose of corporate governance is to:',options:['保证股价永远上涨（Guarantee a rising stock price）','减少管理层与所有者之间的代理冲突（Reduce agency conflicts）','消除所有商业风险（Remove all business risk）'],answer:1,explanation:'治理通过监督、激励和责任安排减少代理冲突，但无法保证盈利或消除所有风险。',vocab:['governance','agency conflict','purpose']},
+ {id:'q-equity-1',topic:'equity',stem:'股价 30，每股收益 3。市盈率是多少？',en:'A share price is 30 and earnings per share are 3. The P/E ratio is:',options:['0.1 倍','10 倍','90 倍'],answer:1,explanation:'P/E = 股价 / 每股收益 = 30 / 3 = 10。需要确认价格和收益使用一致的每股口径。',vocab:['share price','earnings per share','P/E']},
+ {id:'q-equity-2',topic:'equity',stem:'下一年股利为 2，要求回报率 10%，永久增长率 2%。固定增长模型估值是多少？',en:'Next year’s dividend is 2, required return is 10% and constant growth is 2%. The stock value is:',options:['16.67','20.00','25.00'],answer:2,explanation:'V₀ = D₁ / (r − g) = 2 / (0.10 − 0.02) = 25。注意给的是下一年股利，且 r > g。',vocab:['next year','required return','constant growth']},
+ {id:'q-equity-3',topic:'equity',stem:'哪种订单设定买入最高价，但可能无法成交？',en:'Which buy order sets a maximum purchase price but may not be executed?',options:['市价单（Market order）','限价单（Limit order）','任何订单都保证成交（Any order guarantees execution）'],answer:1,explanation:'限价买单要求按指定价格或更低价格买入，市场不满足价格等条件时可能不成交；市价单不保证价格。',vocab:['maximum','executed','limit order']},
+ {id:'q-fixed-1',topic:'fixed',stem:'其他条件不变，固定利率债券的市场要求收益率上升，价格通常怎样？',en:'All else equal, if the required yield on a fixed-rate bond rises, its price most likely:',options:['上升（Increases）','下降（Decreases）','一定等于面值（Equals face value）'],answer:1,explanation:'债券现金流不变时，更高折现率使现金流现值更低，因此价格下降。',vocab:['fixed-rate bond','required yield','all else equal']},
+ {id:'q-fixed-2',topic:'fixed',stem:'面值 1,000 的债券，年票息率 5%。每年票息金额是多少？',en:'A bond has a face value of 1,000 and an annual coupon rate of 5%. Its annual coupon is:',options:['5','50','100'],answer:1,explanation:'票息金额 = 面值 × 票息率 = 1,000 × 0.05 = 50。票息率以面值为基数，不是当前市价。',vocab:['face value','annual coupon rate','coupon']},
+ {id:'q-fixed-3',topic:'fixed',stem:'修正久期为 3，收益率上升 100 个基点。忽略凸性，价格大约变化多少？',en:'A bond’s modified duration is 3. If yield rises by 100 basis points, its approximate price change, ignoring convexity, is:',options:['上涨 3%','下跌 3%','下跌 300%'],answer:1,explanation:'ΔP/P ≈ −3 × 0.01 = −3%。100bp = 0.01；不要把 1% 当成数值 1 代入。',vocab:['modified duration','basis points','ignoring convexity']},
+ {id:'q-fixed-4',topic:'fixed',stem:'一年后支付本金 1,000 和票息 50，要求收益率为 10%。今天价格最接近多少？',en:'A bond pays 1,000 principal plus 50 coupon in one year. At a 10% required yield, its price is closest to:',options:['954.55','1,000.00','1,155.00'],answer:0,explanation:'一年后总现金流为 1,050；价格 = 1,050 / 1.10 ≈ 954.55。票息率 5% 低于要求收益率 10%，折价交易方向也符合。',vocab:['principal','coupon','required yield']},
+ {id:'q-derivatives-1',topic:'derivatives',stem:'看涨期权买方通常拥有什么？',en:'The buyer of a call option has:',options:['按约定价格买入标的的权利（The right to buy）','按约定价格卖出标的的权利（The right to sell）','必须购买标的的无条件义务（An unconditional obligation to buy）'],answer:0,explanation:'Call 对应买入权，put 对应卖出权；买方是权利而非必须行权的义务。',vocab:['buyer','call option','right']},
+ {id:'q-derivatives-2',topic:'derivatives',stem:'看涨期权执行价 100，到期股价 120，权利金 5。忽略资金时间价值，买方利润是多少？',en:'A call has strike 100, stock price at expiry 120 and premium 5. Ignoring time value, the buyer’s profit is:',options:['5','15','20'],answer:1,explanation:'到期收益 max(120 − 100, 0) = 20；利润 = 20 − 5 = 15。题干问利润而不是到期收益。',vocab:['strike','premium','profit']},
+ {id:'q-derivatives-3',topic:'derivatives',stem:'看跌期权执行价 100，到期股价 80。到期收益是多少（不扣权利金）？',en:'A put option has strike 100 and stock price at expiry 80. Its payoff, before premium, is:',options:['0','20','80'],answer:1,explanation:'Put 到期收益 = max(K − Sₜ, 0) = max(100 − 80, 0) = 20。是否有净利润还要扣除权利金。',vocab:['put option','payoff','before premium']},
+ {id:'q-alternatives-1',topic:'alternatives',stem:'相对公开交易股票，私募资产常见的特点是？',en:'Compared with publicly traded equities, private assets are often:',options:['流动性更低（Less liquid）','保证不亏损（Guaranteed against losses）','每天都有活跃公开报价（Always actively quoted daily）'],answer:0,explanation:'私募资产常有转让限制、交易不频繁等特点。估值更新不频繁不意味着真实经济风险低。',vocab:['private assets','less liquid','compared with']},
+ {id:'q-alternatives-2',topic:'alternatives',stem:'数据库只保留仍在运营的基金，遗漏已关闭的基金，可能产生什么偏差？',en:'A database includes only funds still operating and excludes closed funds. The likely concern is:',options:['幸存者偏差（Survivorship bias）','所有风险已消失（Risk elimination）','保证样本更有代表性（Guaranteed representativeness）'],answer:0,explanation:'只看幸存基金会忽略退出样本者，尤其当失败基金更易退出时，可能高估历史表现。',vocab:['excludes','closed funds','survivorship bias']},
+ {id:'q-portfolio-1',topic:'portfolio',stem:'组合 60% 配置于预期收益 10% 的资产，40% 配置于预期收益 5% 的资产。期望收益是多少？',en:'A portfolio has 60% in an asset with expected return 10% and 40% in one with expected return 5%. Its expected return is:',options:['6%','8%','15%'],answer:1,explanation:'E(Rₚ) = 0.60 × 10% + 0.40 × 5% = 6% + 2% = 8%。期望值不是保证实际结果。',vocab:['portfolio','weight','expected return']},
+ {id:'q-portfolio-2',topic:'portfolio',stem:'下列关于分散化的说法，哪项最不可能正确？',en:'Which statement about diversification is least likely to be correct?',options:['可以降低部分公司特有风险（Can reduce company-specific risk）','可以消除所有市场风险（Can eliminate all market risk）','效果与资产相关性有关（Depends partly on correlation）'],answer:1,explanation:'least likely 要找错误项。分散化能降低非系统性风险，不能消除整个市场的系统性风险。',vocab:['least likely','diversification','market risk']},
+ {id:'q-portfolio-3',topic:'portfolio',stem:'无风险利率 3%，市场期望收益率 8%，β 为 1.2。CAPM 要求收益率是多少？',en:'The risk-free rate is 3%, expected market return 8% and beta 1.2. The CAPM required return is:',options:['6.0%','9.0%','12.6%'],answer:1,explanation:'3% + 1.2 × (8% − 3%) = 3% + 6% = 9%。β 乘的是市场风险溢价 5%，不是全部市场收益 8%。',vocab:['risk-free rate','beta','market risk premium']}
+];
+
+// Short original lessons: an entry point, not a replacement for exam-year learning outcomes.
+{
+  const teaching = {
+    ethics: {
+      sections:[
+        {title:'先判断义务，再判断收益',body:'伦理题经常把“客户能赚更多”放在诱人的选项里。先不要算收益，要问：信息能否使用？是否诚实？是否公平对待客户？研究有没有合理依据？保护客户利益是一项义务，但不能通过欺骗、操纵市场或利用重大非公开信息来实现。'},
+        {title:'把“重大”和“未公开”分开检查',body:'重大是指理性投资者可能认为这条信息很重要；未公开是指尚未向市场广泛公开传播。两项同时满足时，不能据此交易或建议别人交易。自己知道消息、消息后来可能公开，或者自己认为交易有利于客户，都不能自动解除限制。'},
+        {title:'披露是步骤，不是万能通行证',body:'分析师持股、接受礼物或收取介绍费，可能影响独立判断。题目要看冲突性质、相关限制和充分披露要求。不要把“已经披露”理解为任何行为都可以；有些行为需要拒绝、停止或采取隔离措施。回到具体义务和事实判断。'}
+      ],
+      pitfalls:['把“客户优先”理解为可以利用任何消息交易。','看到“披露”就直接选，不检查行为本身是否仍被禁止。'],
+      selfCheck:{prompt:'你在公开财报发布前收到公司内部邮件，称主要客户已取消一笔足以影响利润的大订单。你没有持股，但客户持股。应该如何判断能否建议卖出？',answer:'① 判断影响：大订单取消可能显著影响投资决策，具有重大性。② 判断公开程度：内部邮件尚未公开。③ 两项同时成立，不能据此建议客户卖出，也不能向他人传递消息诱导交易。④ 依公司合规程序限制信息使用；不因“我是为客户好”改变判断。'}
+    },
+    quant: {
+      sections:[
+        {title:'先学会把百分数换成小数',body:'5% 表示每 100 份中的 5 份，放进乘法公式时写 0.05。100 元上涨 5%，增加 100 × 0.05 = 5 元，总额是 100 × 1.05 = 105 元。金额、收益率和时间是三个不同的量，计算前在纸上分别标注，能减少很多看似粗心的错误。'},
+        {title:'现值与终值，只是沿时间线走向不同',body:'今天的钱按利率增长到未来，叫求终值，用乘法；未来的钱换算成今天，叫求现值，用除法。复利表示第一期利息也进入下一期本金。年利率要配年数，月利率要配月数；如果题目给名义年利率和复利次数，还要先换算每期利率。'},
+        {title:'平均收益与波动讲的是两件事',body:'平均数描述数据中心，标准差描述数据分散程度。两组投资可能平均收益相同，却一组每年很稳定，另一组大涨大跌。期望收益则按各结果的概率加权，表示模型中的平均结果，并不保证现实一定实现。看到概率时先检查合计是否为 100%。'}
+      ],
+      pitfalls:['把 5% 当成数字 5 代入，或把月数直接配年利率。','把“期望收益 8%”理解成投资者一定能获得 8%。'],
+      selfCheck:{prompt:'今天存入 200 元，年复利 10%，两年后取出。请先解释第一年、第二年各发生什么，再求终值。',answer:'① 第一年利息 = 200 × 0.10 = 20，年末本金加利息为 220。② 第二年按 220 计息，利息 = 22。③ 两年终值 = 242。也可写 200 × 1.10² = 242。若只得到 240，说明漏算了第一年利息的再投资。'}
+    },
+    economics: {
+      sections:[
+        {title:'沿曲线移动与整条曲线移动',body:'同一种商品因为价格下降而多卖一些，通常是沿需求曲线移动；消费者收入、偏好等其他条件改变，可能让整条需求曲线移动。做题先问“发生变化的是什么”。如果供给曲线正常向上倾斜且不变，需求向右移通常使均衡价格与数量都提高。'},
+        {title:'名义增长不等于购买力增长',body:'银行账户多了钱，叫名义金额增长；如果商品价格也上涨，能买到的东西未必增加同样多。实际收益率调整了通胀。小幅利率下，可以用名义收益减通胀近似；更精确的关系是实际增长因子 = 名义增长因子 / 价格增长因子。'},
+        {title:'读汇率时先写“买什么，花什么”',body:'如果报价为每 1 美元需要多少人民币，例如 1 USD = 7 CNY，数字升到 7.2，表示同一美元要花更多人民币：美元相对人民币升值，人民币相对美元贬值。不要单独背“汇率上涨等于升值”，因为交换报价方向后，数字变化的解释会反过来。'}
+      ],
+      pitfalls:['把商品自身价格变化误写成需求曲线整体移动。','只看到汇率数字上涨，就认定两种货币都“升值”。'],
+      selfCheck:{prompt:'某投资一年名义增长 5%，同年价格水平上涨 3%。100 元投资一年后为 105 元；按年初购买力计算，实际价值和实际收益率是多少？',answer:'① 把 105 元按价格增长因子 1.03 折回年初购买力：105 / 1.03 ≈ 101.94 元。② 实际收益率 = 101.94 / 100 − 1 ≈ 1.94%。③ 用近似法 5% − 3% = 2% 也能快速检查方向，但不是精确值。'}
+    },
+    fsa: {
+      sections:[
+        {title:'资产负债表像一张时点照片',body:'资产是公司控制的资源；负债是公司承担的义务；权益是扣除负债后属于所有者的剩余部分。向银行借入现金时，现金资产增加，借款负债也增加，权益不会因为借钱而自动增加。记住等式必须保持平衡，比先背很多账户名称更有帮助。'},
+        {title:'利润表与现金流量表记录不同内容',body:'利润表按收入与费用的确认规则衡量一个期间的经营成果；现金流量表追踪实际现金进出。赊销可能先形成收入和应收款，现金尚未收到；购买设备可能今天付出现金，但成本通过未来折旧逐步进入费用。因此利润高不自动说明现金充足。'},
+        {title:'比率是提问工具，不是最终结论',body:'流动比率帮助观察短期偿债资源，毛利率帮助观察收入扣除销售成本后的空间。但数字变化要结合原因：库存积压也可能推高流动资产，价格上涨或产品结构变化都可能影响毛利率。先确认口径，再比较同业与历史，最后追问经济原因。'}
+      ],
+      pitfalls:['把银行借款当成营业收入，或把股东投入当成利润。','只看到流动比率高就认定公司一定健康，不看存货质量和现金。'],
+      selfCheck:{prompt:'一家新公司先由股东投入现金 80，再向银行借款 20，目前尚未经营。资产、负债、权益和营业收入分别是多少？',answer:'① 现金资产 = 80 + 20 = 100。② 借款负债 = 20。③ 所有者权益 = 80。④ 资产 100 = 负债 20 + 权益 80，等式平衡。⑤ 两笔都是融资活动，不是销售商品或服务，营业收入仍为 0。'}
+    },
+    corporate: {
+      sections:[
+        {title:'股东、债权人与管理层的关注点',body:'债权人关注公司能否按约定还本付息，股东取得偿债等义务之后的剩余回报，管理层负责日常经营。三者的利益可能不同。治理制度用董事会监督、激励安排和信息披露等方式减少冲突，帮助决策，但不会消除商业上的不确定性。'},
+        {title:'投资项目看新增现金流和时间',body:'项目今天花钱、以后收钱，不能直接比较名义总额。先识别项目带来的增量现金流，再按适当要求回报率折成今天的金额，扣除投入得到 NPV。已经发生且无法收回的沉没成本，不应因“已经花了很多”而影响未来是否继续投资的判断。'},
+        {title:'利润很好也可能缺现金',body:'公司买库存、赊销给客户，却要较早付供应商和工资，中间就需要融资。营运资本管理关注钱被库存和应收款占用多久，以及应付款能提供多久的支持。延迟收款可能推动账面销售增长，却同时让现金更紧张，分析时要把经营流程串起来。'}
+      ],
+      pitfalls:['把项目未折现的收入减支出当成 NPV。','因为已投入很多不可收回的钱，就继续接受未来负价值的决策。'],
+      selfCheck:{prompt:'一个项目今天需要投入 90，一年后预计收到 100，适当折现率为 10%。计算 NPV，并解释是否等于“保证赚 10”。',answer:'① 未来现金流现值 = 100 / 1.10 ≈ 90.91。② NPV = 90.91 − 90 ≈ 0.91，为正。③ 在这些估计与折现率合理的前提下，项目预期增加约 0.91 的现值。④ 现金流只是预计，且名义差额 10 没有扣除资金时间成本，不能说保证赚 10。'}
+    },
+    equity: {
+      sections:[
+        {title:'买股票是买一份剩余权利',body:'普通股代表公司所有权的一部分。公司未来赚钱、分红或资产价值增加，股东可能受益；经营失败时也可能损失。股利不是公司必须像债息一样支付的承诺。股票价格是市场交易形成的数字，估计价值则来自现金流、风险和增长等假设，两者可能不同。'},
+        {title:'订单在价格和成交之间作取舍',body:'市价单通常追求尽快按市场可得价格成交，但快速波动或流动性不足时，成交价可能偏离你看到的报价。限价买单给出最高愿付价，限价卖单给出最低愿收价；有价格保护，却可能一直无法成交。看到 guarantee 要格外谨慎。'},
+        {title:'估值公式背后都有条件',body:'P/E 用每股价格除以每股收益，比较时要区分历史收益与预期收益，并注意负利润时指标的局限。固定增长股利贴现模型把未来股利折现，假设增长长期稳定且要求回报率大于增长率。公式算得再精确，也无法修复不合理的输入假设。'}
+      ],
+      pitfalls:['把股票分红当作无条件固定债息，或把高历史收益当作未来保证。','在固定增长模型里误用当期股利 D₀，或忽视 r 必须大于 g。'],
+      selfCheck:{prompt:'某股刚支付股利 D₀ = 1.50，预计以后每年增长 4%，要求回报率为 12%。用固定增长模型求估值。',answer:'① 模型要用下一期股利：D₁ = 1.50 × 1.04 = 1.56。② 检查 r = 12% 大于 g = 4%。③ 估值 = 1.56 / (0.12 − 0.04) = 19.50。④ 若直接用 1.50 除以 0.08，会漏掉下一期股利增长。'}
+    },
+    fixed: {
+      sections:[
+        {title:'先画现金流，再给债券定价',body:'普通固定利率债券可以理解为未来几笔现金：每期票息，到期再加本金。票息金额由面值与票息率决定，不会因为交易价格每天变化而自动变化。价格则等于这些现金流按市场要求收益率折现的总和；如存在违约等风险，简单承诺现金流模型有局限。'},
+        {title:'票息率与收益率不是一回事',body:'一张面值 100、每年付息 5 的债券，票息率是 5%。如果你用 95 买入，单看当年票息除以价格，当前收益率为 5 / 95；但到期收益率还需要考虑到期收回本金的价格差、剩余时间和全部现金流。题目问哪种率，就计算哪种率。'},
+        {title:'久期先帮助判断利率变化的影响',body:'在其他条件相同的普通固定现金流债券中，收益率上升通常使价格下降。修正久期可以把小幅收益率变动近似换成价格百分比变化，前面要有负号。变动较大时凸性等因素更重要；含期权债券的行为也可能不同，不要把简化规则套到所有产品。'}
+      ],
+      pitfalls:['混淆票息率、当前收益率和到期收益率。','久期计算忘记负号，或把 50 个基点写成 0.50。'],
+      selfCheck:{prompt:'某普通债券修正久期 5，其他条件不变，收益率下降 50 个基点。忽略凸性，价格预计变化多少？',answer:'① 50 个基点 = 0.50 个百分点 = 0.005，下降所以 Δy = −0.005。② ΔP/P ≈ −5 × (−0.005) = +0.025，即约上涨 2.5%。③ 用“收益率下降、价格上涨”的方向关系检查符号。④ 这是近似，不是精确报价。'}
+    },
+    derivatives: {
+      sections:[
+        {title:'先辨认谁有权利、谁有义务',body:'远期合约约定双方未来按条件交易，双方通常都有履约义务。期权不同：买方支付权利金，取得是否行权的选择权；如果行权不利，可以放弃。期权卖方收取权利金，却在对方行权时承担相应义务。不要只背名字，要把双方现金流分别写出。'},
+        {title:'Call 买入权，put 卖出权',body:'看涨期权让买方有权按执行价买入标的，标的上涨时这种权利通常更有价值；看跌期权让买方有权按执行价卖出，标的下跌时通常更有价值。到期只比较标的价格与执行价，先求非负的到期收益，再考虑买入权利金，得到利润。'},
+        {title:'套期保值是改变风险结构',body:'企业担心未来采购价格上涨，可以使用适当衍生品管理风险。但合约数量、到期时间、标的与真实需求未必完全匹配，还可能有交易对手、保证金和流动性问题。因此“使用衍生品就没有风险”是错误直觉；杠杆还可能放大不利变动。'}
+      ],
+      pitfalls:['把看涨期权买方的权利误写为必须买入的义务。','题目问利润却只算到期收益，漏扣权利金。'],
+      selfCheck:{prompt:'你花 3 买入看跌期权，执行价 50。到期标的价格为 42，忽略资金时间价值。是否行权？到期收益与利润各多少？',answer:'① 有权用 50 卖出市场上值 42 的标的，行权有利。② 到期收益 = max(50 − 42, 0) = 8。③ 买方利润 = 8 − 3 = 5。④ 8 是合约到期收益，5 才是扣初始权利金后的利润；二者不能互换。'}
+    },
+    alternatives: {
+      sections:[
+        {title:'“另类”包括很多不同东西',body:'私募股权、房地产、商品和基础设施的现金流来源与风险并不相同，有的依赖企业退出，有的依赖租金或使用费。即使归为同一大类，杠杆、期限、法律结构和管理方式也可能差异很大。先理解投资者怎样投入、怎样退出、靠什么获得收益。'},
+        {title:'少报价不代表价值不波动',body:'公开股票每天交易，价格变动容易看到；私募资产可能只定期估值，报告值看起来平滑。经济状况仍在变化，交易不频繁还可能使退出更困难。分析风险时要把流动性、估值方法和数据滞后放在一起，不能仅凭报告波动低就认定风险低。'},
+        {title:'先核对费用基础和样本偏差',body:'管理费可能按承诺资本、资产规模或其他基础收取，业绩报酬也可能受门槛和高水位线影响。不能看到“2 和 20”就机械地从收益减 22%。历史数据库还可能漏掉倒闭基金，或事后补录表现较好的记录，从而使回报看起来偏高。'}
+      ],
+      pitfalls:['把“交易少、报告价格平稳”理解为风险必然小。','忽略费用的计费基础，直接把管理费率和业绩费率相加。'],
+      selfCheck:{prompt:'一个简化例子：年初投资 100，费用前盈利 10；管理费按年初金额的 1% 收取，无业绩报酬及其他费用。投资者净收益率是多少？',answer:'① 费用前期末金额为 110。② 管理费 = 100 × 1% = 1。③ 净盈利 = 10 − 1 = 9，净收益率 = 9 / 100 = 9%。④ 真实基金可能用不同计费基础；这里之所以可以直接相减，是题目已明确按同一个年初金额计算。'}
+    },
+    portfolio: {
+      sections:[
+        {title:'组合收益率用资金权重连接起来',body:'如果一半钱放在资产 A，一半放在 B，组合收益由两部分共同贡献。预期收益可以按权重加权平均；但组合波动通常不能把标准差直接加权，因为两项资产是否同涨同跌也影响风险。计算时先检查权重是否用小数表示，是否合计为 1。'},
+        {title:'分散化不能让市场整体风险消失',body:'只持有一家公司的股票，容易受该公司事故影响；持有许多不同公司的股票，部分公司特有的好坏消息可以相互抵消。但经济衰退等冲击可能同时影响大量资产，这部分系统性风险仍存在。分散效果还取决于相关性，而不是仅仅数一数持有多少项资产。'},
+        {title:'先了解投资者，再选择组合',body:'投资目标不只是“收益越高越好”。需要确认愿意和能够承担多大损失、何时要用钱、是否有税务法律等限制。年轻不自动等于能够承担高风险，短期必需资金也不宜只追求长期高回报。投资政策说明书把目标与约束记录下来，指导后续选择。'}
+      ],
+      pitfalls:['把组合标准差当成各资产标准差的简单加权平均。','以为多买几只高度相关股票，就能消除所有风险。'],
+      selfCheck:{prompt:'组合有 25% 资金放在预期收益 12% 的资产，75% 放在预期收益 4% 的资产。预期收益是多少？能否据此确定组合标准差？',answer:'① 权重和 = 0.25 + 0.75 = 1。② 预期收益 = 0.25 × 12% + 0.75 × 4% = 3% + 3% = 6%。③ 无法仅凭这些数据确定标准差，还需要各资产波动及相关性等信息。④ 6% 是期望值，不是下一年保证回报。'}
+    }
+  };
+  window.STUDY_DATA.topics.forEach(topic => Object.assign(topic,teaching[topic.id]));
+  window.STUDY_DATA.methodsSources = [
+    {title:'Dunlosky et al. (2013) · Improving Students’ Learning With Effective Learning Techniques',url:'https://doi.org/10.1177/1529100612453266',note:'关于练习测试、分散练习等技术的综述。一般学习研究不等于 CFA 二十天通过保证；本环境未联网核验文献。',verified:false},
+    {title:'Roediger & Karpicke (2006) · Test-Enhanced Learning',url:'https://doi.org/10.1111/j.1467-9280.2006.01693.x',note:'关于提取练习与长期保持的研究。1 / 3 / 7 天是本站可执行的起始节奏，不是适用于每个人的最优间隔；本环境未联网核验文献。',verified:false}
+  ];
+}
+
+;
+/* No account, tracking, CDN, or remote requests. All learning data stays in this browser. */
+(() => {
+  'use strict';
+  const D = window.STUDY_DATA;
+  const KEY = 'shiji-cfa-v1';
+  const $ = (s, p = document) => p.querySelector(s);
+  const $$ = (s, p = document) => [...p.querySelectorAll(s)];
+  const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const icon = (name, cls = '') => `<svg class="icon ${cls}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+  const DAY = 86400000;
+  const fmtDate = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'});
+  const today = () => { const p=fmtDate.formatToParts(new Date());return ['year','month','day'].map(k=>p.find(x=>x.type===k).value).join('-'); };
+  const stamp = s => Date.parse(s+'T00:00:00Z');
+  const addDays = (s,n) => new Date(stamp(s)+n*DAY).toISOString().slice(0,10);
+  const validDate = s => typeof s==='string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && Number.isFinite(stamp(s)) && new Date(stamp(s)).toISOString().slice(0,10)===s;
+  const shortDate = s => `${Number(s.slice(5,7))} 月 ${Number(s.slice(8,10))} 日`;
+  const defaults = () => ({version:1,examDate:'2026-11-11',hours:4,tasks:{},attempts:[],vocab:{},questionReview:{},notes:{},questionNotes:{},reviewed:{}});
+  let storageOK = true;
+  let state = defaults();
+  function normalize(raw) {
+    if (!raw || typeof raw!=='object' || raw.version!==1) throw new Error('不支持的备份格式');
+    const base=defaults();
+    if (!validDate(raw.examDate) || ![2,4,6].includes(Number(raw.hours))) throw new Error('考试日期或学习时间格式不正确');
+    base.examDate=raw.examDate;base.hours=Number(raw.hours);
+    const record = v => v && typeof v==='object' && !Array.isArray(v) ? v : {};
+    const taskIds=new Set(D.days.flatMap(d=>d.tasks.map(t=>t.id)));
+    for(const [day,value] of Object.entries(record(raw.tasks))) if(validDate(day) && Array.isArray(value)) base.tasks[day]=[...new Set(value.filter(x=>taskIds.has(x)))].slice(0,60);
+    const ids = new Set((D?.questions||[]).map(q=>q.id));
+    base.attempts=(Array.isArray(raw.attempts)?raw.attempts:[]).filter(a=>a && ids.has(a.questionId) && typeof a.correct==='boolean' && Number.isInteger(a.choice) && a.choice>=0 && a.choice<3 && typeof a.at==='string' && Number.isFinite(Date.parse(a.at))).slice(-2000).map(a=>({questionId:a.questionId,correct:a.correct,choice:a.choice,at:a.at,cause:['concept','english','calculation','careless'].includes(a.cause)?a.cause:null}));
+    for(const kind of ['vocab','questionReview']) {
+      const validIds=new Set((kind==='vocab'?D.vocabulary:D.questions).map(x=>x.id));
+      for(const [id,r] of Object.entries(record(raw[kind]))) if(validIds.has(id) && r && validDate(r.due)) base[kind][id]={due:r.due,reps:Math.max(0,Math.min(10,Number(r.reps)||0)),last:validDate(r.last)?r.last:today()};
+    }
+    for(const kind of ['notes','questionNotes']) for(const [id,note] of Object.entries(record(raw[kind]))) if(typeof note==='string' && (kind==='notes'?D.topics.some(t=>t.id===id):ids.has(id))) base[kind][id]=note.slice(0,10000);
+    for(const [id,r] of Object.entries(record(raw.reviewed))) if(D.topics.some(t=>t.id===id) && r && validDate(r.due)) base.reviewed[id]={due:r.due,last:validDate(r.last)?r.last:today(),reps:Math.max(1,Math.min(10,Number(r.reps)||1))};
+    return base;
+  }
+  if (!D || !D.topics?.length || !D.days?.length) { $('#main').innerHTML='<div class="card empty-state"><h1>学习资料未能加载</h1><p>请确认 index.html、app.js、styles.css 与 study-data.js 放在同一个文件夹，然后重新打开。</p></div>';return; }
+  try { const saved=localStorage.getItem(KEY);if(saved)state=normalize(JSON.parse(saved)); } catch(e) {storageOK=false;}
+  const topic = id => D.topics.find(t=>t.id===id) || D.topics[0];
+  const question = id => D.questions.find(q=>q.id===id);
+  const planStart = () => addDays(state.examDate,-19);
+  const dateForDay = n => addDays(planStart(),n-1);
+  const remaining = () => Math.round((stamp(state.examDate)-stamp(today()))/DAY);
+  const currentDay = () => Math.max(1,Math.min(20,20-remaining()));
+  const tasksFor = n => (state.tasks[dateForDay(n)] || []).filter(id=>D.days[n-1].tasks.some(t=>t.id===id));
+  const completedDays = () => D.days.filter(d=>tasksFor(d.day).length>=d.tasks.length).length;
+  const latest = () => { const map={};for(const a of state.attempts)map[a.questionId]=a;return map; };
+  const wrongIds = () => Object.values(latest()).filter(a=>!a.correct).map(a=>a.questionId);
+  const dueVocab = () => D.vocabulary.filter(v=>state.vocab[v.id]?.due<=today());
+  const dueQuestions = () => D.questions.filter(q=>state.questionReview[q.id]?.due<=today());
+  const dueLessons = () => D.topics.filter(t=>state.reviewed[t.id]?.due<=today());
+  const dueCount = () => dueVocab().length+dueQuestions().length+dueLessons().length;
+  const blocksFor = d => {
+    if(d.day>=19)return d.blocks;
+    if(d.day===16||d.day===17)return d.blocks.map((b,i)=>({...b,minutes:i===1?b.minutes+Math.max(0,state.hours-4)*60:b.minutes}));
+    const target=state.hours*60,total=d.blocks.reduce((sum,b)=>sum+b.minutes,0);
+    let used=0;
+    return d.blocks.map((b,i)=>{const minutes=i===d.blocks.length-1?target-used:Math.round(b.minutes/total*target);used+=minutes;return {...b,minutes};});
+  };
+  const minutesFor = d => blocksFor(d).reduce((sum,b)=>sum+b.minutes,0);
+  const hoursLabel = d => {const m=minutesFor(d);return m%60===0 ? `${m/60} 小时`:`${Math.floor(m/60)} 小时 ${m%60} 分钟`;};
+  let currentPage='today', activeTopic=null, topicFilter='all', vocabFilter='all', englishTab='words', vocabSearch='', knowledgeSearch='';
+  let revealed=new Set(), quiz=null, toastId=null, noteTimer=null;
+  const timer={seconds:1500,running:false,end:0,interval:null,minutes:25};
+  function toast(message) { $('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(toastId);toastId=setTimeout(()=>$('#toast').classList.remove('visible'),3500); }
+  function save() {try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){storageOK=false;toast('浏览器未能保存进度，请到学习设置导出备份。');}updateNav();}
+  function updateNav() { $$('#navigation a').forEach(a=>{const active=a.dataset.nav===currentPage;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});$('#wrong-dot').hidden=!wrongIds().length; }
+  const btn = (text,action,style='primary-btn',extra='',ic='arrow') => `<button class="${style}" data-action="${action}" ${extra}>${esc(text)}${ic?icon(ic):''}</button>`;
+  function heading(title,sub,eyebrow='YOUR PERSONAL STUDY SPACE',action='focus') {return `<div class="page-heading"><div><div class="eyebrow">${eyebrow}</div><h1>${title}</h1><p>${sub}</p></div>${action==='focus'?btn(timer.running?'正在专注':'专注 25 分钟','focus','outline-btn','', 'clock'):btn('学习设置','settings','outline-btn','','settings')}</div>`;}
+  function empty(title,text,action,textButton) {return `<div class="card empty-state">${icon('leaf')}<h3>${title}</h3><p>${text}</p>${action?btn(textButton,action):''}</div>`;}
+  function tasksHTML(d,compact=false) {
+    const completed=tasksFor(d.day);
+    return d.tasks.map((t,i)=>`<label class="task ${completed.includes(t.id)?'done':''}"><input type="checkbox" data-task="${t.id}" data-day="${d.day}" ${completed.includes(t.id)?'checked':''}><span class="task-copy"><span class="task-title">${esc(t.text)}</span>${!compact?`<span class="task-detail">${['先独立尝试，再对照材料','理解之后，用一个例子检验','合上材料，回忆并复述'][i]}</span>`:''}</span><span class="duration-pill">${String(i+1).padStart(2,'0')}</span></label>`).join('');
+  }
+  function topicCard(t) {const seen=!!state.reviewed[t.id];return `<button class="card topic-card" data-action="topic" data-id="${t.id}"><div class="topic-card-top"><span class="topic-emoji">${icon(t.id==='ethics'?'leaf':t.id==='fsa'?'book':'target')}</span><span class="topic-weight">参考权重 ${t.weight}</span></div><h3>${esc(t.name)}</h3><div class="english-name">${esc(t.en)}</div><p>${esc(t.description)}</p><div class="topic-card-bottom"><span>${seen?'已学 · 等待回忆复习':'基础入门 · 中文讲解'}</span>${icon('arrow')}</div></button>`;}
+  function adjustmentHTML() {
+    const wrong=Object.values(latest()).filter(a=>!a.correct);
+    if(!wrong.length)return '';
+    const topicCounts={},causeCounts={};for(const a of wrong){const id=question(a.questionId).topic;topicCounts[id]=(topicCounts[id]||0)+1;if(a.cause)causeCounts[a.cause]=(causeCounts[a.cause]||0)+1;}
+    const weak=Object.entries(topicCounts).sort((a,b)=>b[1]-a[1]||topic(b[0]).max-topic(a[0]).max)[0][0];
+    const cause=Object.entries(causeCounts).sort((a,b)=>b[1]-a[1])[0]?.[0];
+    const instruction=({english:'先圈 most / least / except 和单位，逐句对照中文，再遮住中文重读。',calculation:'先写已知量、百分号与时间单位，用一个小数字例子检查，再重新计算。',careless:'慢下来圈出题目的限定词和所问变量，讲明白为什么另外两项不对。',concept:'先回看一个基础例子，合上材料用中文复述，再独立重做。'})[cause||'concept'];
+    return `<section class="card adjustment"><div><div class="eyebrow">YOUR NEXT SMALL STEP</div><h3>接下来 20 分钟，先补${esc(topic(weak).name)}。</h3><p>${instruction}</p><span>依据目前 ${wrong.length} 道未修复基础错题，样本有限，仅作补漏建议；不替你跳过其他科目。</span></div>${btn('回到这个概念','topic','light-btn',`data-id="${weak}"`,'arrow')}</section>`;
+  }
+  function todayPage() {
+    const n=currentDay(),d=D.days[n-1],done=tasksFor(n).length,word=D.vocabulary[(n-1)%D.vocabulary.length],count=remaining(),phase=n<=6?1:n<=15?2:3;
+    const total=Object.keys(latest()).length,uniqueCorrect=Object.values(latest()).filter(a=>a.correct).length;
+    let dateNotice='';
+    if(count<0)dateNotice=`<div class="notice">${icon('info')}<span>设置中的考试日期已过去。你仍可使用资料和练习，或在学习设置中更新日期。</span></div>`;
+    if(count>19)dateNotice=`<div class="notice green">${icon('info')}<span>20 天路线将于 ${shortDate(planStart())} 开始。现在可提前打基础，完成记录按计划日期保存。</span></div>`;
+    return `${heading(n===20&&count===0?'今天，稳稳地去考试。':'给努力一个清晰的方向',`每天 ${state.hours} 小时，中文理解 + 英文识题，一步一步建立信心。`,'HELLO, FUTURE CANDIDATE')}${!storageOK?'<div class="notice">浏览器本地存储不可用或旧数据读取失败，请定期在学习设置中导出备份。</div>':''}${dateNotice}
+    <section class="hero" aria-label="考试倒计时"><div class="hero-copy"><div class="eyebrow">CFA LEVEL I · YOUR 20-DAY JOURNEY</div><h2>把每一天，<br>学得更有底。</h2><p>不必一次弄懂所有知识。<br>从一个概念、一道题、一个英文词开始。</p><div class="hero-tags"><span class="hero-pill">${icon('leaf')}基础友好 · 中文搭桥</span><span>${icon('clock')}每天 ${state.hours} 小时</span><span>${icon('calendar')}${shortDate(state.examDate)} 考试</span></div></div><div class="countdown"><div class="countdown-copy">你的下一站<strong>CFA 一级考试</strong>坚持的每一步，都算数</div><div class="countdown-ring"><svg viewBox="0 0 148 148" aria-hidden="true"><circle class="ring-base" cx="74" cy="74" r="66"/><circle class="ring-fill" cx="74" cy="74" r="66" style="stroke-dashoffset:${414.7*(1-Math.min(1,Math.max(0,20-count)/20))}"/></svg><div class="ring-center"><small>${count===0?'就在今天':count<0?'考试已过':'距离考试还有'}</small><span class="ring-number">${Math.abs(count)}<em>天</em></span><span>一步一步，向前走</span></div></div></div></section>
+    <section class="stats-grid" aria-label="学习概况"><div class="stat"><div class="stat-icon">${icon('check')}</div><div><div class="stat-label">今日任务</div><div class="stat-value">${done}<span class="sub-value"> / ${d.tasks.length}</span></div><div class="stat-hint">完成一点，积累一点</div></div></div><div class="stat"><div class="stat-icon">${icon('clock')}</div><div><div class="stat-label">今日计划时长</div><div class="stat-value">${Math.round(minutesFor(d)/60*10)/10}<small>小时</small></div><div class="stat-hint">${n>=19?'考前减量，给大脑恢复':'含英语、伦理与错题复盘'}</div></div></div><div class="stat"><div class="stat-icon">${icon('refresh')}</div><div><div class="stat-label">到期复习</div><div class="stat-value">${dueCount()}<small>项</small></div><div class="stat-hint">间隔 1 / 3 / 7 天巩固记忆</div></div></div><div class="stat"><div class="stat-icon">${icon('target')}</div><div><div class="stat-label">基础题答对</div><div class="stat-value">${uniqueCorrect}<span class="sub-value"> / ${total}</span></div><div class="stat-hint">按每道题最近一次作答统计</div></div></div></section>
+    <div class="dashboard-grid"><section class="card today-card"><div class="card-header"><div><h2 class="section-title">今天，先做好这三件事</h2><p class="card-subtitle">${shortDate(dateForDay(n))} · ${esc(d.focus)}</p></div><span class="day-label">DAY ${String(n).padStart(2,'0')}</span></div><div class="today-topic"><span class="topic-square">${String(n).padStart(2,'0')}</span><div><h3>${esc(d.title)}</h3><p>${d.topics.map(id=>esc(topic(id).name)).join(' · ')}${d.topics.length?' · ':''}${hoursLabel(d)}</p></div></div><div class="task-list">${tasksHTML(d,true)}</div><div class="task-footer"><div class="task-progress"><span class="mini-track"><span style="width:${done/d.tasks.length*100}%"></span></span>${done}/${d.tasks.length} 已完成</div>${btn(done===d.tasks.length?'回顾今日安排':'开始今日学习','start-day','primary-btn',`data-day="${n}"`)}</div></section>
+    <div class="right-column"><section class="card roadmap-card"><div class="card-header"><h2 class="section-title">一条适合你的路线</h2>${btn('全览','go-plan','text-btn','','chevron')}</div><div class="roadmap">${[[1,'01–06','打好地基','基础数学 · 财报 · 核心词'],[2,'07–15','抓住主干','高权重科目 · 混合练习'],[3,'16–20','模拟与收拢','查漏补缺 · 轻复习 · 考试']].map(([p,days,title,desc])=>`<div class="roadmap-step ${phase===p?'current':''}"><span class="step-dot">${p}</span><div><h4>${title}<span>D${days}</span></h4><p>${desc}</p></div></div>`).join('')}</div><div class="roadmap-hint">优先级依据近年科目权重与先修关系，<br>不是押题，也不承诺通过。</div></section><section class="card daily-word"><div class="word-heading"><span>${icon('language')}每天认识一个词</span><span>${String(n).padStart(2,'0')} / 20</span></div><h3 lang="en">${esc(word.en)}</h3><p>${esc(word.zh)}</p><div class="word-example" lang="en">${esc(word.sentence)}</div>${btn('去英语角练一练','go-english','text-btn','','arrow')}</section></div></div>
+    ${dueCount()?`<section class="notice green" style="margin-top:22px;margin-bottom:0">${icon('refresh')}<div>今天有 ${dueVocab().length} 个单词、${dueQuestions().length} 道题和 ${dueLessons().length} 个概念到期。${dueVocab().length?btn('复习单词','due-words','text-btn','','arrow'):''} ${dueQuestions().length?btn('复习题目','review-quiz','text-btn','','arrow'):''} ${dueLessons().length?btn('复习概念','due-lessons','text-btn','','arrow'):''}</div></section>`:''}
+    ${adjustmentHTML()}<section class="recommended"><div class="section-row"><h2>先从这些知识开始<small>理解比死记，更重要</small></h2>${btn('全部 10 个科目','go-knowledge','text-btn','','arrow')}</div><div class="topic-card-grid">${['quant','fsa','ethics'].map(id=>topicCard(topic(id))).join('')}</div></section><p class="bottom-note">${icon('info')}20 天属于压缩冲刺，本站提供入门支架，不能替代完整课程与官方题库。基础题正确率不代表通过概率。优先保睡眠，每天闭卷回忆。</p>`;
+  }
+  function planPage() {
+    const complete=completedDays(),n=currentDay();
+    return `${heading('20 天，每一天都知道做什么。',`${shortDate(planStart())} — ${shortDate(state.examDate)} · 已完成 ${complete} / 20 天 · 默认每天 ${state.hours} 小时`,'A PLAN YOU CAN ACTUALLY FOLLOW','settings')}<div class="notice green">${icon('leaf')}<span>按近年科目权重、先修关系和复习间隔安排。第 16、17 天分节模拟，第 19 天减量，第 20 天考试。每日伦理练习贯穿前 18 天；这是一份可调整的冲刺建议，不是通过保证。</span></div><div class="plan-list">${D.days.map(d=>`${[1,7,16].includes(d.day)?`<h2 class="phase-label">${d.day===1?'第一阶段 · 打好地基':d.day===7?'第二阶段 · 抓住主干':'第三阶段 · 模拟与收拢'}<span>${d.day===1?'DAY 01–06':d.day===7?'DAY 07–15':'DAY 16–20'}</span></h2>`:''}<article class="card plan-day ${d.day===n?'is-today':''}"><div class="plan-top"><span class="plan-number">DAY ${String(d.day).padStart(2,'0')}</span><time datetime="${dateForDay(d.day)}">${shortDate(dateForDay(d.day))}</time><span class="status-pill ${tasksFor(d.day).length===d.tasks.length?'complete':d.day===n?'current':''}">${tasksFor(d.day).length===d.tasks.length?'已完成':d.day===n?'今日计划':`${tasksFor(d.day).length}/${d.tasks.length} 项`}</span></div><h3>${esc(d.title)}</h3><p class="small muted">${esc(d.focus)}</p><div class="plan-tags">${d.topics.map(id=>`<span>${esc(topic(id).name)}</span>`).join('')}${d.day>=19?'<span>减量与恢复</span>':''}</div><div class="plan-bottom"><span class="small muted">${icon('clock')} ${hoursLabel(d)}</span>${btn('查看安排','day','text-btn',`data-day="${d.day}"`,'arrow')}</div></article>`).join('')}</div><div class="bottom-note">${icon('info')}若实际只剩不到 20 天，先做当天计划并补最薄弱的先修内容。不要为“补打卡”牺牲模拟复盘和睡眠。变更考试日期会整体平移计划，已有打卡按原日历日期保留。</div>`;
+  }
+  function knowledgePage() {
+    if(activeTopic)return lessonPage(topic(activeTopic));
+    const list=D.topics.filter(t=>(t.name+t.en+t.description).toLowerCase().includes(knowledgeSearch.toLowerCase()));
+    return `${heading('先把概念，讲明白。','10 个科目 · 中文入门讲解 · 关键公式 · 一看就懂的小例子','UNDERSTAND BEFORE YOU MEMORIZE')}<div class="toolbar"><div class="filter-group">${btn('全部科目','all-lessons','chip',`aria-pressed="${topicFilter==='all'}"`,'')}${btn(`到期复习 ${dueLessons().length}`,'due-lessons','chip',`aria-pressed="${topicFilter==='due'}"`,'')}</div><label class="search">${icon('search')}<input id="knowledge-search" type="search" placeholder="搜索科目或概念" aria-label="搜索科目或概念" value="${esc(knowledgeSearch)}"></label></div><div class="knowledge-grid">${list.filter(t=>topicFilter!=='due'||state.reviewed[t.id]?.due<=today()).map((t,i)=>`<button class="card knowledge-card" data-action="topic" data-id="${t.id}"><div class="knowledge-title"><span class="topic-square">${String(D.topics.indexOf(t)+1).padStart(2,'0')}</span><div><h3>${esc(t.name)}</h3><p lang="en">${esc(t.en)}</p></div></div><p>${esc(t.description)}</p><div class="knowledge-footer"><span>${esc(t.priority)} · 参考权重 ${t.weight}</span><span>${state.reviewed[t.id]?'已学 · 再回忆':'开始理解'} →</span></div></button>`).join('')||empty('这里暂时没有内容',topicFilter==='due'?'还没有到期的概念。学完一个科目后标记回忆，明天会再见。':'换一个关键词试试。')}</div><p class="bottom-note">${icon('info')}权重为近年公开参考，未在线核验当前考季；以你报名年份的官方考纲为准。此处为入门提纲，不覆盖完整学习目标（LOS）。</p>`;
+  }
+  function expandedLesson(t) {
+    return (t.sections||[]).map(s=>`<section class="lesson-section teaching-section"><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p></section>`).join('');
+  }
+  function selfCheckHTML(t) {
+    return `${t.pitfalls?.length?`<section class="lesson-section"><h3>最容易混淆的地方</h3><div class="pitfalls">${t.pitfalls.map(p=>`<p>${icon('info')}${esc(p)}</p>`).join('')}</div></section>`:''}${t.selfCheck?`<section class="lesson-section"><h3>轮到你了：先自己想一想</h3><div class="self-check"><p>${esc(t.selfCheck.prompt)}</p><details><summary>想好之后，展开答案与步骤</summary><p>${esc(t.selfCheck.answer)}</p></details></div></section>`:''}`;
+  }
+  function lessonPage(t) {
+    const review=state.reviewed[t.id];
+    return `${heading(esc(t.name),`${esc(t.en)} · 参考权重 ${t.weight}`,'ONE CONCEPT AT A TIME')}${btn('返回全部科目','back-lessons','text-btn','','')}<article class="card lesson"><div class="lesson-heading"><div><h2>${esc(t.name)}</h2><p>${esc(t.description)}</p></div><span class="status-pill">${esc(t.priority)}</span></div>${expandedLesson(t)}<section class="lesson-section"><h3>先理解这几件事</h3><ol class="takeaways">${t.takeaways.map(x=>`<li>${esc(x)}</li>`).join('')}</ol></section><section class="lesson-section"><h3>核心公式 / 判断顺序</h3><div class="formula-box">${esc(t.formula)}</div></section><section class="lesson-section"><h3>用一个小例子试试看</h3><div class="example-box">${esc(t.example)}</div></section>${selfCheckHTML(t)}<section class="lesson-section"><h3>本章英文，先认识这些</h3><div class="vocab-inline">${D.vocabulary.filter(v=>v.topic===t.id).slice(0,7).map(v=>`<span>${esc(v.en)} · ${esc(v.zh)}</span>`).join('')}</div></section><section class="lesson-section"><h3>合上材料，用你自己的话说一遍</h3><p class="small muted" style="margin-bottom:12px">定义是什么？什么时候用？能不能自己算出例子？写一句就好。</p><textarea class="note-input" data-note="${t.id}" aria-label="${esc(t.name)}的学习笔记" placeholder="例如：现值就是未来的钱折算到今天值多少……">${esc(state.notes[t.id]||'')}</textarea><p class="form-hint">自动保存在此浏览器。标记回忆后，会按 1 / 3 / 7 天提醒复习。</p></section><div class="lesson-actions"><div>${btn('我能闭卷复述，安排复习','learned','light-btn',`data-id="${t.id}"`,'check')}${review?`<p class="form-hint">下次回忆：${shortDate(review.due)}</p>`:''}</div>${btn('做几道本章题','topic-quiz','primary-btn',`data-id="${t.id}"`)}</div></article><p class="bottom-note">${icon('info')}本页是第一层理解。读完后仍需用所报考年份的官方学习目标、教材和题库补齐内容。</p>`;
+  }
+  function practicePage() {
+    if(quiz)return quiz.finished?resultPage():questionPage();
+    const last=Object.values(latest()),wrong=wrongIds();
+    return `${heading('先独立作答，再读懂为什么。','每一道错题，都是下一步该学什么的线索。','PRACTICE WITH A PURPOSE')}<div class="notice">${icon('info')}<span>本站共 ${D.questions.length} 道原创基础题，帮助理解概念和英文题干，不是完整题库或全真模拟。请使用官方 Learning Ecosystem 中与你考季匹配的练习与模拟卷。</span></div><div class="card practice-stats"><div><strong>${last.length}</strong><span>已尝试的不同题目</span></div><div><strong>${last.filter(a=>a.correct).length}</strong><span>最近作答正确</span></div><div><strong>${wrong.length}</strong><span>待修复错题</span></div><div><strong>${dueQuestions().length}</strong><span>今日到期复习</span></div></div><div class="quiz-modes">${[['diagnostic','target','先找起点 · 8 道基础题','概念、英语还是计算？做完再决定先补什么。'],['mixed','edit','交错巩固 · 12 道混合题','练习识别科目和判断方法，逐步减少中文依赖。'],['wrong','refresh',`重做错题 · ${wrong.length} 道`,'答对后移出待修复列表，并安排间隔复习。'],['review','calendar',`到期复习 · ${dueQuestions().length} 道`,'先回忆后看解析；还没到期也可以练习。']].map(([mode,ic,title,desc])=>`<button class="card quiz-mode" data-action="quiz" data-mode="${mode}"><span class="topic-square">${icon(ic)}</span><span><h3>${title}</h3><p>${desc}</p></span>${icon('chevron')}</button>`).join('')}</div><section class="recommended"><div class="section-row"><h2>按科目练一练</h2><span class="small muted">中文可收起 · 每题 3 个选项</span></div><div class="filter-group">${D.topics.map(t=>btn(t.name,'topic-quiz','chip',`data-id="${t.id}"`,'')).join('')}</div></section><section class="recommended"><div class="section-row"><h2>我的错题本</h2><span class="small muted">保存最近一次错误及错因</span></div><div class="wrong-list">${wrong.length?wrong.map(id=>{const q=question(id),a=latest()[id];return `<article class="card wrong-item"><div><small>${esc(topic(q.topic).name)} · ${esc(({concept:'概念没懂',english:'英文没读懂',calculation:'计算出错',careless:'审题疏漏'})[a.cause]||'尚未标记错因')}</small><p>${esc(q.stem)}</p>${state.questionNotes[id]?`<small>笔记：${esc(state.questionNotes[id])}</small>`:''}</div>${btn('重新作答','single-quiz','light-btn',`data-id="${id}"`,'refresh')}</article>`;}).join(''):empty('暂时没有待修复错题','完成一次练习，答错的题目会自动出现在这里。')}</div></section>`;
+  }
+  function shuffle(items) {const copy=[...items];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}return copy;}
+  function startQuiz(mode,id) {
+    let pool=D.questions;
+    if(mode==='topic')pool=pool.filter(q=>q.topic===id);
+    if(mode==='single')pool=pool.filter(q=>q.id===id);
+    if(mode==='wrong')pool=pool.filter(q=>wrongIds().includes(q.id));
+    if(mode==='review')pool=dueQuestions();
+    if(!pool.length){toast(mode==='wrong'?'目前没有待修复错题。':'目前没有到期题目，可以先做混合练习。');return;}
+    const selected=shuffle(pool).slice(0,mode==='diagnostic'?8:mode==='mixed'?12:pool.length);
+    quiz={questions:selected,index:0,selected:null,submitted:false,results:[],finished:false,showChinese:true,mode};
+    currentPage='practice';location.hash='practice';render();scrollTop();
+  }
+  function questionPage() {
+    const q=quiz.questions[quiz.index],submitted=quiz.submitted,correct=quiz.selected===q.answer;
+    return `${heading('一步一步，把题目读懂。','先圈问法和单位，独立思考；提交后再看解析。','PRACTICE, REFLECT, REPEAT')}<div class="quiz-layout"><section class="card quiz-card"><div class="quiz-top"><span class="quiz-topic">${icon('book')}${esc(topic(q.topic).name)}</span><span>${quiz.index+1} / ${quiz.questions.length} 题</span>${btn('退出练习','exit-quiz','text-btn','','')}</div><div class="quiz-track"><span style="width:${quiz.index/quiz.questions.length*100}%"></span></div><div class="question-label">ORIGINAL FOUNDATION QUESTION · 原创基础题</div><div class="question-en" lang="en">${esc(q.en||q.stem)}</div>${q.en?`<button class="text-btn" data-action="toggle-chinese">${quiz.showChinese?'收起中文，试着独立读题':'显示中文辅助'} ${quiz.showChinese?'↑':'↓'}</button><p class="question-zh" ${quiz.showChinese?'':'hidden'}>${esc(q.stem)}</p>`:''}<div class="option-list" role="group" aria-label="答案选项">${q.options.map((o,i)=>`<button class="option ${quiz.selected===i?'selected':''} ${submitted&&i===q.answer?'correct':''} ${submitted&&quiz.selected===i&&!correct?'incorrect':''}" data-action="option" data-index="${i}" aria-pressed="${quiz.selected===i}" ${submitted?'disabled':''}><span class="option-letter">${'ABC'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>${submitted?`<div class="answer-explanation ${correct?'':'wrong'}" role="status"><strong>${correct?'答对了，再确认一次理由。':`这道题先留下，正确答案是 ${'ABC'[q.answer]}。`}</strong>${esc(q.explanation)}<div class="vocab-inline">${(q.vocab||[]).map(v=>`<span>${esc(v)}</span>`).join('')}</div></div>${!correct?`<div class="lesson-section"><h3>这次主要卡在哪里？</h3><div class="filter-group">${[['concept','概念没懂'],['english','英文没读懂'],['calculation','计算出错'],['careless','审题疏漏']].map(([v,label])=>`<button class="chip ${latest()[q.id]?.cause===v?'active':''}" data-action="cause" data-cause="${v}">${label}</button>`).join('')}</div><textarea class="note-input" style="margin-top:12px;min-height:76px" data-question-note="${q.id}" aria-label="本题错因笔记" placeholder="用一句话写下，下次怎么避免……">${esc(state.questionNotes[q.id]||'')}</textarea></div>`:''}`:''}<div class="quiz-bottom"><span>${submitted?'本次作答已保存，可随时退出。':'不确定也先选一个，再通过解析找缺口。'}</span>${submitted?btn(quiz.index===quiz.questions.length-1?'查看本轮回顾':'下一题','next-question'):btn('提交答案','submit-answer','primary-btn',quiz.selected===null?'disabled':'','check')}</div></section><aside class="card quiz-side"><h3>读题的小步骤</h3><p>01 找 most / least / except<br>02 标出已知量和单位<br>03 想清概念，再计算<br>04 排除选项后作答</p><div class="divider"></div><h3>英语先搭桥</h3><p>现在可以看中文。熟悉之后，先收起中文，再试一次英文。词义只记与金融有关的用法。</p><div class="divider"></div><p>小样本基础题不能预测考试分数。真正的计时模拟，请使用完整模拟卷。</p></aside></div>`;
+  }
+  function submitAnswer() {
+    if(!quiz || quiz.submitted || quiz.selected===null)return;
+    const q=quiz.questions[quiz.index],correct=quiz.selected===q.answer;
+    const attempt={questionId:q.id,correct,choice:quiz.selected,at:new Date().toISOString(),cause:null};
+    state.attempts.push(attempt);state.attempts=state.attempts.slice(-2000);
+    quiz.results.push({id:q.id,correct});quiz.submitted=true;
+    if(!correct || state.questionReview[q.id]) schedule('questionReview',q.id,correct,false);
+    save();render();
+  }
+  function resultPage() {
+    const correct=quiz.results.filter(r=>r.correct).length,missed=quiz.results.filter(r=>!r.correct);
+    return `${heading('认真复盘，比多做几题更有用。','把本轮最重要的一个缺口补上，再向前走。','A SMALL STEP, A CLEARER PICTURE')}<section class="card empty-state"><div class="score-ring"><strong>${correct}/${quiz.results.length}</strong><span>本轮答对</span></div><h3>${missed.length?'先把这几个地方补稳。':'基础练习完成，再练英文识题。'}</h3><p>${missed.length?missed.map(r=>topic(question(r.id).topic).name).filter((v,i,a)=>a.indexOf(v)===i).join(' · '):'试着合上解析，用自己的话讲一遍解题理由。'}</p><p class="result-note">这组题只用于入门诊断，难度、题量和覆盖面均不等同正式考试。${missed.length?'错题已收进错题本，并安排次日回顾。':'请继续使用官方考纲与完整题库补齐知识。'}</p><div class="result-actions">${btn('返回练习中心','exit-quiz','light-btn','','')}${missed.length?btn('重做待修复错题','wrong-quiz'):btn('看看金融英语','go-english')}</div></section>`;
+  }
+  function englishPage() {
+    let list=D.vocabulary.filter(v=>(v.en+' '+v.zh+' '+v.meaning).toLowerCase().includes(vocabSearch.toLowerCase()));
+    if(vocabFilter==='due')list=list.filter(v=>state.vocab[v.id]?.due<=today());
+    if(vocabFilter==='new')list=list.filter(v=>!state.vocab[v.id]);
+    return `${heading('英语先够用，再一点点变好。','不背大词表。先认识金融名词、问法、方向词和单位。','SMALL WORDS, BIG DIFFERENCE')}<div class="card english-intro"><div><h2>先读懂题目在问什么。</h2><p>每次 8–12 个新词：先看英文 → 自己回忆 → 翻面核对。<br>答得出来，再点“记住了”；按 1 / 3 / 7 天安排复习。</p></div>${icon('language')}</div><div class="filter-group english-tab"><button class="chip ${englishTab==='words'?'active':''}" data-action="english-tab" data-tab="words">金融词卡 · ${D.vocabulary.length} 个</button><button class="chip ${englishTab==='reading'?'active':''}" data-action="english-tab" data-tab="reading">拆句读题 · ${D.reading.length} 句</button></div>${englishTab==='reading'?`<div class="reading-grid">${D.reading.map(r=>`<article class="card reading-card"><h3>${esc(r.label)}</h3><p class="reading-en" lang="en">${esc(r.en)}</p><details><summary class="text-btn" style="margin-top:12px;cursor:pointer">展开中文与读题提示</summary><p class="reading-zh">${esc(r.zh)}</p><div class="reading-keywords">${r.keywords.map(k=>`<span>${esc(k)}</span>`).join('')}</div><p class="reading-tip">${esc(r.tip)}</p></details></article>`).join('')}</div>`:`<div class="toolbar"><div class="filter-group">${[['all','全部'],['new','还没学'],['due',`到期复习 ${dueVocab().length}`]].map(([v,label])=>`<button class="chip ${vocabFilter===v?'active':''}" data-action="word-filter" data-filter="${v}">${label}</button>`).join('')}</div><label class="search">${icon('search')}<input id="vocab-search" type="search" placeholder="搜索英文 / 中文" aria-label="搜索单词" value="${esc(vocabSearch)}"></label></div><div class="vocab-grid">${list.map(v=>{const open=revealed.has(v.id),r=state.vocab[v.id];return `<article class="card vocab-card"><div class="vocab-top"><span>${esc(topic(v.topic).name)}</span><span>${r?(r.due<=today()?'今天复习':`${shortDate(r.due)} 复习`):'新词'}</span></div><h3 lang="en">${esc(v.en)}</h3>${open?`<p class="zh">${esc(v.zh)}</p><p class="vocab-sentence" lang="en">${esc(v.sentence)}<em lang="zh-CN">${esc(v.meaning)}</em></p><div class="vocab-controls"><button data-action="word-again" data-id="${v.id}">还不熟</button><span>先回忆，再判断</span><button data-action="word-known" data-id="${v.id}">记住了 ${icon('check')}</button></div>`:`<button class="reveal-button" data-action="reveal" data-id="${v.id}">自己回忆一下，再点开释义</button><div class="vocab-controls"><span>${r?'让记忆再出现一次':'从一个词开始'}</span><span>点击翻面 ↗</span></div>`}</article>`;}).join('')||empty('这里暂时没有词卡',vocabFilter==='due'?'还没有到期的单词，先认识几个新词吧。':'换一个关键词，或查看全部词卡。')}</div>`}`;
+  }
+  function schedule(kind,id,known,notify=true) {
+    const previous=state[kind][id];
+    if(known && previous && previous.last===today() && previous.due>today()) {if(notify)toast('今天已经安排好了，按到期时间再复习更有效。');return;}
+    const reps=known?(previous?.reps||0)+1:0;
+    const gap=known?[1,3,7,14][Math.min(3,reps-1)]:1;
+    state[kind][id]={due:addDays(today(),gap),last:today(),reps};
+    if(notify)toast(known?`已安排 ${gap} 天后回忆复习。`:'不着急，明天再试一次。');
+  }
+  function render() {
+    const labels={today:'今日学习',plan:'20 天冲刺计划',knowledge:'知识与公式',practice:'刷题与错题',english:'金融英语'};
+    $('#page-label').textContent=labels[currentPage];
+    $('#today-date').textContent=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',month:'long',day:'numeric',weekday:'long'}).format(new Date());
+    $('#main').innerHTML=`<div class="entry-animation">${({today:todayPage,plan:planPage,knowledge:knowledgePage,practice:practicePage,english:englishPage})[currentPage]()}</div>`;
+    updateNav();
+    document.title=`${labels[currentPage]} · 拾级 CFA`;
+  }
+  function scrollTop(){window.scrollTo({top:0,behavior:'instant'});}
+  function navigate(page) {if(!['today','plan','knowledge','practice','english'].includes(page))page='today';currentPage=page;location.hash=page;render();scrollTop();}
+  function modal(title,html) {$('#modal-content').innerHTML=`<div class="modal-head"><h2 id="modal-title">${title}</h2><button class="close-btn" data-action="close" aria-label="关闭弹窗">${icon('close')}</button></div><div class="modal-body">${html}</div>`;if(!$('#modal').open)$('#modal').showModal();}
+  function closeModal() {if($('#modal').open)$('#modal').close();}
+  function settings() {
+    modal('让计划适合你的生活',`<form id="settings-form"><div class="form-field"><label for="exam-date">你的考试日期</label><input type="date" id="exam-date" value="${state.examDate}" min="2026-01-01" max="2035-12-31" required><p class="form-hint">20 天包括考试当天。计划从 ${shortDate(planStart())} 开始；更改日期将平移整条路线。原打卡仍保留在原日期。</p></div><div class="form-field"><label for="study-hours">每天可以稳定投入的时间</label><select id="study-hours"><option value="2" ${state.hours===2?'selected':''}>2 小时 · 精简基础与高权重主线</option><option value="4" ${state.hours===4?'selected':''}>4 小时 · 当前冲刺安排</option><option value="6" ${state.hours===6?'selected':''}>6 小时 · 增加官方题练习与复盘</option></select><p class="form-hint">减少时间时，保留英语、伦理与错题复习，缩短新课范围；不是把同样内容简单加速。最后两天仍减量。计时模拟按正式时长，不随设置缩短。</p></div><button type="submit" class="primary-btn">保存学习设置 ${icon('check')}</button></form><div class="settings-actions">${btn('导出学习备份','export','outline-btn','','download')}<label class="import-label" for="import-file">导入学习备份<input type="file" id="import-file" accept=".json,application/json" hidden></label>${btn('学习方法与来源','sources','outline-btn','','info')}</div><p class="backup-warning">没有账号同步。清理浏览器数据、更换浏览器或切换网站地址后，原进度可能无法读取。建议每两三天导出备份；导入会替换此浏览器当前的学习记录。</p><button class="danger-btn" data-action="reset-confirm">清空当前浏览器的学习记录</button>`);
+  }
+  function methodsSourcesHTML() {
+    if(!D.methodsSources?.length)return '';
+    return `<h3 class="source-subheading">学习方法参考文献</h3><ul class="sources-list">${D.methodsSources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)} ↗</a><p class="form-hint">${esc(s.note)}</p></li>`).join('')}</ul>`;
+  }
+  function sources() {
+    modal('学习方法与资料来源',`<div class="notice green">${icon('leaf')}<span>这是为弱基础与英语薄弱考生设计的压缩路线。20 天内无法保证覆盖完整考纲，更不能保证通过。目标是建立理解、提高读题能力，并用练习识别缺口。</span></div>${D.methods.map(m=>`<section class="method-item"><h3>${esc(m.title)}</h3><p>${esc(m.text)}</p></section>`).join('')}<h3 class="source-subheading">考试与实用技能模块（PSM）</h3><p class="source-note">${esc(D.exam.timing)}</p><p class="source-note">${esc(D.exam.language)} ${esc(D.exam.scoring)}</p><p class="source-note">${esc(D.exam.psm)}</p><h3 class="source-subheading">请用官方资料核对</h3><p class="source-note">以下为官方核对入口。当前资料未在线核验你的考季；科目权重与考试要求以报名年份的官方考纲、准考证和候选人账户为准。</p><ul class="sources-list">${D.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)} ↗</a></li>`).join('')}</ul>${methodsSourcesHTML()}<h3 class="source-subheading">关于本站的边界</h3><p class="source-note">课程为中文入门提纲；${D.questions.length} 道题均为本站原创基础练习，${D.vocabulary.length} 个词卡用于金融英语入门。它们不代表正式题库的难度与覆盖面，不能用正确率估计通过概率。分节模拟应使用合法取得的完整模拟卷。通常一套 180 题需要 270 分钟作答，不含休息和复盘。</p><p class="source-note">主动回忆与间隔练习属于有研究支持的学习方法；本站的 1 / 3 / 7 天间隔是易执行的默认值，并非针对每个人或 CFA 的最优间隔。路线优先级是基于权重与先修关系的建议，不是题目命中预测。</p><p class="source-note">学习数据仅存于本浏览器，没有发送到服务器。CFA® 为 CFA Institute 的注册商标。本站为独立个人学习工具，与 CFA Institute 无隶属、认可或担保关系。</p>`);
+  }
+  function dayModal(n) {
+    const d=D.days[n-1];
+    modal(`DAY ${String(n).padStart(2,'0')} · ${shortDate(dateForDay(n))}`,`<h3 style="font-size:19px;margin-bottom:8px">${esc(d.title)}</h3><p class="small muted">${esc(d.focus)}</p><div class="day-modal-tasks">${tasksHTML(d)}</div><h3 class="source-subheading">时间怎么分 · ${hoursLabel(d)}</h3><div class="filter-group">${blocksFor(d).map(b=>`<span class="chip">${esc(b.label)} ${b.minutes} 分钟</span>`).join('')||'<span class="small muted">今天不安排集中学习，按官方通知参加考试。</span>'}</div><p class="day-note" style="margin:20px 0">${esc(d.note)}</p>${state.hours===2&&d.day<16?'<p class="source-note" style="margin-bottom:18px">2 小时建议：保留 10 分钟英语、10 分钟伦理，围绕一个核心例子理解概念；官方题少做但逐题复盘，不追求完成整章。</p>':''}${state.hours===2&&(d.day===16||d.day===17)?'<p class="source-note" style="margin-bottom:18px">注意：模拟日仍需预留 4 小时，超出你每天 2 小时的预算。正式作答固定 135 分钟，不能缩短；请额外预留时间，或将复盘移至独立时段。若只练 2 小时，请把它视为练习而非完整分节模拟。</p>':''}${state.hours===6&&(d.day===16||d.day===17)?'<p class="source-note" style="margin-bottom:18px">正式作答仍是 135 分钟；增加的时间全部用于复盘，不延长模拟作答。</p>':''}<div class="lesson-actions">${btn(n===20?'查看考前提醒':'进入学习','start-day','primary-btn',`data-day="${n}"`)}${btn('返回计划','close','text-btn','','')}</div>`);
+  }
+  function timerText() {return `${String(Math.floor(timer.seconds/60)).padStart(2,'0')}:${String(timer.seconds%60).padStart(2,'0')}`;}
+  function focusModal() {
+    modal('给自己一段安静的时间',`<div class="focus-display"><div class="focus-select">${[25,35,5].map(n=>`<button class="chip ${timer.minutes===n?'active':''}" data-action="timer-duration" data-minutes="${n}">${n===5?'休息 5':`专注 ${n}`} 分钟</button>`).join('')}</div><div class="time" id="timer-display" role="timer" aria-label="剩余专注时间">${timerText()}</div><p>${timer.minutes===5?'站起来走一走，喝点水，让眼睛离开屏幕。':'只做一件事。时间到了，合上材料回忆 3 个要点。'}</p><div class="focus-actions">${btn(timer.running?'暂停':'开始','timer-toggle','primary-btn','',timer.running?'pause':'play')}${btn('重新计时','timer-reset','outline-btn','','refresh')}</div></div><p class="focus-tip">25 分钟是一个起点，也可以用 35 分钟。根据疲劳程度休息，不必为了计时而中断正理解到一半的内容。关闭弹窗后本页计时仍会继续；关闭网页会停止。</p>`);
+  }
+  function stopTimer(){timer.running=false;clearInterval(timer.interval);timer.interval=null;}
+  function tick(){timer.seconds=Math.max(0,Math.ceil((timer.end-Date.now())/1000));const display=$('#timer-display');if(display)display.textContent=timerText();if(timer.seconds===0){stopTimer();toast(timer.minutes===5?'休息结束，可以慢慢回到学习。':'这一段完成了。合上材料，回忆 3 个要点，再休息一下。');if(display)focusModal();render();}}
+  function startDay(n) {
+    closeModal();
+    if(n===20){dayModal(20);return;}
+    if(n===1){startQuiz('diagnostic');return;}
+    if(n===16||n===17){modal('模拟练习 · 使用你的完整模拟卷',`<p class="source-note">本站基础题不构成完整模拟。请到官方 Learning Ecosystem 或使用你合法购买、符合当前考纲的模拟卷。</p><p class="source-note">每节 90 题，计时 135 分钟；分两天做适合当前 4 小时安排，但不能检验连续完整考试的耐力。若有额外时间，整套需至少 270 分钟，另加休息和复盘。</p><p class="source-note">${esc(D.days[n-1].note)}</p><ul class="sources-list"><li><a href="https://www.cfainstitute.org/programs/cfa-program/candidate-resources/learning-ecosystem" target="_blank" rel="noopener noreferrer">前往官方 Learning Ecosystem ↗</a></li></ul>${btn('复习本站错题','wrong-quiz','light-btn','','refresh')}`);return;}
+    const d=D.days[n-1];activeTopic=d.topics[0]||'ethics';navigate('knowledge');
+  }
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('[data-action]');if(!b)return;
+    const a=b.dataset.action,id=b.dataset.id;
+    if(a==='settings')settings();
+    else if(a==='sources')sources();
+    else if(a==='close')closeModal();
+    else if(a==='focus')focusModal();
+    else if(a==='go-plan'){closeModal();navigate('plan');}
+    else if(a==='go-knowledge'){activeTopic=null;topicFilter='all';navigate('knowledge');}
+    else if(a==='go-english'){closeModal();navigate('english');}
+    else if(a==='topic'){activeTopic=id;closeModal();navigate('knowledge');}
+    else if(a==='back-lessons'||a==='all-lessons'){activeTopic=null;topicFilter='all';render();scrollTop();}
+    else if(a==='due-lessons'){activeTopic=null;topicFilter='due';navigate('knowledge');}
+    else if(a==='day')dayModal(Number(b.dataset.day));
+    else if(a==='start-day')startDay(Number(b.dataset.day));
+    else if(a==='learned'){schedule('reviewed',id,true);save();render();}
+    else if(a==='quiz'){closeModal();startQuiz(b.dataset.mode);}
+    else if(a==='topic-quiz'){closeModal();startQuiz('topic',id);}
+    else if(a==='single-quiz'){startQuiz('single',id);}
+    else if(a==='wrong-quiz'){closeModal();startQuiz('wrong');}
+    else if(a==='review-quiz')startQuiz('review');
+    else if(a==='exit-quiz'){quiz=null;render();scrollTop();}
+    else if(a==='option'){if(quiz&&!quiz.submitted){quiz.selected=Number(b.dataset.index);render();}}
+    else if(a==='submit-answer')submitAnswer();
+    else if(a==='toggle-chinese'){quiz.showChinese=!quiz.showChinese;render();}
+    else if(a==='next-question'){if(!quiz?.submitted)return;if(quiz.index===quiz.questions.length-1)quiz.finished=true;else{quiz.index++;quiz.selected=null;quiz.submitted=false;}render();scrollTop();}
+    else if(a==='cause'){if(!quiz?.submitted)return;const q=quiz.questions[quiz.index];const attempt=state.attempts.at(-1);if(attempt?.questionId===q.id){attempt.cause=b.dataset.cause;save();render();}}
+    else if(a==='english-tab'){englishTab=b.dataset.tab;render();}
+    else if(a==='word-filter'){vocabFilter=b.dataset.filter;render();}
+    else if(a==='due-words'){englishTab='words';vocabFilter='due';navigate('english');}
+    else if(a==='reveal'){revealed.add(id);render();}
+    else if(a==='word-known'||a==='word-again'){schedule('vocab',id,a==='word-known');save();revealed.delete(id);render();}
+    else if(a==='export'){
+      const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`拾级学习备份-${today()}.json`;link.click();setTimeout(()=>URL.revokeObjectURL(url),2000);toast('备份已生成，请保存在你能找到的位置。');
+    }
+    else if(a==='reset-confirm')modal('清空前，再确认一次',`<p class="source-note">这会删除此浏览器中的打卡、答题、笔记和复习记录，无法撤销。考试日期与每日时长会恢复为 11 月 11 日、每天 4 小时。建议先导出备份。</p><div class="settings-actions">${btn('先导出备份','export','outline-btn','','download')}${btn('返回设置','settings','light-btn','','')}${btn('确认清空','reset','outline-btn','','')}</div>`);
+    else if(a==='reset'){state=defaults();save();quiz=null;revealed.clear();activeTopic=null;closeModal();render();toast('学习记录已清空。可以重新开始。');}
+    else if(a==='timer-duration'){stopTimer();timer.minutes=Number(b.dataset.minutes);timer.seconds=timer.minutes*60;focusModal();render();}
+    else if(a==='timer-reset'){stopTimer();timer.seconds=timer.minutes*60;focusModal();render();}
+    else if(a==='timer-toggle'){if(timer.running){tick();stopTimer();}else{if(timer.seconds===0)timer.seconds=timer.minutes*60;timer.end=Date.now()+timer.seconds*1000;timer.running=true;timer.interval=setInterval(tick,500);}focusModal();render();}
+  });
+  document.addEventListener('change',e=>{
+    if(e.target.matches('[data-task]')){
+      const n=Number(e.target.dataset.day),id=e.target.dataset.task,key=dateForDay(n),set=new Set(state.tasks[key]||[]);if(e.target.checked)set.add(id);else set.delete(id);state.tasks[key]=[...set];save();render();
+      if($('#modal').open && $('#modal-content [data-task]'))dayModal(n);
+    }
+    if(e.target.id==='import-file')importFile(e.target.files[0]);
+  });
+  document.addEventListener('input',e=>{
+    if(e.target.matches('[data-note],[data-question-note]')){const kind=e.target.dataset.note?'notes':'questionNotes',id=e.target.dataset.note||e.target.dataset.questionNote;state[kind][id]=e.target.value.slice(0,10000);clearTimeout(noteTimer);noteTimer=setTimeout(save,300);}
+    if(e.target.id==='vocab-search'||e.target.id==='knowledge-search'){
+      const el=e.target,id=el.id,pos=el.selectionStart;if(id==='vocab-search')vocabSearch=el.value;else knowledgeSearch=el.value;render();const replacement=$('#'+id);replacement.focus();try{replacement.setSelectionRange(pos,pos);}catch(_){}
+    }
+  });
+  document.addEventListener('submit',e=>{
+    if(e.target.id!=='settings-form')return;e.preventDefault();const date=$('#exam-date').value,hours=Number($('#study-hours').value);
+    if(!validDate(date)||![2,4,6].includes(hours))return toast('请填写有效日期与学习时间。');
+    state.examDate=date;state.hours=hours;save();closeModal();render();toast('已更新，计划会随考试日期与可用时间调整。');
+  });
+  let pendingImport=null;
+  async function importFile(file) {
+    if(!file)return;
+    if(file.size>2*1024*1024)return toast('文件过大，请选择 2 MB 以内的学习备份。');
+    try{
+      pendingImport=normalize(JSON.parse(await file.text()));
+      modal('导入这份学习记录？',`<p class="source-note">备份包含 ${pendingImport.attempts.length} 次作答记录、${Object.keys(pendingImport.vocab).length} 个词卡复习安排。导入会替换当前浏览器的学习数据。</p><p class="source-note">建议先导出当前备份。确认后，考试日期将设为 ${esc(pendingImport.examDate)}，每天 ${pendingImport.hours} 小时。</p><div class="settings-actions">${btn('先备份当前记录','export','outline-btn','','download')}${btn('取消','settings','light-btn','','')}${btn('确认导入','confirm-import','primary-btn','','check')}</div>`);
+    }catch(_){pendingImport=null;toast('无法读取备份，请使用本站导出的有效 JSON 文件。');}
+  }
+  document.addEventListener('click',e=>{if(e.target.closest('[data-action="confirm-import"]')&&pendingImport){state=pendingImport;pendingImport=null;quiz=null;revealed.clear();save();closeModal();render();toast('备份已导入。');}});
+  $('#modal').addEventListener('click',e=>{if(e.target===$('#modal')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeModal();}});
+  window.addEventListener('hashchange',()=>{const page=location.hash.slice(1);if(['today','plan','knowledge','practice','english'].includes(page)&&currentPage!==page){currentPage=page;render();scrollTop();}});
+  window.addEventListener('beforeunload',()=>{if(noteTimer)save();});
+  currentPage=['today','plan','knowledge','practice','english'].includes(location.hash.slice(1))?location.hash.slice(1):'today';
+  render();
+})();
+
+</script>
+</body>
+</html>
