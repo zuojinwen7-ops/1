@@ -8,6 +8,7 @@ on:
       - 'scripts/build.py'
       - 'styles.css'
       - 'study-data.js'
+      - 'task-guides.js'
       - 'app.js'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:

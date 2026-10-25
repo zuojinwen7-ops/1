@@ -11,6 +11,7 @@ template = root / "src" / "index.template.html"
 html = template.read_text(encoding="utf-8")
 css = (root / "styles.css").read_text(encoding="utf-8")
 data = (root / "study-data.js").read_text(encoding="utf-8")
+guides = (root / "task-guides.js").read_text(encoding="utf-8")
 app = (root / "app.js").read_text(encoding="utf-8")
 
 def replace_once(old, new):
@@ -21,9 +22,10 @@ def replace_once(old, new):
 
 replace_once('<link rel="stylesheet" href="styles.css">', f"<style>\n{css}\n</style>")
 replace_once('  <script src="study-data.js" defer></script>\n', "")
+replace_once('  <script src="task-guides.js" defer></script>\n', "")
 replace_once('  <script src="app.js" defer></script>\n', "")
 # Inline scripts must run after the document; `defer` has no effect on inline JS.
-javascript = (data + "\n;\n" + app).replace("</script", "<\\/script")
+javascript = (data + "\n;\n" + guides + "\n;\n" + app).replace("</script", "<\\/script")
 replace_once("</body>", f"<script>\n{javascript}\n</script>\n</body>")
 for out in (root / "index.html", root / "dist" / "index.html"):
     out.parent.mkdir(exist_ok=True)

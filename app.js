@@ -2,6 +2,7 @@
 (() => {
   'use strict';
   const D = window.STUDY_DATA;
+  const G = window.TASK_GUIDES || {};
   const KEY = 'shiji-cfa-v1';
   const $ = (s, p = document) => p.querySelector(s);
   const $$ = (s, p = document) => [...p.querySelectorAll(s)];
@@ -14,7 +15,7 @@
   const addDays = (s,n) => new Date(stamp(s)+n*DAY).toISOString().slice(0,10);
   const validDate = s => typeof s==='string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && Number.isFinite(stamp(s)) && new Date(stamp(s)).toISOString().slice(0,10)===s;
   const shortDate = s => `${Number(s.slice(5,7))} 月 ${Number(s.slice(8,10))} 日`;
-  const defaults = () => ({version:1,examDate:'2026-11-11',hours:4,tasks:{},attempts:[],vocab:{},questionReview:{},notes:{},questionNotes:{},reviewed:{}});
+  const defaults = () => ({version:1,examDate:'2026-11-11',hours:4,tasks:{},attempts:[],vocab:{},questionReview:{},notes:{},questionNotes:{},reviewed:{},taskNotes:{},taskMaterials:{},activeTask:null});
   let storageOK = true;
   let state = defaults();
   function normalize(raw) {
@@ -33,6 +34,11 @@
     }
     for(const kind of ['notes','questionNotes']) for(const [id,note] of Object.entries(record(raw[kind]))) if(typeof note==='string' && (kind==='notes'?D.topics.some(t=>t.id===id):ids.has(id))) base[kind][id]=note.slice(0,10000);
     for(const [id,r] of Object.entries(record(raw.reviewed))) if(D.topics.some(t=>t.id===id) && r && validDate(r.due)) base.reviewed[id]={due:r.due,last:validDate(r.last)?r.last:today(),reps:Math.max(1,Math.min(10,Number(r.reps)||1))};
+    const validTaskKey = key => {const parts=key.split('|');return parts.length===2 && validDate(parts[0]) && taskIds.has(parts[1]);};
+    for(const [key,note] of Object.entries(record(raw.taskNotes))) if(validTaskKey(key) && typeof note==='string')base.taskNotes[key]=note.slice(0,10000);
+    for(const [key,items] of Object.entries(record(raw.taskMaterials))) if(validTaskKey(key) && Array.isArray(items))base.taskMaterials[key]=[...new Set(items.filter(i=>Number.isInteger(i)&&i>=0&&i<20))];
+    const active=raw.activeTask;
+    if(active && Number.isInteger(active.day) && active.day>=1 && active.day<=20 && Number.isInteger(active.task) && active.task>=1 && active.task<=D.days[active.day-1].tasks.length && active.date===addDays(base.examDate,active.day-20))base.activeTask={day:active.day,task:active.task,date:active.date};
     return base;
   }
   if (!D || !D.topics?.length || !D.days?.length) { $('#main').innerHTML='<div class="card empty-state"><h1>学习资料未能加载</h1><p>请确认 index.html、app.js、styles.css 与 study-data.js 放在同一个文件夹，然后重新打开。</p></div>';return; }
@@ -61,17 +67,99 @@
   const minutesFor = d => blocksFor(d).reduce((sum,b)=>sum+b.minutes,0);
   const hoursLabel = d => {const m=minutesFor(d);return m%60===0 ? `${m/60} 小时`:`${Math.floor(m/60)} 小时 ${m%60} 分钟`;};
   let currentPage='today', activeTopic=null, topicFilter='all', vocabFilter='all', englishTab='words', vocabSearch='', knowledgeSearch='';
+  let summaryDay=1, wordScope=null, readingScope=null;
   let revealed=new Set(), quiz=null, toastId=null, noteTimer=null;
   const timer={seconds:1500,running:false,end:0,interval:null,minutes:25};
   function toast(message) { $('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(toastId);toastId=setTimeout(()=>$('#toast').classList.remove('visible'),3500); }
   function save() {try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){storageOK=false;toast('浏览器未能保存进度，请到学习设置导出备份。');}updateNav();}
-  function updateNav() { $$('#navigation a').forEach(a=>{const active=a.dataset.nav===currentPage;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});$('#wrong-dot').hidden=!wrongIds().length; }
+  function updateNav() { $$('#navigation a').forEach(a=>{const active=a.dataset.nav===(['task','day'].includes(currentPage)?'today':currentPage);a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});$('#wrong-dot').hidden=!wrongIds().length; }
   const btn = (text,action,style='primary-btn',extra='',ic='arrow') => `<button class="${style}" data-action="${action}" ${extra}>${esc(text)}${ic?icon(ic):''}</button>`;
   function heading(title,sub,eyebrow='YOUR PERSONAL STUDY SPACE',action='focus') {return `<div class="page-heading"><div><div class="eyebrow">${eyebrow}</div><h1>${title}</h1><p>${sub}</p></div>${action==='focus'?btn(timer.running?'正在专注':'专注 25 分钟','focus','outline-btn','', 'clock'):btn('学习设置','settings','outline-btn','','settings')}</div>`;}
   function empty(title,text,action,textButton) {return `<div class="card empty-state">${icon('leaf')}<h3>${title}</h3><p>${text}</p>${action?btn(textButton,action):''}</div>`;}
   function tasksHTML(d,compact=false) {
     const completed=tasksFor(d.day);
-    return d.tasks.map((t,i)=>`<label class="task ${completed.includes(t.id)?'done':''}"><input type="checkbox" data-task="${t.id}" data-day="${d.day}" ${completed.includes(t.id)?'checked':''}><span class="task-copy"><span class="task-title">${esc(t.text)}</span>${!compact?`<span class="task-detail">${['先独立尝试，再对照材料','理解之后，用一个例子检验','合上材料，回忆并复述'][i]}</span>`:''}</span><span class="duration-pill">${String(i+1).padStart(2,'0')}</span></label>`).join('');
+    return d.tasks.map((t,i)=>`<div class="task task-row ${completed.includes(t.id)?'done':''}"><label class="task-toggle"><input type="checkbox" data-task="${t.id}" data-day="${d.day}" aria-label="标记第 ${i+1} 项完成：${esc(t.text)}" ${completed.includes(t.id)?'checked':''}><span class="task-copy"><span class="task-title">${esc(t.text)}</span>${!compact?`<span class="task-detail">${esc(taskGuide(d.day,i+1).title)}</span>`:''}</span></label>${btn(completed.includes(t.id)?`回顾第 ${i+1} 项`:`进入第 ${i+1} 项`,'open-task','light-btn task-enter',`data-day="${d.day}" data-index="${i+1}"`,'arrow')}</div>`).join('');
+  }
+  function taskGuide(day,index) {
+    const d=D.days[day-1],item=d.tasks[index-1];
+    return G[item.id] || {title:item.text,steps:[item.text,'按下方入口打开对应材料，先独立尝试，再核对。','合上材料，用自己的话复述，完成后继续下一项。'],resources:d.topics.length?[{type:'lesson',topic:d.topics[0],label:'打开本项讲解'}]:[{type:'note',label:'记录本项检查结果'}],doneWhen:['完成本项要求的实际学习或检查。','能用自己的话解释收获或记下尚未解决的问题。'],prompt:'这项任务你完成了什么，还有哪里不确定？'};
+  }
+  function taskContext() {
+    const c=state.activeTask;
+    if(!c || !D.days[c.day-1] || !D.days[c.day-1].tasks[c.task-1] || c.date!==dateForDay(c.day))return null;
+    const d=D.days[c.day-1],item=d.tasks[c.task-1];
+    return {...c,d,item,guide:taskGuide(c.day,c.task),key:`${c.date}|${item.id}`};
+  }
+  function nextTaskIndex(day,after=0) {
+    const done=tasksFor(day),indices=D.days[day-1].tasks.map((_,i)=>i+1).filter(i=>!done.includes(D.days[day-1].tasks[i-1].id));
+    return indices.find(i=>i>after) || indices[0] || null;
+  }
+  function completionLabel(c) {
+    const other=c.d.tasks.map((t,i)=>i+1).filter(i=>i!==c.task&&!tasksFor(c.day).includes(c.d.tasks[i-1].id));
+    const next=other.find(i=>i>c.task)||other[0];
+    return next?`完成本项，进入第 ${next} 项`:'完成本项，查看本日回顾';
+  }
+  function taskContextHTML(footer=false) {
+    const c=taskContext();
+    if(!c || currentPage==='task' || currentPage==='day')return '';
+    const inQuiz=currentPage==='practice'&&quiz&&!quiz.finished;
+    return `<aside class="${footer?'task-return':'task-context'}" aria-label="当前任务引导"><div><span class="task-context-label">DAY ${String(c.day).padStart(2,'0')} · 第 ${c.task} / ${c.d.tasks.length} 项</span><strong>${esc(c.guide.title)}</strong>${footer?'':'<p>材料学完后回到本项检查，完成后会接着进入下一项。</p>'}</div><div class="task-context-actions">${btn('返回本项步骤','return-task','outline-btn','','arrow')}${inQuiz?'':btn(completionLabel(c),'complete-task','primary-btn','','check')}</div></aside>`;
+  }
+  function openTask(day,index) {
+    if(!Number.isInteger(day)||!D.days[day-1]||!Number.isInteger(index)||!D.days[day-1].tasks[index-1])return;
+    const next={day,task:index,date:dateForDay(day)};
+    if(quiz && state.activeTask && (state.activeTask.day!==day||state.activeTask.task!==index))quiz=null;
+    state.activeTask=next;save();closeModal();currentPage='task';location.hash=`task/${day}/${index}`;render();scrollTop();
+  }
+  function taskPage() {
+    const c=taskContext();
+    if(!c)return empty('选择一项任务开始','回到计划后，可分别打开每一天的三项任务。','go-plan','查看二十天计划');
+    const completed=tasksFor(c.day).includes(c.item.id),opened=state.taskMaterials[c.key]||[];
+    const labels={lesson:'中文讲解',selfcheck:'例题自测',quiz:'基础练习',words:'金融词卡',reading:'英文拆句',external:'官方资料',note:'回忆记录'};
+    return `${heading(`第 ${c.task} 项：${esc(c.guide.title)}`,`${shortDate(c.date)} · ${esc(c.d.title)} · ${completed?'本项已完成，可重新回顾':'按步骤学习，完成后继续下一项'}`,`DAY ${String(c.day).padStart(2,'0')} · 跟着步骤，一项一项完成`)}
+      <section class="card task-workspace" data-task-workspace data-day="${c.day}" data-index="${c.task}">
+        <div class="task-stepper" aria-label="本日任务">${c.d.tasks.map((t,i)=>`<button class="task-step ${i+1===c.task?'current':''} ${tasksFor(c.day).includes(t.id)?'complete':''}" data-action="open-task" data-day="${c.day}" data-index="${i+1}" ${i+1===c.task?'aria-current="step"':''}><span>${tasksFor(c.day).includes(t.id)?icon('check'):i+1}</span><strong>${esc(taskGuide(c.day,i+1).title)}</strong></button>`).join('')}</div>
+        <p class="task-assignment">${esc(c.item.text)}</p>
+        <section class="task-guide-section"><h2>这项任务，照着这样做</h2><ol class="guided-steps">${c.guide.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></section>
+        <section class="task-guide-section"><h2>按顺序打开学习材料</h2><div class="task-resources">${c.guide.resources.map((r,i)=>`<button class="task-resource" data-action="task-resource" data-resource="${i}"><span class="resource-type">${esc(labels[r.type]||'学习材料')} · ${i+1}</span><strong>${esc(r.label)}</strong><span class="resource-status">${opened.includes(i)?'已打开，可继续学习':'点击进入'} ${icon('arrow')}</span></button>`).join('')}</div><p class="form-hint">打开过材料不等于完成任务。请按下方标准检查自己，再点“完成本项”。官方资料在新窗口打开，完成后回到这里。</p></section>
+        <section class="task-guide-section task-done-criteria"><h2>做到什么程度，算完成？</h2><ul>${c.guide.doneWhen.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></section>
+        <section class="task-guide-section"><h2>留一句自己的理解</h2><label for="guided-task-note">${esc(c.guide.prompt)}</label><textarea id="guided-task-note" class="note-input" data-task-note="${esc(c.key)}" placeholder="写一句就好，也可以记录还不会的地方。">${esc(state.taskNotes[c.key]||'')}</textarea><p class="form-hint">自动保存到本浏览器。你可以稍后回来继续这一天的这一项。</p></section>
+        <div class="task-workspace-footer">${btn(completionLabel(c),'complete-task','primary-btn','','check')}${btn('稍后继续，返回本日清单','task-day-list','outline-btn',`data-day="${c.day}"`,'calendar')}</div>
+      </section>`;
+  }
+  function completeTask() {
+    const c=taskContext();if(!c)return;
+    const done=new Set(state.tasks[c.date]||[]);done.add(c.item.id);state.tasks[c.date]=[...done];
+    const next=nextTaskIndex(c.day,c.task);save();quiz=null;
+    if(next){openTask(c.day,next);toast(`第 ${c.task} 项已完成，接下来是第 ${next} 项。`);}
+    else{state.activeTask=null;save();summaryDay=c.day;currentPage='day';location.hash=`day/${c.day}`;render();scrollTop();toast('这一天的三项任务都完成了。');}
+  }
+  function daySummaryPage() {
+    const d=D.days[summaryDay-1],allDone=tasksFor(summaryDay).length===d.tasks.length;
+    return `${heading(`DAY ${String(summaryDay).padStart(2,'0')} · ${allDone?'今天的三项任务已完成':'本日任务回顾'}`,`${shortDate(dateForDay(summaryDay))} · ${esc(d.title)}`,'KEEP YOUR NEXT STEP CLEAR')}
+      <section class="card day-summary" data-day-summary data-day-complete="${allDone}"><h2>${allDone?'把今天学到的，留在记忆里。':'还可以继续未完成的任务。'}</h2><p>做完后简单回忆一个概念、一个英文词和一个错因。完成进度按实际学习记录保存。</p><div class="task-list">${tasksHTML(d)}</div><div class="task-workspace-footer">${allDone?(summaryDay<20?btn('看看下一天的安排','day','primary-btn',`data-day="${summaryDay+1}"`):btn('回到学习空间','go-today')):btn('继续未完成任务','start-day','primary-btn',`data-day="${summaryDay}"`)}${btn('返回二十天计划','go-plan','outline-btn','','calendar')}</div></section>`;
+  }
+  function openTaskResource(index) {
+    const c=taskContext(),r=c?.guide.resources[index];if(!r)return;
+    state.taskMaterials[c.key]=[...new Set([...(state.taskMaterials[c.key]||[]),index])];save();
+    if(r.type==='lesson'||r.type==='selfcheck'){
+      activeTopic=r.topic;navigate('knowledge');
+      if(r.type==='selfcheck')requestAnimationFrame(()=>$('.self-check')?.scrollIntoView({block:'center'}));
+    }else if(r.type==='quiz'){
+      const emptyPool=(r.mode==='wrong'&&!wrongIds().length)||(r.mode==='review'&&!dueQuestions().length);
+      if(emptyPool){modal('这一项暂时没有旧题要复习',`<p class="source-note">${r.mode==='wrong'?'你目前没有待修复错题。':'你目前没有到期题目。'}如果是第一次学习，可以先做本日基础题，或者返回本项完成其他材料与回忆。</p><div class="settings-actions">${btn('做本日基础题','task-fallback-quiz','primary-btn',`data-id="${r.topic||c.d.topics[0]||'ethics'}"`)}${btn('返回本项','close','outline-btn','','')}</div>`);return;}
+      if(quiz&&!quiz.finished&&quiz.taskKey===c.key&&quiz.resourceIndex===index){navigate('practice');return;}
+      startQuiz(r.mode,r.topic);if(quiz){quiz.taskKey=c.key;quiz.resourceIndex=index;}
+    }else if(r.type==='words'){
+      wordScope={topics:r.topics||c.d.topics,count:r.count||10};readingScope=null;englishTab='words';vocabFilter='all';vocabSearch='';revealed.clear();navigate('english');
+    }else if(r.type==='reading'){
+      readingScope=r.ids||null;wordScope=null;englishTab='reading';navigate('english');
+    }else if(r.type==='note'){
+      render();requestAnimationFrame(()=>{$('[data-task-note]')?.scrollIntoView({block:'center'});$('[data-task-note]')?.focus({preventScroll:true});});
+    }else if(r.type==='external'){
+      if(/^https:\/\/www\.cfainstitute\.org\//.test(r.url))window.open(r.url,'_blank','noopener,noreferrer');
+      render();
+    }
   }
   function topicCard(t) {const seen=!!state.reviewed[t.id];return `<button class="card topic-card" data-action="topic" data-id="${t.id}"><div class="topic-card-top"><span class="topic-emoji">${icon(t.id==='ethics'?'leaf':t.id==='fsa'?'book':'target')}</span><span class="topic-weight">参考权重 ${t.weight}</span></div><h3>${esc(t.name)}</h3><div class="english-name">${esc(t.en)}</div><p>${esc(t.description)}</p><div class="topic-card-bottom"><span>${seen?'已学 · 等待回忆复习':'基础入门 · 中文讲解'}</span>${icon('arrow')}</div></button>`;}
   function adjustmentHTML() {
@@ -92,7 +180,7 @@
     return `${heading(n===20&&count===0?'今天，稳稳地去考试。':'给努力一个清晰的方向',`每天 ${state.hours} 小时，中文理解 + 英文识题，一步一步建立信心。`,'HELLO, FUTURE CANDIDATE')}${!storageOK?'<div class="notice">浏览器本地存储不可用或旧数据读取失败，请定期在学习设置中导出备份。</div>':''}${dateNotice}
     <section class="hero" aria-label="考试倒计时"><div class="hero-copy"><div class="eyebrow">CFA LEVEL I · YOUR 20-DAY JOURNEY</div><h2>把每一天，<br>学得更有底。</h2><p>不必一次弄懂所有知识。<br>从一个概念、一道题、一个英文词开始。</p><div class="hero-tags"><span class="hero-pill">${icon('leaf')}基础友好 · 中文搭桥</span><span>${icon('clock')}每天 ${state.hours} 小时</span><span>${icon('calendar')}${shortDate(state.examDate)} 考试</span></div></div><div class="countdown"><div class="countdown-copy">你的下一站<strong>CFA 一级考试</strong>坚持的每一步，都算数</div><div class="countdown-ring"><svg viewBox="0 0 148 148" aria-hidden="true"><circle class="ring-base" cx="74" cy="74" r="66"/><circle class="ring-fill" cx="74" cy="74" r="66" style="stroke-dashoffset:${414.7*(1-Math.min(1,Math.max(0,20-count)/20))}"/></svg><div class="ring-center"><small>${count===0?'就在今天':count<0?'考试已过':'距离考试还有'}</small><span class="ring-number">${Math.abs(count)}<em>天</em></span><span>一步一步，向前走</span></div></div></div></section>
     <section class="stats-grid" aria-label="学习概况"><div class="stat"><div class="stat-icon">${icon('check')}</div><div><div class="stat-label">今日任务</div><div class="stat-value">${done}<span class="sub-value"> / ${d.tasks.length}</span></div><div class="stat-hint">完成一点，积累一点</div></div></div><div class="stat"><div class="stat-icon">${icon('clock')}</div><div><div class="stat-label">今日计划时长</div><div class="stat-value">${Math.round(minutesFor(d)/60*10)/10}<small>小时</small></div><div class="stat-hint">${n>=19?'考前减量，给大脑恢复':'含英语、伦理与错题复盘'}</div></div></div><div class="stat"><div class="stat-icon">${icon('refresh')}</div><div><div class="stat-label">到期复习</div><div class="stat-value">${dueCount()}<small>项</small></div><div class="stat-hint">间隔 1 / 3 / 7 天巩固记忆</div></div></div><div class="stat"><div class="stat-icon">${icon('target')}</div><div><div class="stat-label">基础题答对</div><div class="stat-value">${uniqueCorrect}<span class="sub-value"> / ${total}</span></div><div class="stat-hint">按每道题最近一次作答统计</div></div></div></section>
-    <div class="dashboard-grid"><section class="card today-card"><div class="card-header"><div><h2 class="section-title">今天，先做好这三件事</h2><p class="card-subtitle">${shortDate(dateForDay(n))} · ${esc(d.focus)}</p></div><span class="day-label">DAY ${String(n).padStart(2,'0')}</span></div><div class="today-topic"><span class="topic-square">${String(n).padStart(2,'0')}</span><div><h3>${esc(d.title)}</h3><p>${d.topics.map(id=>esc(topic(id).name)).join(' · ')}${d.topics.length?' · ':''}${hoursLabel(d)}</p></div></div><div class="task-list">${tasksHTML(d,true)}</div><div class="task-footer"><div class="task-progress"><span class="mini-track"><span style="width:${done/d.tasks.length*100}%"></span></span>${done}/${d.tasks.length} 已完成</div>${btn(done===d.tasks.length?'回顾今日安排':'开始今日学习','start-day','primary-btn',`data-day="${n}"`)}</div></section>
+    <div class="dashboard-grid"><section class="card today-card"><div class="card-header"><div><h2 class="section-title">今天，先做好这三件事</h2><p class="card-subtitle">${shortDate(dateForDay(n))} · ${esc(d.focus)}</p></div><span class="day-label">DAY ${String(n).padStart(2,'0')}</span></div><div class="today-topic"><span class="topic-square">${String(n).padStart(2,'0')}</span><div><h3>${esc(d.title)}</h3><p>${d.topics.map(id=>esc(topic(id).name)).join(' · ')}${d.topics.length?' · ':''}${hoursLabel(d)}</p></div></div><div class="task-list">${tasksHTML(d,true)}</div><div class="task-footer"><div class="task-progress"><span class="mini-track"><span style="width:${done/d.tasks.length*100}%"></span></span>${done}/${d.tasks.length} 已完成</div>${btn(done===d.tasks.length?'回顾今日安排':done?`继续第 ${nextTaskIndex(n)} 项`:'开始今日学习','start-day','primary-btn',`data-day="${n}"`)}</div></section>
     <div class="right-column"><section class="card roadmap-card"><div class="card-header"><h2 class="section-title">一条适合你的路线</h2>${btn('全览','go-plan','text-btn','','chevron')}</div><div class="roadmap">${[[1,'01–06','打好地基','基础数学 · 财报 · 核心词'],[2,'07–15','抓住主干','高权重科目 · 混合练习'],[3,'16–20','模拟与收拢','查漏补缺 · 轻复习 · 考试']].map(([p,days,title,desc])=>`<div class="roadmap-step ${phase===p?'current':''}"><span class="step-dot">${p}</span><div><h4>${title}<span>D${days}</span></h4><p>${desc}</p></div></div>`).join('')}</div><div class="roadmap-hint">优先级依据近年科目权重与先修关系，<br>不是押题，也不承诺通过。</div></section><section class="card daily-word"><div class="word-heading"><span>${icon('language')}每天认识一个词</span><span>${String(n).padStart(2,'0')} / 20</span></div><h3 lang="en">${esc(word.en)}</h3><p>${esc(word.zh)}</p><div class="word-example" lang="en">${esc(word.sentence)}</div>${btn('去英语角练一练','go-english','text-btn','','arrow')}</section></div></div>
     ${dueCount()?`<section class="notice green" style="margin-top:22px;margin-bottom:0">${icon('refresh')}<div>今天有 ${dueVocab().length} 个单词、${dueQuestions().length} 道题和 ${dueLessons().length} 个概念到期。${dueVocab().length?btn('复习单词','due-words','text-btn','','arrow'):''} ${dueQuestions().length?btn('复习题目','review-quiz','text-btn','','arrow'):''} ${dueLessons().length?btn('复习概念','due-lessons','text-btn','','arrow'):''}</div></section>`:''}
     ${adjustmentHTML()}<section class="recommended"><div class="section-row"><h2>先从这些知识开始<small>理解比死记，更重要</small></h2>${btn('全部 10 个科目','go-knowledge','text-btn','','arrow')}</div><div class="topic-card-grid">${['quant','fsa','ethics'].map(id=>topicCard(topic(id))).join('')}</div></section><p class="bottom-note">${icon('info')}20 天属于压缩冲刺，本站提供入门支架，不能替代完整课程与官方题库。基础题正确率不代表通过概率。优先保睡眠，每天闭卷回忆。</p>`;
@@ -148,13 +236,18 @@
   }
   function resultPage() {
     const correct=quiz.results.filter(r=>r.correct).length,missed=quiz.results.filter(r=>!r.correct);
-    return `${heading('认真复盘，比多做几题更有用。','把本轮最重要的一个缺口补上，再向前走。','A SMALL STEP, A CLEARER PICTURE')}<section class="card empty-state"><div class="score-ring"><strong>${correct}/${quiz.results.length}</strong><span>本轮答对</span></div><h3>${missed.length?'先把这几个地方补稳。':'基础练习完成，再练英文识题。'}</h3><p>${missed.length?missed.map(r=>topic(question(r.id).topic).name).filter((v,i,a)=>a.indexOf(v)===i).join(' · '):'试着合上解析，用自己的话讲一遍解题理由。'}</p><p class="result-note">这组题只用于入门诊断，难度、题量和覆盖面均不等同正式考试。${missed.length?'错题已收进错题本，并安排次日回顾。':'请继续使用官方考纲与完整题库补齐知识。'}</p><div class="result-actions">${btn('返回练习中心','exit-quiz','light-btn','','')}${missed.length?btn('重做待修复错题','wrong-quiz'):btn('看看金融英语','go-english')}</div></section>`;
+    return `${heading('认真复盘，比多做几题更有用。','把本轮最重要的一个缺口补上，再向前走。','A SMALL STEP, A CLEARER PICTURE')}<section class="card empty-state"><div class="score-ring"><strong>${correct}/${quiz.results.length}</strong><span>本轮答对</span></div><h3>${missed.length?'先把这几个地方补稳。':'基础练习完成，再练英文识题。'}</h3><p>${missed.length?missed.map(r=>topic(question(r.id).topic).name).filter((v,i,a)=>a.indexOf(v)===i).join(' · '):'试着合上解析，用自己的话讲一遍解题理由。'}</p><p class="result-note">这组题只用于入门诊断，难度、题量和覆盖面均不等同正式考试。${missed.length?'错题已收进错题本，并安排次日回顾。':'请继续使用官方考纲与完整题库补齐知识。'}</p><div class="result-actions">${taskContext()?btn('返回本项，检查完成标准','return-task','primary-btn','','arrow'):btn('返回练习中心','exit-quiz','light-btn','','')}${missed.length?btn('重做待修复错题','wrong-quiz'):taskContext()?'':btn('看看金融英语','go-english')}</div></section>`;
+  }
+  function scopedEnglishHTML() {
+    if(!wordScope&&!readingScope)return '';
+    return `<div class="notice green task-scope"><div><strong>只显示这一项需要的${readingScope?'英文拆句':'金融词卡'}</strong><p>${readingScope?'按题干提示逐句练习，完成后返回本项。':wordScope.topics.map(id=>esc(topic(id).name)).join(' · ')+'。先回忆再翻面，做完后返回本项。'}</p></div>${btn('查看全部材料','clear-english-scope','outline-btn','','')}</div>`;
   }
   function englishPage() {
-    let list=D.vocabulary.filter(v=>(v.en+' '+v.zh+' '+v.meaning).toLowerCase().includes(vocabSearch.toLowerCase()));
+    const scoped=wordScope?wordScope.topics.flatMap(id=>D.vocabulary.filter(v=>v.topic===id)).filter((v,i,a)=>a.findIndex(x=>x.id===v.id)===i).slice(0,wordScope.count):D.vocabulary;
+    let list=scoped.filter(v=>(v.en+' '+v.zh+' '+v.meaning).toLowerCase().includes(vocabSearch.toLowerCase()));
     if(vocabFilter==='due')list=list.filter(v=>state.vocab[v.id]?.due<=today());
     if(vocabFilter==='new')list=list.filter(v=>!state.vocab[v.id]);
-    return `${heading('英语先够用，再一点点变好。','不背大词表。先认识金融名词、问法、方向词和单位。','SMALL WORDS, BIG DIFFERENCE')}<div class="card english-intro"><div><h2>先读懂题目在问什么。</h2><p>每次 8–12 个新词：先看英文 → 自己回忆 → 翻面核对。<br>答得出来，再点“记住了”；按 1 / 3 / 7 天安排复习。</p></div>${icon('language')}</div><div class="filter-group english-tab"><button class="chip ${englishTab==='words'?'active':''}" data-action="english-tab" data-tab="words">金融词卡 · ${D.vocabulary.length} 个</button><button class="chip ${englishTab==='reading'?'active':''}" data-action="english-tab" data-tab="reading">拆句读题 · ${D.reading.length} 句</button></div>${englishTab==='reading'?`<div class="reading-grid">${D.reading.map(r=>`<article class="card reading-card"><h3>${esc(r.label)}</h3><p class="reading-en" lang="en">${esc(r.en)}</p><details><summary class="text-btn" style="margin-top:12px;cursor:pointer">展开中文与读题提示</summary><p class="reading-zh">${esc(r.zh)}</p><div class="reading-keywords">${r.keywords.map(k=>`<span>${esc(k)}</span>`).join('')}</div><p class="reading-tip">${esc(r.tip)}</p></details></article>`).join('')}</div>`:`<div class="toolbar"><div class="filter-group">${[['all','全部'],['new','还没学'],['due',`到期复习 ${dueVocab().length}`]].map(([v,label])=>`<button class="chip ${vocabFilter===v?'active':''}" data-action="word-filter" data-filter="${v}">${label}</button>`).join('')}</div><label class="search">${icon('search')}<input id="vocab-search" type="search" placeholder="搜索英文 / 中文" aria-label="搜索单词" value="${esc(vocabSearch)}"></label></div><div class="vocab-grid">${list.map(v=>{const open=revealed.has(v.id),r=state.vocab[v.id];return `<article class="card vocab-card"><div class="vocab-top"><span>${esc(topic(v.topic).name)}</span><span>${r?(r.due<=today()?'今天复习':`${shortDate(r.due)} 复习`):'新词'}</span></div><h3 lang="en">${esc(v.en)}</h3>${open?`<p class="zh">${esc(v.zh)}</p><p class="vocab-sentence" lang="en">${esc(v.sentence)}<em lang="zh-CN">${esc(v.meaning)}</em></p><div class="vocab-controls"><button data-action="word-again" data-id="${v.id}">还不熟</button><span>先回忆，再判断</span><button data-action="word-known" data-id="${v.id}">记住了 ${icon('check')}</button></div>`:`<button class="reveal-button" data-action="reveal" data-id="${v.id}">自己回忆一下，再点开释义</button><div class="vocab-controls"><span>${r?'让记忆再出现一次':'从一个词开始'}</span><span>点击翻面 ↗</span></div>`}</article>`;}).join('')||empty('这里暂时没有词卡',vocabFilter==='due'?'还没有到期的单词，先认识几个新词吧。':'换一个关键词，或查看全部词卡。')}</div>`}`;
+    return `${heading('英语先够用，再一点点变好。','不背大词表。先认识金融名词、问法、方向词和单位。','SMALL WORDS, BIG DIFFERENCE')}${scopedEnglishHTML()}<div class="card english-intro"><div><h2>先读懂题目在问什么。</h2><p>每次 8–12 个新词：先看英文 → 自己回忆 → 翻面核对。<br>答得出来，再点“记住了”；按 1 / 3 / 7 天安排复习。</p></div>${icon('language')}</div><div class="filter-group english-tab"><button class="chip ${englishTab==='words'?'active':''}" data-action="english-tab" data-tab="words">金融词卡 · ${D.vocabulary.length} 个</button><button class="chip ${englishTab==='reading'?'active':''}" data-action="english-tab" data-tab="reading">拆句读题 · ${D.reading.length} 句</button></div>${englishTab==='reading'?`<div class="reading-grid">${D.reading.filter(r=>!readingScope||readingScope.includes(r.id)).map(r=>`<article class="card reading-card"><h3>${esc(r.label)}</h3><p class="reading-en" lang="en">${esc(r.en)}</p><details><summary class="text-btn" style="margin-top:12px;cursor:pointer">展开中文与读题提示</summary><p class="reading-zh">${esc(r.zh)}</p><div class="reading-keywords">${r.keywords.map(k=>`<span>${esc(k)}</span>`).join('')}</div><p class="reading-tip">${esc(r.tip)}</p></details></article>`).join('')}</div>`:`<div class="toolbar"><div class="filter-group">${[['all','全部'],['new','还没学'],['due',`到期复习 ${dueVocab().length}`]].map(([v,label])=>`<button class="chip ${vocabFilter===v?'active':''}" data-action="word-filter" data-filter="${v}">${label}</button>`).join('')}</div><label class="search">${icon('search')}<input id="vocab-search" type="search" placeholder="搜索英文 / 中文" aria-label="搜索单词" value="${esc(vocabSearch)}"></label></div><div class="vocab-grid">${list.map(v=>{const open=revealed.has(v.id),r=state.vocab[v.id];return `<article class="card vocab-card"><div class="vocab-top"><span>${esc(topic(v.topic).name)}</span><span>${r?(r.due<=today()?'今天复习':`${shortDate(r.due)} 复习`):'新词'}</span></div><h3 lang="en">${esc(v.en)}</h3>${open?`<p class="zh">${esc(v.zh)}</p><p class="vocab-sentence" lang="en">${esc(v.sentence)}<em lang="zh-CN">${esc(v.meaning)}</em></p><div class="vocab-controls"><button data-action="word-again" data-id="${v.id}">还不熟</button><span>先回忆，再判断</span><button data-action="word-known" data-id="${v.id}">记住了 ${icon('check')}</button></div>`:`<button class="reveal-button" data-action="reveal" data-id="${v.id}">自己回忆一下，再点开释义</button><div class="vocab-controls"><span>${r?'让记忆再出现一次':'从一个词开始'}</span><span>点击翻面 ↗</span></div>`}</article>`;}).join('')||empty('这里暂时没有词卡',vocabFilter==='due'?'还没有到期的单词，先认识几个新词吧。':'换一个关键词，或查看全部词卡。')}</div>`}`;
   }
   function schedule(kind,id,known,notify=true) {
     const previous=state[kind][id];
@@ -165,10 +258,10 @@
     if(notify)toast(known?`已安排 ${gap} 天后回忆复习。`:'不着急，明天再试一次。');
   }
   function render() {
-    const labels={today:'今日学习',plan:'20 天冲刺计划',knowledge:'知识与公式',practice:'刷题与错题',english:'金融英语'};
+    const labels={today:'今日学习',plan:'20 天冲刺计划',knowledge:'知识与公式',practice:'刷题与错题',english:'金融英语',task:'任务步骤',day:'本日回顾'};
     $('#page-label').textContent=labels[currentPage];
     $('#today-date').textContent=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',month:'long',day:'numeric',weekday:'long'}).format(new Date());
-    $('#main').innerHTML=`<div class="entry-animation">${({today:todayPage,plan:planPage,knowledge:knowledgePage,practice:practicePage,english:englishPage})[currentPage]()}</div>`;
+    $('#main').innerHTML=`<div class="entry-animation">${taskContextHTML()}${({today:todayPage,plan:planPage,knowledge:knowledgePage,practice:practicePage,english:englishPage,task:taskPage,day:daySummaryPage})[currentPage]()}${taskContextHTML(true)}</div>`;
     updateNav();
     document.title=`${labels[currentPage]} · 拾级 CFA`;
   }
@@ -188,7 +281,7 @@
   }
   function dayModal(n) {
     const d=D.days[n-1];
-    modal(`DAY ${String(n).padStart(2,'0')} · ${shortDate(dateForDay(n))}`,`<h3 style="font-size:19px;margin-bottom:8px">${esc(d.title)}</h3><p class="small muted">${esc(d.focus)}</p><div class="day-modal-tasks">${tasksHTML(d)}</div><h3 class="source-subheading">时间怎么分 · ${hoursLabel(d)}</h3><div class="filter-group">${blocksFor(d).map(b=>`<span class="chip">${esc(b.label)} ${b.minutes} 分钟</span>`).join('')||'<span class="small muted">今天不安排集中学习，按官方通知参加考试。</span>'}</div><p class="day-note" style="margin:20px 0">${esc(d.note)}</p>${state.hours===2&&d.day<16?'<p class="source-note" style="margin-bottom:18px">2 小时建议：保留 10 分钟英语、10 分钟伦理，围绕一个核心例子理解概念；官方题少做但逐题复盘，不追求完成整章。</p>':''}${state.hours===2&&(d.day===16||d.day===17)?'<p class="source-note" style="margin-bottom:18px">注意：模拟日仍需预留 4 小时，超出你每天 2 小时的预算。正式作答固定 135 分钟，不能缩短；请额外预留时间，或将复盘移至独立时段。若只练 2 小时，请把它视为练习而非完整分节模拟。</p>':''}${state.hours===6&&(d.day===16||d.day===17)?'<p class="source-note" style="margin-bottom:18px">正式作答仍是 135 分钟；增加的时间全部用于复盘，不延长模拟作答。</p>':''}<div class="lesson-actions">${btn(n===20?'查看考前提醒':'进入学习','start-day','primary-btn',`data-day="${n}"`)}${btn('返回计划','close','text-btn','','')}</div>`);
+    modal(`DAY ${String(n).padStart(2,'0')} · ${shortDate(dateForDay(n))}`,`<h3 style="font-size:19px;margin-bottom:8px">${esc(d.title)}</h3><p class="small muted">${esc(d.focus)}</p><div class="day-modal-tasks">${tasksHTML(d)}</div><h3 class="source-subheading">时间怎么分 · ${hoursLabel(d)}</h3><div class="filter-group">${blocksFor(d).map(b=>`<span class="chip">${esc(b.label)} ${b.minutes} 分钟</span>`).join('')||'<span class="small muted">今天不安排集中学习，按官方通知参加考试。</span>'}</div><p class="day-note" style="margin:20px 0">${esc(d.note)}</p>${state.hours===2&&d.day<16?'<p class="source-note" style="margin-bottom:18px">2 小时建议：保留 10 分钟英语、10 分钟伦理，围绕一个核心例子理解概念；官方题少做但逐题复盘，不追求完成整章。</p>':''}${state.hours===2&&(d.day===16||d.day===17)?'<p class="source-note" style="margin-bottom:18px">注意：模拟日仍需预留 4 小时，超出你每天 2 小时的预算。正式作答固定 135 分钟，不能缩短；请额外预留时间，或将复盘移至独立时段。若只练 2 小时，请把它视为练习而非完整分节模拟。</p>':''}${state.hours===6&&(d.day===16||d.day===17)?'<p class="source-note" style="margin-bottom:18px">正式作答仍是 135 分钟；增加的时间全部用于复盘，不延长模拟作答。</p>':''}<div class="lesson-actions">${btn(nextTaskIndex(n)?`继续第 ${nextTaskIndex(n)} 项`:'查看本日回顾','start-day','primary-btn',`data-day="${n}"`)}${btn('返回计划','close','text-btn','','')}</div>`);
   }
   function timerText() {return `${String(Math.floor(timer.seconds/60)).padStart(2,'0')}:${String(timer.seconds%60).padStart(2,'0')}`;}
   function focusModal() {
@@ -197,11 +290,11 @@
   function stopTimer(){timer.running=false;clearInterval(timer.interval);timer.interval=null;}
   function tick(){timer.seconds=Math.max(0,Math.ceil((timer.end-Date.now())/1000));const display=$('#timer-display');if(display)display.textContent=timerText();if(timer.seconds===0){stopTimer();toast(timer.minutes===5?'休息结束，可以慢慢回到学习。':'这一段完成了。合上材料，回忆 3 个要点，再休息一下。');if(display)focusModal();render();}}
   function startDay(n) {
+    if(!Number.isInteger(n)||!D.days[n-1])return;
     closeModal();
-    if(n===20){dayModal(20);return;}
-    if(n===1){startQuiz('diagnostic');return;}
-    if(n===16||n===17){modal('模拟练习 · 使用你的完整模拟卷',`<p class="source-note">本站基础题不构成完整模拟。请到官方 Learning Ecosystem 或使用你合法购买、符合当前考纲的模拟卷。</p><p class="source-note">每节 90 题，计时 135 分钟；分两天做适合当前 4 小时安排，但不能检验连续完整考试的耐力。若有额外时间，整套需至少 270 分钟，另加休息和复盘。</p><p class="source-note">${esc(D.days[n-1].note)}</p><ul class="sources-list"><li><a href="https://www.cfainstitute.org/programs/cfa-program/candidate-resources/learning-ecosystem" target="_blank" rel="noopener noreferrer">前往官方 Learning Ecosystem ↗</a></li></ul>${btn('复习本站错题','wrong-quiz','light-btn','','refresh')}`);return;}
-    const d=D.days[n-1];activeTopic=d.topics[0]||'ethics';navigate('knowledge');
+    const next=nextTaskIndex(n);
+    if(next)openTask(n,next);
+    else{state.activeTask=null;save();summaryDay=n;currentPage='day';location.hash=`day/${n}`;render();scrollTop();}
   }
   document.addEventListener('click',e=>{
     const b=e.target.closest('[data-action]');if(!b)return;
@@ -211,8 +304,16 @@
     else if(a==='close')closeModal();
     else if(a==='focus')focusModal();
     else if(a==='go-plan'){closeModal();navigate('plan');}
+    else if(a==='go-today'){closeModal();navigate('today');}
+    else if(a==='open-task')openTask(Number(b.dataset.day),Number(b.dataset.index));
+    else if(a==='complete-task')completeTask();
+    else if(a==='return-task'){const c=taskContext();if(c)openTask(c.day,c.task);}
+    else if(a==='task-resource')openTaskResource(Number(b.dataset.resource));
+    else if(a==='task-day-list')dayModal(Number(b.dataset.day));
+    else if(a==='clear-english-scope'){wordScope=null;readingScope=null;render();}
+    else if(a==='task-fallback-quiz'){closeModal();startQuiz('topic',id);}
     else if(a==='go-knowledge'){activeTopic=null;topicFilter='all';navigate('knowledge');}
-    else if(a==='go-english'){closeModal();navigate('english');}
+    else if(a==='go-english'){wordScope=null;readingScope=null;closeModal();navigate('english');}
     else if(a==='topic'){activeTopic=id;closeModal();navigate('knowledge');}
     else if(a==='back-lessons'||a==='all-lessons'){activeTopic=null;topicFilter='all';render();scrollTop();}
     else if(a==='due-lessons'){activeTopic=null;topicFilter='due';navigate('knowledge');}
@@ -239,7 +340,7 @@
       const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`拾级学习备份-${today()}.json`;link.click();setTimeout(()=>URL.revokeObjectURL(url),2000);toast('备份已生成，请保存在你能找到的位置。');
     }
     else if(a==='reset-confirm')modal('清空前，再确认一次',`<p class="source-note">这会删除此浏览器中的打卡、答题、笔记和复习记录，无法撤销。考试日期与每日时长会恢复为 11 月 11 日、每天 4 小时。建议先导出备份。</p><div class="settings-actions">${btn('先导出备份','export','outline-btn','','download')}${btn('返回设置','settings','light-btn','','')}${btn('确认清空','reset','outline-btn','','')}</div>`);
-    else if(a==='reset'){state=defaults();save();quiz=null;revealed.clear();activeTopic=null;closeModal();render();toast('学习记录已清空。可以重新开始。');}
+    else if(a==='reset'){state=defaults();save();quiz=null;revealed.clear();activeTopic=null;wordScope=null;readingScope=null;closeModal();navigate('today');toast('学习记录已清空。可以重新开始。');}
     else if(a==='timer-duration'){stopTimer();timer.minutes=Number(b.dataset.minutes);timer.seconds=timer.minutes*60;focusModal();render();}
     else if(a==='timer-reset'){stopTimer();timer.seconds=timer.minutes*60;focusModal();render();}
     else if(a==='timer-toggle'){if(timer.running){tick();stopTimer();}else{if(timer.seconds===0)timer.seconds=timer.minutes*60;timer.end=Date.now()+timer.seconds*1000;timer.running=true;timer.interval=setInterval(tick,500);}focusModal();render();}
@@ -252,7 +353,7 @@
     if(e.target.id==='import-file')importFile(e.target.files[0]);
   });
   document.addEventListener('input',e=>{
-    if(e.target.matches('[data-note],[data-question-note]')){const kind=e.target.dataset.note?'notes':'questionNotes',id=e.target.dataset.note||e.target.dataset.questionNote;state[kind][id]=e.target.value.slice(0,10000);clearTimeout(noteTimer);noteTimer=setTimeout(save,300);}
+    if(e.target.matches('[data-note],[data-question-note],[data-task-note]')){const kind=e.target.dataset.taskNote?'taskNotes':e.target.dataset.note?'notes':'questionNotes',id=e.target.dataset.taskNote||e.target.dataset.note||e.target.dataset.questionNote;state[kind][id]=e.target.value.slice(0,10000);clearTimeout(noteTimer);noteTimer=setTimeout(save,300);}
     if(e.target.id==='vocab-search'||e.target.id==='knowledge-search'){
       const el=e.target,id=el.id,pos=el.selectionStart;if(id==='vocab-search')vocabSearch=el.value;else knowledgeSearch=el.value;render();const replacement=$('#'+id);replacement.focus();try{replacement.setSelectionRange(pos,pos);}catch(_){}
     }
@@ -260,21 +361,30 @@
   document.addEventListener('submit',e=>{
     if(e.target.id!=='settings-form')return;e.preventDefault();const date=$('#exam-date').value,hours=Number($('#study-hours').value);
     if(!validDate(date)||![2,4,6].includes(hours))return toast('请填写有效日期与学习时间。');
-    state.examDate=date;state.hours=hours;save();closeModal();render();toast('已更新，计划会随考试日期与可用时间调整。');
+    if(state.examDate!==date)state.activeTask=null;state.examDate=date;state.hours=hours;save();closeModal();render();toast('已更新，计划会随考试日期与可用时间调整。');
   });
   let pendingImport=null;
   async function importFile(file) {
     if(!file)return;
-    if(file.size>2*1024*1024)return toast('文件过大，请选择 2 MB 以内的学习备份。');
+    if(file.size>5*1024*1024)return toast('文件过大，请选择 5 MB 以内的学习备份。');
     try{
       pendingImport=normalize(JSON.parse(await file.text()));
       modal('导入这份学习记录？',`<p class="source-note">备份包含 ${pendingImport.attempts.length} 次作答记录、${Object.keys(pendingImport.vocab).length} 个词卡复习安排。导入会替换当前浏览器的学习数据。</p><p class="source-note">建议先导出当前备份。确认后，考试日期将设为 ${esc(pendingImport.examDate)}，每天 ${pendingImport.hours} 小时。</p><div class="settings-actions">${btn('先备份当前记录','export','outline-btn','','download')}${btn('取消','settings','light-btn','','')}${btn('确认导入','confirm-import','primary-btn','','check')}</div>`);
     }catch(_){pendingImport=null;toast('无法读取备份，请使用本站导出的有效 JSON 文件。');}
   }
-  document.addEventListener('click',e=>{if(e.target.closest('[data-action="confirm-import"]')&&pendingImport){state=pendingImport;pendingImport=null;quiz=null;revealed.clear();save();closeModal();render();toast('备份已导入。');}});
+  document.addEventListener('click',e=>{if(e.target.closest('[data-action="confirm-import"]')&&pendingImport){state=pendingImport;pendingImport=null;quiz=null;revealed.clear();wordScope=null;readingScope=null;save();closeModal();if(state.activeTask)openTask(state.activeTask.day,state.activeTask.task);else navigate('today');toast('备份已导入。');}});
   $('#modal').addEventListener('click',e=>{if(e.target===$('#modal')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeModal();}});
-  window.addEventListener('hashchange',()=>{const page=location.hash.slice(1);if(['today','plan','knowledge','practice','english'].includes(page)&&currentPage!==page){currentPage=page;render();scrollTop();}});
+  function applyRoute(scroll=false) {
+    const hash=location.hash.slice(1),taskMatch=hash.match(/^task\/(\d+)\/(\d+)$/),dayMatch=hash.match(/^day\/(\d+)$/);
+    if(taskMatch&&D.days[Number(taskMatch[1])-1]?.tasks[Number(taskMatch[2])-1]){
+      const day=Number(taskMatch[1]),task=Number(taskMatch[2]);
+      state.activeTask={day,task,date:dateForDay(day)};save();currentPage='task';
+    }else if(dayMatch&&D.days[Number(dayMatch[1])-1]){
+      summaryDay=Number(dayMatch[1]);currentPage='day';
+    }else currentPage=['today','plan','knowledge','practice','english'].includes(hash)?hash:'today';
+    render();if(scroll)scrollTop();
+  }
+  window.addEventListener('hashchange',()=>applyRoute(true));
   window.addEventListener('beforeunload',()=>{if(noteTimer)save();});
-  currentPage=['today','plan','knowledge','practice','english'].includes(location.hash.slice(1))?location.hash.slice(1):'today';
-  render();
+  applyRoute();
 })();
