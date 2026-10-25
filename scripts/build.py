@@ -5,6 +5,7 @@ services do not always serve sibling assets, so a multi-file root index can look
 unstyled even though it works with an ordinary development server.
 """
 from pathlib import Path
+from shutil import copyfile
 
 root = Path(__file__).resolve().parents[1]
 template = root / "src" / "index.template.html"
@@ -31,3 +32,9 @@ for out in (root / "index.html", root / "dist" / "index.html"):
     out.parent.mkdir(exist_ok=True)
     out.write_text(html, encoding="utf-8")
     print(f"Self-contained website: {out} ({out.stat().st_size:,} bytes)")
+
+# Publish the encouragement page at its own URL alongside the study website.
+cheer = root / "dist" / "cheer" / "index.html"
+cheer.parent.mkdir(parents=True, exist_ok=True)
+copyfile(root / "src" / "cheer" / "index.html", cheer)
+print(f"Encouragement website: {cheer} ({cheer.stat().st_size:,} bytes)")
